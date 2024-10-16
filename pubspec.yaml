@@ -1,0 +1,45 @@
+name: booking
+description: "Booking Core mobile application."
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_native_splash: 2.4.1
+  icons_launcher: 3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: 5.0.0
+
+icons_launcher:
+  image_path: "assets/images/ic_launcher.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/logo.png
+  color_dark: "#ffffff"
+
+  android_12:
+    image: assets/images/logo.png
+    icon_background_color: "#ffffff"
+    image_dark: assets/images/logo.png
+    icon_background_color_dark: "#ffffff"
+
+  web: false
+
+flutter:
+  assets:
+    - assets/images/
+  uses-material-design: true
