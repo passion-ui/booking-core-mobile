@@ -22,7 +22,7 @@ Future<void> bindingDependencies() async {
    * Register for repository
    */
   sl.registerSingleton<ApplicationRepositoryInterface>(
-    ApplicationRepository(sl()),
+    ApplicationRepository(sl(), sl()),
   );
 
   /**

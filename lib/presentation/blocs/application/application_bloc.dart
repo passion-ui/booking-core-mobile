@@ -28,6 +28,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
       final darkTheme = state.darkTheme;
       final font = application?.font ?? Application.defaultFontFamily;
       ThemeMode themeMode = ThemeMode.system;
+
       if (application?.themeMode == "ThemeMode.light") {
         themeMode = ThemeMode.light;
       } else if (application?.themeMode == "ThemeMode.dark") {
@@ -54,6 +55,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
       }
 
       emit(ApplicationLoaded(
+        domain: state.domain,
         language: locale ?? state.language,
         lightTheme: ThemeUtils.createTheme(
           font: font,
@@ -90,6 +92,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
       }
 
       emit(ApplicationLoaded(
+        domain: state.domain,
         language: state.language,
         lightTheme: ThemeUtils.createTheme(
           font: font,
@@ -104,6 +107,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
 
       _updateApplication.call(
         ApplicationEntity(
+          domain: state.domain,
           language: state.language.languageCode,
           seedColor: _seedColor.value.toRadixString(16),
           font: font,
@@ -117,6 +121,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
       emit(state.copyWith(language: Locale(event.language)));
       _updateApplication.call(
         ApplicationEntity(
+          domain: state.domain,
           language: event.language,
           seedColor: _seedColor.value.toRadixString(16),
           font: state.lightTheme.textTheme.titleLarge!.fontFamily!,
@@ -128,6 +133,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
 }
 
 final _defaultState = ApplicationInitial(
+  domain: Application.domain,
   language: Application.defaultLocale,
   lightTheme: ThemeUtils.createTheme(
     font: Application.defaultFontFamily,

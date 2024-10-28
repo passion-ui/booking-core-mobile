@@ -6,9 +6,10 @@ import 'package:booking/domain/domain.dart';
 
 class ApplicationRepository implements ApplicationRepositoryInterface {
   final DefaultStorage _defaultStorage;
+  final HTTPClient _httpClient;
   final String _key = "APP_SETTINGS";
 
-  ApplicationRepository(this._defaultStorage);
+  ApplicationRepository(this._defaultStorage, this._httpClient);
 
   @override
   Future<ApplicationEntity?> getApplicationSetting() async {
@@ -23,6 +24,8 @@ class ApplicationRepository implements ApplicationRepositoryInterface {
   @override
   Future<bool> setApplicationSetting(ApplicationEntity setting) async {
     final application = ApplicationModel.fromEntity(setting);
+    _httpClient.baseUrl = application.domain;
+
     return await _defaultStorage.setString(
       _key,
       jsonEncode(application.toJson()),

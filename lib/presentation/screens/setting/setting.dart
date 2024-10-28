@@ -346,7 +346,7 @@ class Setting extends StatelessWidget {
                               color: Colors.cyan,
                             ),
                           ),
-                          description: Application.domain,
+                          description: application.domain,
                           descriptionPosition: DescriptionPosition.right,
                           title: Translate.of(context).translate('domain'),
                           onPress: () {},

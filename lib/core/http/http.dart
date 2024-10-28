@@ -31,6 +31,10 @@ class HTTPClient {
     );
   }
 
+  set baseUrl(String domain) {
+    _dio.options.baseUrl = '$domain/api';
+  }
+
   /// Post method
   Future<dynamic> post({
     required String url,
