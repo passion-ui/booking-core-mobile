@@ -1,0 +1,8 @@
+export 'account/account.dart';
+export 'home/home.dart';
+export 'login/login.dart';
+export 'news/news.dart';
+export 'register/register.dart';
+export 'saved/saved.dart';
+export 'setting/setting.dart';
+export 'splash/splash.dart';

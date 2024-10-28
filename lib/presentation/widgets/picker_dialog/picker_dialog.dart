@@ -1,0 +1,135 @@
+import 'package:booking/presentation/presentation.dart';
+
+import 'picker_item.dart';
+
+class PickerDialog extends StatefulWidget {
+  final String? title;
+  final List items;
+  final bool multiples;
+  final List selected;
+
+  const PickerDialog({
+    super.key,
+    this.title,
+    required this.items,
+    required this.multiples,
+    required this.selected,
+  });
+
+  @override
+  createState() => _PickerDialogState();
+}
+
+class _PickerDialogState<T> extends State<PickerDialog> {
+  List _selectedItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedItems = widget.selected;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 8),
+          Container(
+            height: 4,
+            width: 40,
+            decoration: BoxDecoration(
+              color: Theme.of(context).dividerColor.withAlpha(100),
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 44,
+                ),
+                Text(
+                  widget.title ??
+                      Translate.of(context).translate('select_options'),
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    context.pop();
+                  },
+                ),
+              ],
+            ),
+          ),
+          Container(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.7,
+            ),
+            child: SingleChildScrollView(
+              child: ListView.separated(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.all(12),
+                itemCount: widget.items.length,
+                itemBuilder: (context, index) {
+                  Widget? trailing;
+                  final item = widget.items[index];
+                  final selected = _selectedItems.contains(item);
+
+                  if (selected) {
+                    trailing = Icon(
+                      Icons.check,
+                      color: Theme.of(context).colorScheme.primary,
+                    );
+                  }
+
+                  return PickerItem(
+                    title: item.title,
+                    leading: item.leading,
+                    trailing: trailing,
+                    onPress: () {
+                      if (widget.multiples) {
+                        if (selected) {
+                          _selectedItems.remove(item);
+                        } else {
+                          _selectedItems.add(item);
+                        }
+                      } else {
+                        _selectedItems = [item];
+                      }
+                      setState(() {});
+                    },
+                  );
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return SizedBox(height: 8);
+                },
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              children: [
+                Expanded(
+                  child: FilledButton(
+                    onPressed: () {
+                      context.pop(_selectedItems);
+                    },
+                    child: Text(Translate.of(context).translate('apply')),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
