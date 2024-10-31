@@ -442,6 +442,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  icofont_flutter:
+    dependency: "direct main"
+    description:
+      name: icofont_flutter
+      sha256: ee022efb9428863607568cf6818dfc59afb5c987ea449d7ef9241fe69749d609
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   icons_launcher:
     dependency: "direct main"
     description:

@@ -7,16 +7,21 @@ final sl = GetIt.instance;
 
 Future<void> bindingDependencies() async {
   /**
-   * Register core dependencies
+   * Register core dependencies & data layer
    */
   final results = await Future.wait([
     DefaultStorage().init(),
     RelationalStorage().init(),
   ]);
 
-  sl.registerSingleton<DefaultStorage>(results[0] as DefaultStorage);
-  sl.registerSingleton<RelationalStorage>(results[1] as RelationalStorage);
   sl.registerSingleton<HTTPClient>(HTTPClient());
+  sl.registerSingleton<LocalDataSource>(
+    LocalDataSource(
+      results[0] as DefaultStorage,
+      results[1] as RelationalStorage,
+    ),
+  );
+  sl.registerSingleton<RemoteDataSource>(RemoteDataSource(sl()));
 
   /**
    * Register for repository
@@ -24,10 +29,13 @@ Future<void> bindingDependencies() async {
   sl.registerSingleton<ApplicationRepositoryInterface>(
     ApplicationRepository(sl(), sl()),
   );
-
+  sl.registerSingleton<ConfigsRepositoryInterface>(
+    ConfigsRepository(sl(), sl()),
+  );
   /**
    * Register for use cases
    */
   sl.registerSingleton<SetupApplication>(SetupApplication(sl()));
   sl.registerSingleton<UpdateApplication>(UpdateApplication(sl()));
+  sl.registerSingleton<SyncConfigs>(SyncConfigs(sl()));
 }

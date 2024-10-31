@@ -4,4 +4,7 @@ export 'application/application_state.dart';
 export 'authentication/authentication_bloc.dart';
 export 'authentication/authentication_event.dart';
 export 'authentication/authentication_state.dart';
+export 'configs/configs_bloc.dart';
+export 'configs/configs_event.dart';
+export 'configs/configs_state.dart';
 export 'observer.dart';

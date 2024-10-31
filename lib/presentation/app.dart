@@ -15,18 +15,30 @@ class App extends StatelessWidget {
             sl(),
           )..add(OnSetupApplication()),
         ),
+        BlocProvider<ConfigsBloc>(
+          create: (BuildContext context) => ConfigsBloc(),
+        ),
       ],
-      child: BlocBuilder<ApplicationBloc, ApplicationState>(
-        builder: (context, application) {
-          return MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            theme: application.lightTheme,
-            darkTheme: application.darkTheme,
-            themeMode: application.themeMode,
-            locale: application.language,
-            localizationsDelegates: Translate.localizationsDelegates,
-            supportedLocales: Application.supportedLocales,
-            routerConfig: Routers.config,
+      child: BlocConsumer<ApplicationBloc, ApplicationState>(
+        listener: (context, state) {
+          if (state is ApplicationLoaded) {
+            context.read<ConfigsBloc>().add(SyncConfigs());
+          }
+        },
+        builder: (context, state) {
+          return BlocBuilder<ApplicationBloc, ApplicationState>(
+            builder: (context, application) {
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                theme: application.lightTheme,
+                darkTheme: application.darkTheme,
+                themeMode: application.themeMode,
+                locale: application.language,
+                localizationsDelegates: Translate.localizationsDelegates,
+                supportedLocales: Application.supportedLocales,
+                routerConfig: Routers.config,
+              );
+            },
           );
         },
       ),

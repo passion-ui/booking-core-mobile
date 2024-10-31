@@ -29,9 +29,9 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
       final font = application?.font ?? Application.defaultFontFamily;
       ThemeMode themeMode = ThemeMode.system;
 
-      if (application?.themeMode == "ThemeMode.light") {
+      if (application?.themeMode == ThemeMode.light.toString()) {
         themeMode = ThemeMode.light;
-      } else if (application?.themeMode == "ThemeMode.dark") {
+      } else if (application?.themeMode == ThemeMode.dark.toString()) {
         themeMode = ThemeMode.dark;
       }
 
