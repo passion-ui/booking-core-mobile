@@ -40,6 +40,23 @@ class ApplicationInitial extends ApplicationState {
     required super.darkTheme,
     required super.themeMode,
   });
+
+  @override
+  ApplicationInitial copyWith({
+    String? domain,
+    Locale? language,
+    ThemeData? lightTheme,
+    ThemeData? darkTheme,
+    ThemeMode? themeMode,
+  }) {
+    return ApplicationInitial(
+      domain: domain ?? this.domain,
+      language: language ?? this.language,
+      lightTheme: lightTheme ?? this.lightTheme,
+      darkTheme: darkTheme ?? this.darkTheme,
+      themeMode: themeMode ?? this.themeMode,
+    );
+  }
 }
 
 class ApplicationLoaded extends ApplicationState {
@@ -50,4 +67,21 @@ class ApplicationLoaded extends ApplicationState {
     required super.darkTheme,
     required super.themeMode,
   });
+
+  @override
+  ApplicationLoaded copyWith({
+    String? domain,
+    Locale? language,
+    ThemeData? lightTheme,
+    ThemeData? darkTheme,
+    ThemeMode? themeMode,
+  }) {
+    return ApplicationLoaded(
+      domain: domain ?? this.domain,
+      language: language ?? this.language,
+      lightTheme: lightTheme ?? this.lightTheme,
+      darkTheme: darkTheme ?? this.darkTheme,
+      themeMode: themeMode ?? this.themeMode,
+    );
+  }
 }
