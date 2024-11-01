@@ -1,7 +1,7 @@
 import 'package:booking/core/core.dart';
 import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
-import 'package:get_it/get_it.dart';
+import 'package:booking/presentation/presentation.dart';
 
 final sl = GetIt.instance;
 
@@ -10,8 +10,9 @@ Future<void> bindingDependencies() async {
    * Register core dependencies & data layer
    */
   final results = await Future.wait([
-    DefaultStorage().init(),
-    RelationalStorage().init(),
+    DefaultStorage.init(),
+    RelationalStorage.init(),
+    DeviceInfo.init(),
   ]);
 
   sl.registerSingleton<LocalDataSource>(
@@ -20,7 +21,10 @@ Future<void> bindingDependencies() async {
       results[1] as RelationalStorage,
     ),
   );
-  sl.registerSingleton<RemoteDataSource>(RemoteDataSource(HTTPClient()));
+  sl.registerSingleton<DeviceInfo>(results[2] as DeviceInfo);
+  sl.registerSingleton<RemoteDataSource>(
+    RemoteDataSource(HTTPClient(), sl()),
+  );
 
   /**
    * Register for repository
@@ -31,10 +35,33 @@ Future<void> bindingDependencies() async {
   sl.registerSingleton<ConfigsRepositoryInterface>(
     ConfigsRepository(sl(), sl()),
   );
+  sl.registerSingleton<AuthenticationRepositoryInterface>(
+    AuthenticationRepository(
+      sl(),
+      sl(),
+    ),
+  );
+
   /**
    * Register for use cases
    */
-  sl.registerSingleton<SetupApplication>(SetupApplication(sl()));
-  sl.registerSingleton<UpdateApplication>(UpdateApplication(sl()));
-  sl.registerSingleton<SyncConfigs>(SyncConfigs(sl()));
+  sl.registerSingleton<SetupApplicationUseCase>(
+    SetupApplicationUseCase(sl()),
+  );
+  sl.registerSingleton<UpdateApplicationUseCase>(
+    UpdateApplicationUseCase(sl()),
+  );
+  sl.registerSingleton<SyncConfigUseCase>(
+    SyncConfigUseCase(sl()),
+  );
+  sl.registerSingleton<LoginUseCase>(LoginUseCase(sl()));
+
+  /**
+   * Register for bloc
+   */
+
+  sl.registerSingleton<MessageBloc>(MessageBloc());
+  sl.registerSingleton<AuthenticationBloc>(
+    AuthenticationBloc(sl(), sl()),
+  );
 }

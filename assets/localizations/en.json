@@ -34,5 +34,15 @@
   "pink": "Pink",
   "orange": "Orange",
   "green": "Green",
-  "blue": "Blue"
+  "blue": "Blue",
+  "sign_in_to_continue_saved": "Sign in to view your saved favorites",
+  "sign_in_to_continue_explore": "Sign in to continue explore",
+  "rate_app": "Rate App",
+  "share_app": "Share App",
+  "privacy_policy": "Privacy Policy",
+  "terms_of_service": "Terms of Service",
+  "contact_us": "Contact Us",
+  "rate_us": "Rate Us",
+  "share_with_friends": "Share with Friends",
+  "help_feedback": "Help & Feedback"
 }

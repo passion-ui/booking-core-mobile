@@ -1,5 +1,6 @@
 import 'package:booking/core/core.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
 
 class HTTPClient {
   late Dio _dio;
@@ -40,9 +41,13 @@ class HTTPClient {
     required String url,
     Map<String, dynamic>? data,
     Options? options,
-    bool external = false,
+    bool loading = false,
   }) async {
     try {
+      if (loading) {
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.gradient);
+        SVProgressHUD.show();
+      }
       final response = await _dio.post(
         url,
         data: data,
@@ -51,6 +56,10 @@ class HTTPClient {
       return response.data;
     } on DioException catch (error) {
       return errorHandle(error);
+    } finally {
+      if (loading) {
+        SVProgressHUD.dismiss();
+      }
     }
   }
 
@@ -59,6 +68,7 @@ class HTTPClient {
     required String url,
     Map<String, dynamic>? params,
     Options? options,
+    bool loading = false,
   }) async {
     try {
       final response = await _dio.get(
@@ -101,10 +111,6 @@ class HTTPClient {
         break;
     }
 
-    return {
-      "status": 0,
-      "message": message,
-      "data": data,
-    };
+    throw Exception(message);
   }
 }

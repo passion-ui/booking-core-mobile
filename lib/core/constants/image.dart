@@ -2,6 +2,7 @@ class Images {
   static const logo = "assets/images/logo.png";
   static const en = "assets/images/en.png";
   static const vi = "assets/images/vi.png";
+  static const waiting = "assets/images/waiting.png";
 
   static String getImage(String key) {
     switch (key) {

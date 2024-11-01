@@ -7,4 +7,7 @@ export 'authentication/authentication_state.dart';
 export 'configs/configs_bloc.dart';
 export 'configs/configs_event.dart';
 export 'configs/configs_state.dart';
+export 'message/message_bloc.dart';
+export 'message/message_event.dart';
+export 'message/message_state.dart';
 export 'observer.dart';

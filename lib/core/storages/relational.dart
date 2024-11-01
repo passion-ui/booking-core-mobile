@@ -1,12 +1,13 @@
 import 'package:realm/realm.dart';
 
 class RelationalStorage {
-  late Realm realm;
+  final Realm realm;
 
-  Future<RelationalStorage> init() async {
-    var config = Configuration.local([]);
-    realm = Realm(config);
-    return this;
+  RelationalStorage(this.realm);
+
+  static Future<RelationalStorage> init() async {
+    final config = Configuration.local([]);
+    return RelationalStorage(Realm(config));
   }
 
   Future<void> add<T>(T object) async {

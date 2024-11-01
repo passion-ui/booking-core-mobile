@@ -1,8 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:booking/core/core.dart';
-
-import 'configs_event.dart';
-import 'configs_state.dart';
+import 'package:booking/presentation/presentation.dart';
 
 class ConfigsBloc extends Bloc<ConfigsEvent, ConfigsState> {
   ConfigsBloc() : super(ConfigsInitial()) {

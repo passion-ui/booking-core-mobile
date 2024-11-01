@@ -1,11 +1,13 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DefaultStorage {
-  late SharedPreferences prefs;
+  final SharedPreferences prefs;
 
-  Future<DefaultStorage> init() async {
-    prefs = await SharedPreferences.getInstance();
-    return this;
+  DefaultStorage(this.prefs);
+
+  static Future<DefaultStorage> init() async {
+    final prefs = await SharedPreferences.getInstance();
+    return DefaultStorage(prefs);
   }
 
   /// get value from shared preferences

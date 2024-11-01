@@ -13,10 +13,17 @@ class App extends StatelessWidget {
           create: (BuildContext context) => ApplicationBloc(
             sl(),
             sl(),
+            sl(),
           )..add(OnSetupApplication()),
         ),
         BlocProvider<ConfigsBloc>(
           create: (BuildContext context) => ConfigsBloc(),
+        ),
+        BlocProvider<AuthenticationBloc>(
+          create: (BuildContext context) => sl(),
+        ),
+        BlocProvider<MessageBloc>(
+          create: (BuildContext context) => sl(),
         ),
       ],
       child: BlocConsumer<ApplicationBloc, ApplicationState>(

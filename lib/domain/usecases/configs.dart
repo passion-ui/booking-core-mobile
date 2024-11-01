@@ -1,10 +1,10 @@
 import 'package:booking/core/core.dart';
 import 'package:booking/domain/domain.dart';
 
-class SyncConfigs {
+class SyncConfigUseCase {
   final ConfigsRepositoryInterface repository;
 
-  SyncConfigs(this.repository);
+  SyncConfigUseCase(this.repository);
 
   Future<void> call() async {
     final configs = await repository.fetchConfigs();

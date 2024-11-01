@@ -1,19 +1,19 @@
 import 'package:booking/domain/domain.dart';
 
-class SetupApplication {
+class SetupApplicationUseCase {
   final ApplicationRepositoryInterface repository;
 
-  SetupApplication(this.repository);
+  SetupApplicationUseCase(this.repository);
 
   Future<ApplicationEntity?> call() async {
     return await repository.getApplicationSetting();
   }
 }
 
-class UpdateApplication {
+class UpdateApplicationUseCase {
   final ApplicationRepositoryInterface repository;
 
-  UpdateApplication(this.repository);
+  UpdateApplicationUseCase(this.repository);
 
   Future<void> call(ApplicationEntity setting) async {
     return await repository.setApplicationSetting(setting);

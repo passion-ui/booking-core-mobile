@@ -1,20 +1,18 @@
-import 'package:bloc/bloc.dart';
 import 'package:booking/core/core.dart';
 import 'package:booking/domain/domain.dart';
-import 'package:flutter/material.dart';
-
-import 'application_event.dart';
-import 'application_state.dart';
+import 'package:booking/presentation/presentation.dart';
 
 class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
-  final SetupApplication _setupApplication;
-  final UpdateApplication _updateApplication;
+  final AuthenticationBloc _authenticationBloc;
+  final SetupApplicationUseCase _setupApplication;
+  final UpdateApplicationUseCase _updateApplication;
 
   Color _seedColor = ColorUtils.fromHex(
     Application.defaultTheme['seedColor'] ?? '',
   );
 
   ApplicationBloc(
+    this._authenticationBloc,
     this._setupApplication,
     this._updateApplication,
   ) : super(_defaultState) {
@@ -67,6 +65,8 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
         ),
         themeMode: themeMode,
       ));
+
+      _authenticationBloc.add(AuthenticationVerify());
     });
 
     ///On Change Theme

@@ -8,11 +8,13 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   AuthenticationRepository(this._remoteDataSource, this._localDataSource);
 
   @override
-  Future<UserEntity?> login() async {
-    // final user = await _httpClient.post(url: "auth/login", data: {});
-    // if (user != null) {
-    //   return user.toEntity();
-    // }
-    // return null;
+  Future<UserEntity> login(String username, String password) async {
+    final user = await _remoteDataSource.login(username, password);
+    return user.toEntity();
+  }
+
+  @override
+  Future<UserEntity?> verify() {
+    throw UnimplementedError();
   }
 }

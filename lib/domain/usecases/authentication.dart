@@ -1,11 +1,21 @@
 import 'package:booking/domain/domain.dart';
 
-class Login {
+class LoginUseCase {
   final AuthenticationRepositoryInterface repository;
 
-  Login(this.repository);
+  LoginUseCase(this.repository);
+
+  Future<UserEntity> call(String username, String password) async {
+    return await repository.login(username, password);
+  }
+}
+
+class AuthenticationVerifyUseCase {
+  final AuthenticationRepositoryInterface repository;
+
+  AuthenticationVerifyUseCase(this.repository);
 
   Future<UserEntity?> call() async {
-    return await repository.login();
+    return await repository.verify();
   }
 }

@@ -8,17 +8,20 @@ class MainTab extends StatefulWidget {
 }
 
 class _MainTabState extends State<MainTab> {
+  final List<int> _protectTab = [];
   int currentPageIndex = 0;
+
+  void _onDestinationSelected(int index) async {
+    setState(() {
+      currentPageIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
+        onDestinationSelected: _onDestinationSelected,
         selectedIndex: currentPageIndex,
         destinations: <Widget>[
           NavigationDestination(
