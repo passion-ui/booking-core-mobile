@@ -91,9 +91,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
         );
       }
 
-      emit(ApplicationLoaded(
-        domain: state.domain,
-        language: state.language,
+      emit(state.copyWith(
         lightTheme: ThemeUtils.createTheme(
           font: font,
           colorScheme: lightColorScheme,

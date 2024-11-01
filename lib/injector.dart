@@ -14,14 +14,13 @@ Future<void> bindingDependencies() async {
     RelationalStorage().init(),
   ]);
 
-  sl.registerSingleton<HTTPClient>(HTTPClient());
   sl.registerSingleton<LocalDataSource>(
     LocalDataSource(
       results[0] as DefaultStorage,
       results[1] as RelationalStorage,
     ),
   );
-  sl.registerSingleton<RemoteDataSource>(RemoteDataSource(sl()));
+  sl.registerSingleton<RemoteDataSource>(RemoteDataSource(HTTPClient()));
 
   /**
    * Register for repository

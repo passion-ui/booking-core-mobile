@@ -12,13 +12,15 @@ class Routers {
   static const String about = '/about';
   static const String privacy = '/privacy';
   static const String terms = '/terms';
-
-  ///Route authentication for user
   static const String saved = '/saved';
 
   static const String notFound = '/404';
 
-  static final config = GoRouter(
+  final List<String> authRoutes = [
+    saved,
+  ];
+
+  final config = GoRouter(
     routes: <RouteBase>[
       GoRoute(
         path: main,
@@ -51,8 +53,6 @@ class Routers {
               return Login();
             },
           ),
-
-          ///Route authentication for user
           GoRoute(
             path: saved,
             builder: (context, state) {
@@ -60,7 +60,30 @@ class Routers {
             },
           ),
         ],
+        redirect: (context, state) {
+          if (_instance.authRoutes.contains(state.uri.path)) {
+            return '/login?redirect=${state.uri.path}';
+          }
+          // final authProvider = Provider.of<AuthProvider>(context, listen: false);
+          // final loggingIn = state.location == '/login';
+          //
+          // if (!authProvider.isAuthenticated && state.location == '/saved') {
+          //   return '/login?redirect=${state.location}';
+          // }
+          // if (authProvider.isAuthenticated && loggingIn) {
+          //   return '/saved'; // Automatically go to Saved after login
+          // }
+          return null;
+        },
       ),
     ],
   );
+
+  static final _instance = Routers._internal();
+
+  factory Routers() {
+    return _instance;
+  }
+
+  Routers._internal();
 }

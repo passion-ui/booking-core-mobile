@@ -36,7 +36,7 @@ class App extends StatelessWidget {
                 locale: application.language,
                 localizationsDelegates: Translate.localizationsDelegates,
                 supportedLocales: Application.supportedLocales,
-                routerConfig: Routers.config,
+                routerConfig: Routers().config,
               );
             },
           );

@@ -32,8 +32,8 @@ class Application {
     "Raleway",
   ];
   static final defaultTheme = {
-    "title": "blue",
-    "seedColor": 'ff2196F3',
+    "title": "pink",
+    "seedColor": 'ffE91E63',
   };
   static final themeSupport = [
     {

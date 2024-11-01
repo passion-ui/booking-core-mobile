@@ -25,8 +25,4 @@ class LocalDataSource {
       jsonEncode(setting.toJson()),
     );
   }
-
-  Future<UserModel?> getUser() {
-    throw UnimplementedError();
-  }
 }

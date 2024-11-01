@@ -7,3 +7,4 @@ export 'storages/relational.dart';
 export 'utils/asset.dart';
 export 'utils/color.dart';
 export 'utils/theme.dart';
+export 'utils/validator.dart';

@@ -1,12 +1,11 @@
-import 'package:booking/core/core.dart';
 import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
 class ApplicationRepository implements ApplicationRepositoryInterface {
   final LocalDataSource _localDataSource;
-  final HTTPClient _httpClient;
+  final RemoteDataSource _remoteDataSource;
 
-  ApplicationRepository(this._httpClient, this._localDataSource);
+  ApplicationRepository(this._remoteDataSource, this._localDataSource);
 
   @override
   Future<ApplicationEntity?> getApplicationSetting() async {
@@ -19,8 +18,7 @@ class ApplicationRepository implements ApplicationRepositoryInterface {
 
   @override
   Future<bool> setApplicationSetting(ApplicationEntity setting) async {
-    _httpClient.baseUrl = setting.domain;
-
+    _remoteDataSource.setBaseUrl(setting.domain);
     return await _localDataSource.setApplicationSettings(
       ApplicationModel.fromEntity(setting),
     );
