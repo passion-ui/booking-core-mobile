@@ -1,0 +1,43 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "lane for build"
+  lane :build do
+    get_certificates()
+    get_provisioning_profile()
+    increment_build_number({
+      build_number: latest_testflight_build_number + 1
+    })
+    build_app(export_method: "app-store")
+  end
+
+  lane :distribute do |options|
+    release_notes = options[:release_notes] || "No release notes provided"
+    pr_number = options[:pr_number]
+    github_repository = options[:github_repository]
+    upload_to_testflight(
+      notify_external_testers: true,
+      changelog: release_notes
+    )
+
+    build_info = "
+    Successfully uploaded the new build to TestFlight.
+    - Version: #{get_version_number}
+    - Build Number: #{latest_testflight_build_number}
+    \n#{release_notes}
+    "
+
+    if pr_number && !pr_number.empty?
+      github_api(
+        api_token: ENV['GITHUB_TOKEN'],
+        server_url: "https://api.github.com",
+        http_method: 'POST',
+        path: "/repos/#{github_repository}/issues/#{pr_number}/comments",
+        body: { body: build_info }.to_json
+      )
+    else
+      UI.message("PR number is missing. Skipping the GitHub API task.")
+    end
+  end
+
+end

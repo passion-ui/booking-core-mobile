@@ -35,6 +35,34 @@ class UserModel {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'user': {
+        'id': id,
+        'first_name': firstName,
+        'last_name': lastName,
+        'display_name': displayName,
+        'email': email,
+        'avatar_url': avatar,
+        'need_update_pw': needChangePassword ? 1 : 0,
+      },
+      'access_token': token,
+    };
+  }
+
+  factory UserModel.fromEntity(UserEntity user) {
+    return UserModel(
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      displayName: user.displayName,
+      email: user.email,
+      avatar: user.avatar,
+      needChangePassword: user.needChangePassword,
+      token: user.token,
+    );
+  }
+
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       id: json['user']['id'] ?? 0,
@@ -42,7 +70,7 @@ class UserModel {
       lastName: json['user']['last_name'] ?? '',
       displayName: json['user']['display_name'] ?? '',
       email: json['user']['email'] ?? '',
-      avatar: json['user']['avatar'] ?? '',
+      avatar: json['user']['avatar_url'] ?? '',
       needChangePassword: json['user']['need_update_pw'] == 1,
       token: json['access_token'] ?? '',
     );

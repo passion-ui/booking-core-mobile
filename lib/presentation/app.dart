@@ -1,5 +1,4 @@
 import 'package:booking/core/core.dart';
-import 'package:booking/injector.dart';
 import 'package:booking/presentation/presentation.dart';
 
 class App extends StatelessWidget {
@@ -11,8 +10,6 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider<ApplicationBloc>(
           create: (BuildContext context) => ApplicationBloc(
-            sl(),
-            sl(),
             sl(),
           )..add(OnSetupApplication()),
         ),

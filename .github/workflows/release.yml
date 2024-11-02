@@ -1,0 +1,35 @@
+name: Release Booking Core
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: flutter clean && flutter pub get
+
+      - name: Build iOS
+        working-directory: ios
+        run: pod repo update && flutter build ios && fastlane build
+
+      - name: Upload artifact iOS
+        working-directory: ios
+        run: |
+          release_notes=$(cat <<EOF
+          Branch: ${{ github.event.pull_request.head.ref }}
+          Commit: ${{ github.sha }}
+          Author: ${{ github.actor }}
+          EOF
+          )
+          fastlane distribute release_notes:"$release_notes" pr_number:${{ github.event.pull_request.number }} github_repository:${{ github.repository }}

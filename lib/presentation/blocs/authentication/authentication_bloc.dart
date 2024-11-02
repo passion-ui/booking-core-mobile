@@ -4,14 +4,25 @@ import 'package:booking/presentation/presentation.dart';
 typedef AuthBloc = Bloc<AuthenticationEvent, AuthenticationState>;
 
 class AuthenticationBloc extends AuthBloc {
-  final LoginUseCase _login;
-  final MessageBloc _messageBloc;
+  final _login = LoginUseCase(sl());
+  final _getUserData = GetUserDataUseCase(sl());
+  final _verifyUser = AuthenticationVerifyUseCase(sl());
+  final _clearUserData = ClearUserDataUseCase(sl());
+  final MessageBloc _messageBloc = sl();
 
-  AuthenticationBloc(this._login, this._messageBloc)
-      : super(AuthenticationInitial()) {
+  AuthenticationBloc() : super(AuthenticationInitial()) {
     ///Authentication verify event
-    on<AuthenticationVerify>((event, emit) {
-      emit(AuthenticationFail());
+    on<AuthenticationVerify>((event, emit) async {
+      try {
+        final user = await _getUserData.call();
+        emit(AuthenticationSuccess(user: user!));
+        final verify = await _verifyUser.call();
+      } on Exception catch (error) {
+        _messageBloc.add(
+          OnMessage(title: error.toString().replaceAll("Exception: ", "")),
+        );
+        emit(AuthenticationFail());
+      }
     });
 
     ///Authentication logged in event
@@ -27,8 +38,16 @@ class AuthenticationBloc extends AuthBloc {
     });
 
     ///Authentication logged out event
-    on<AuthenticationLoggedOut>((event, emit) {
-      emit(AuthenticationFail());
+    on<AuthenticationLoggedOut>((event, emit) async {
+      try {
+        final user = await _clearUserData.call();
+      } on Exception catch (error) {
+        _messageBloc.add(
+          OnMessage(title: error.toString().replaceAll("Exception: ", "")),
+        );
+      } finally {
+        emit(AuthenticationFail());
+      }
     });
   }
 }

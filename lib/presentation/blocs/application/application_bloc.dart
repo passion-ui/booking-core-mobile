@@ -4,8 +4,8 @@ import 'package:booking/presentation/presentation.dart';
 
 class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
   final AuthenticationBloc _authenticationBloc;
-  final SetupApplicationUseCase _setupApplication;
-  final UpdateApplicationUseCase _updateApplication;
+  final _setupApplication = SetupApplicationUseCase(sl());
+  final _updateApplication = UpdateApplicationUseCase(sl());
 
   Color _seedColor = ColorUtils.fromHex(
     Application.defaultTheme['seedColor'] ?? '',
@@ -13,8 +13,6 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
 
   ApplicationBloc(
     this._authenticationBloc,
-    this._setupApplication,
-    this._updateApplication,
   ) : super(_defaultState) {
     ///On Setup Application
     on<OnSetupApplication>((event, emit) async {
@@ -66,6 +64,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
         themeMode: themeMode,
       ));
 
+      ///Start event for authentication check
       _authenticationBloc.add(AuthenticationVerify());
     });
 

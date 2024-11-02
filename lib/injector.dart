@@ -3,8 +3,6 @@ import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
-final sl = GetIt.instance;
-
 Future<void> bindingDependencies() async {
   /**
    * Register core dependencies & data layer
@@ -12,6 +10,7 @@ Future<void> bindingDependencies() async {
   final results = await Future.wait([
     DefaultStorage.init(),
     RelationalStorage.init(),
+    SecureStorage.init(),
     DeviceInfo.init(),
   ]);
 
@@ -19,9 +18,10 @@ Future<void> bindingDependencies() async {
     LocalDataSource(
       results[0] as DefaultStorage,
       results[1] as RelationalStorage,
+      results[2] as SecureStorage,
     ),
   );
-  sl.registerSingleton<DeviceInfo>(results[2] as DeviceInfo);
+  sl.registerSingleton<DeviceInfo>(results[3] as DeviceInfo);
   sl.registerSingleton<RemoteDataSource>(
     RemoteDataSource(HTTPClient(), sl()),
   );
@@ -43,25 +43,10 @@ Future<void> bindingDependencies() async {
   );
 
   /**
-   * Register for use cases
-   */
-  sl.registerSingleton<SetupApplicationUseCase>(
-    SetupApplicationUseCase(sl()),
-  );
-  sl.registerSingleton<UpdateApplicationUseCase>(
-    UpdateApplicationUseCase(sl()),
-  );
-  sl.registerSingleton<SyncConfigUseCase>(
-    SyncConfigUseCase(sl()),
-  );
-  sl.registerSingleton<LoginUseCase>(LoginUseCase(sl()));
-
-  /**
    * Register for bloc
    */
-
   sl.registerSingleton<MessageBloc>(MessageBloc());
   sl.registerSingleton<AuthenticationBloc>(
-    AuthenticationBloc(sl(), sl()),
+    AuthenticationBloc(),
   );
 }
