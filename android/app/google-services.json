@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "320103724101",
+    "project_id": "booking-core-ee5dc",
+    "storage_bucket": "booking-core-ee5dc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320103724101:android:a32e9109e7ffdc5216df2c",
+        "android_client_info": {
+          "package_name": "com.huynh.booking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJHw4shyYf5aw3Up9Qk0RFxDSCHlfTivM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

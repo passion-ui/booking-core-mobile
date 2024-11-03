@@ -1,6 +1,7 @@
 export 'constants/application.dart';
 export 'constants/image.dart';
 export 'device/device.dart';
+export 'firebase/firebase.dart';
 export 'http/http.dart';
 export 'logger/logger.dart';
 export 'storages/default.dart';

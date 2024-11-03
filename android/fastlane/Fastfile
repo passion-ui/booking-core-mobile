@@ -1,0 +1,42 @@
+
+default_platform(:android)
+
+app_id = "1:320103724101:android:a32e9109e7ffdc5216df2c"
+
+platform :android do
+    desc "lane for build"
+    lane :build do
+        gradle(task: "clean assembleRelease")
+    end
+
+    lane :distribute do |options|
+      release_notes = options[:release_notes] || "No release notes provided"
+      pr_number = options[:pr_number]
+      github_repository = options[:github_repository]
+
+      result = firebase_app_distribution(
+        app: app_id,
+        release_notes: release_notes,
+        groups: "booking-core",
+        android_artifact_path: "../build/app/outputs/apk/release/app-release.apk"
+      )
+
+      build_info = "
+      Successfully uploaded the new build to Firebase distribution.
+      \n#{release_notes}
+      Installation Link: #{result[:testingUri]}
+      "
+
+      if pr_number && !pr_number.empty?
+          github_api(
+            api_token: ENV['GITHUB_TOKEN'],
+            server_url: "https://api.github.com",
+            http_method: 'POST',
+            path: "/repos/#{github_repository}/issues/#{pr_number}/comments",
+            body: { body: build_info }.to_json
+          )
+      else
+          UI.message("PR number is missing. Skipping the GitHub API task.")
+      end
+    end
+end

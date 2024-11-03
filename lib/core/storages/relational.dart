@@ -5,7 +5,7 @@ class RelationalStorage {
 
   RelationalStorage(this.realm);
 
-  static Future<RelationalStorage> init() async {
+  static RelationalStorage init() {
     final config = Configuration.local([]);
     return RelationalStorage(Realm(config));
   }
