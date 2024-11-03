@@ -25,9 +25,9 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   }
 
   @override
-  Future<UserEntity> getUserData() async {
+  Future<UserEntity?> getUserData() async {
     final user = await _localDataSource.getUserData();
-    return user.toEntity();
+    return user?.toEntity();
   }
 
   @override

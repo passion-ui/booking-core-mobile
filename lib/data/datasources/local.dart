@@ -36,13 +36,13 @@ class LocalDataSource {
     return await _secureStorage.write("user", jsonEncode(user.toJson()));
   }
 
-  Future<UserModel> getUserData() async {
+  Future<UserModel?> getUserData() async {
     final jsonString = await _secureStorage.read("user");
     if (jsonString != null) {
       final json = jsonDecode(jsonString);
       return UserModel.fromJson(json);
     }
-    throw Exception("user_not_found");
+    return null;
   }
 
   Future<void> deleteUserData() async {

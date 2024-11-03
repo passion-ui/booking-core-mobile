@@ -15,8 +15,12 @@ class AuthenticationBloc extends AuthBloc {
     on<AuthenticationVerify>((event, emit) async {
       try {
         final user = await _getUserData.call();
-        emit(AuthenticationSuccess(user: user!));
-        final verify = await _verifyUser.call();
+        if (user == null) {
+          emit(AuthenticationFail());
+        } else {
+          emit(AuthenticationSuccess(user: user));
+          final verify = await _verifyUser.call();
+        }
       } on Exception catch (error) {
         _messageBloc.add(
           OnMessage(title: error.toString().replaceAll("Exception: ", "")),

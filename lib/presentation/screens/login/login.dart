@@ -130,7 +130,7 @@ class _LoginState extends State<Login> {
                           height: 64,
                           fit: BoxFit.cover,
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 24),
                         TextField(
                           controller: _emailController,
                           focusNode: _emailFocusNode,
@@ -204,7 +204,7 @@ class _LoginState extends State<Login> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 80),
+                        const SizedBox(height: 12),
                       ],
                     ),
                   ),

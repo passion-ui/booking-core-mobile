@@ -33,3 +33,18 @@ jobs:
           EOF
           )
           fastlane distribute release_notes:"$release_notes" pr_number:${{ github.event.pull_request.number }} github_repository:${{ github.repository }}
+
+      - name: Build Android
+        working-directory: source
+        run: flutter build apk && cd android && fastlane build
+
+      - name: Upload artifact Android
+        working-directory: source/android
+        run: |
+          release_notes=$(cat <<EOF
+          Branch: ${{ github.event.pull_request.head.ref }}
+          Commit: ${{ github.sha }}
+          Author: ${{ github.actor }}
+          EOF
+          )
+          fastlane distribute release_notes:"$release_notes" pr_number:${{ github.event.pull_request.number }} github_repository:${{ github.repository }}
