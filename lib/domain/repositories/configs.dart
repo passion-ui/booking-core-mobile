@@ -1,6 +1,6 @@
 import 'package:booking/domain/domain.dart';
 
 abstract class ConfigsRepositoryInterface {
-  Future<void> getConfigs();
-  Future<ConfigsEntity?> fetchConfigs();
+  Future<ConfigEntity?> getConfigs();
+  Future<ConfigEntity> fetchConfigs();
 }

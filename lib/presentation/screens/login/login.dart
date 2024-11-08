@@ -21,7 +21,7 @@ class _LoginState extends State<Login> {
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
 
-  bool _visible = false;
+  bool _secure = true;
   String? _errorEmail;
   String? _errorPassword;
 
@@ -75,7 +75,7 @@ class _LoginState extends State<Login> {
       final password = _passwordController.text;
       final authentication = context.read<AuthenticationBloc>();
       authentication.add(
-        AuthenticationLoggedIn(
+        OnLogIn(
           username: email,
           password: password,
         ),
@@ -85,12 +85,20 @@ class _LoginState extends State<Login> {
 
   ///On forgot password
   void _onForgotPassword() {
-    Logger.log('Forgot Password');
+    context.go(Routers.forgotPassword);
   }
 
   ///On register
-  void _onRegister() {
-    Logger.log('Register');
+  void _onRegister() async {
+    final Map<String, dynamic>? info = await context.push(Routers.register);
+
+    if (info != null) {
+      final email = info['email'];
+      final password = info['password'];
+      _emailController.text = email;
+      _passwordController.text = password;
+      _onLogin();
+    }
   }
 
   @override
@@ -107,111 +115,97 @@ class _LoginState extends State<Login> {
         }
       },
       child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              centerTitle: true,
-              title: Text(
-                Translate.of(context).translate('login'),
-              ),
-              pinned: true,
-            ),
-            SliverFillRemaining(
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Image.asset(
-                          Images.logo,
-                          height: 64,
-                          fit: BoxFit.cover,
-                        ),
-                        const SizedBox(height: 24),
-                        TextField(
-                          controller: _emailController,
-                          focusNode: _emailFocusNode,
-                          decoration: InputDecoration(
-                            labelText: Translate.of(context).translate('email'),
-                            suffixIcon: IconButton(
-                              icon: Icon(Icons.clear),
-                              onPressed: () {
-                                _emailController.clear();
-                              },
-                            ),
-                            errorText: _errorEmail,
-                          ),
-                          onSubmitted: (value) {
-                            _passwordFocusNode.requestFocus();
-                          },
-                          onChanged: _validateEmail,
-                        ),
-                        const SizedBox(height: 12),
-                        TextField(
-                          obscureText: _visible,
-                          controller: _passwordController,
-                          focusNode: _passwordFocusNode,
-                          decoration: InputDecoration(
-                            labelText: Translate.of(context).translate(
-                              'password',
-                            ),
-                            errorText: _errorPassword,
-                            suffixIcon: IconButton(
-                              icon: Icon(_visible
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined),
-                              onPressed: () {
-                                setState(() {
-                                  _visible = !_visible;
-                                });
-                              },
-                            ),
-                          ),
-                          onChanged: _validatePassword,
-                        ),
-                        const SizedBox(height: 12),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: FilledButton(
-                                onPressed: _onLogin,
-                                child: Text(
-                                  Translate.of(context).translate('login'),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TextButton(
-                              onPressed: _onRegister,
-                              child: Text(
-                                Translate.of(context).translate('register'),
-                              ),
-                            ),
-                            TextButton(
-                              onPressed: _onForgotPassword,
-                              child: Text(
-                                Translate.of(context).translate(
-                                  'forgot_password',
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                      ],
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            Translate.of(context).translate('login'),
+          ),
+        ),
+        body: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                TextField(
+                  controller: _emailController,
+                  focusNode: _emailFocusNode,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.email_outlined),
+                    labelText: Translate.of(context).translate('email'),
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.clear),
+                      onPressed: () {
+                        _emailController.clear();
+                      },
+                    ),
+                    errorText: _errorEmail,
+                  ),
+                  onSubmitted: (value) {
+                    _passwordFocusNode.requestFocus();
+                  },
+                  onChanged: _validateEmail,
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  obscureText: _secure,
+                  controller: _passwordController,
+                  focusNode: _passwordFocusNode,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock_outline),
+                    labelText: Translate.of(context).translate(
+                      'password',
+                    ),
+                    errorText: _errorPassword,
+                    suffixIcon: IconButton(
+                      icon: Icon(_secure
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined),
+                      onPressed: () {
+                        setState(() {
+                          _secure = !_secure;
+                        });
+                      },
                     ),
                   ),
+                  onChanged: _validatePassword,
                 ),
-              ),
-            )
-          ],
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: FilledButton(
+                        onPressed: _onLogin,
+                        child: Text(
+                          Translate.of(context).translate('login'),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: _onRegister,
+                      child: Text(
+                        Translate.of(context).translate('register'),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: _onForgotPassword,
+                      child: Text(
+                        Translate.of(context).translate(
+                          'forgot_password',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

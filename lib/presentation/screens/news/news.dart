@@ -6,19 +6,40 @@ class News extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(
-          parent: AlwaysScrollableScrollPhysics(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          Translate.of(context).translate('news'),
         ),
-        slivers: [
-          SliverAppBar(
-            centerTitle: true,
-            title: Text(
-              Translate.of(context).translate('news'),
-            ),
-            pinned: true,
-          ),
-        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          children: [
+            Box(
+              child: Column(
+                children: [
+                  ListTitle(
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.cyan.withAlpha(80),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.domain,
+                        color: Colors.cyan,
+                      ),
+                    ),
+                    title: Translate.of(context).translate('domain'),
+                    onPress: () {},
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -4,6 +4,7 @@ class Routers {
   static const String main = '/';
   static const String login = '/login';
   static const String register = '/register';
+  static const String forgotPassword = '/forgotPassword';
   static const String changePassword = '/changePassword';
   static const String detail = '/detail';
   static const String create = '/create';
@@ -77,6 +78,12 @@ class Routers {
             path: register,
             builder: (context, state) {
               return Register();
+            },
+          ),
+          GoRoute(
+            path: forgotPassword,
+            builder: (context, state) {
+              return ForgotPassword();
             },
           ),
           GoRoute(

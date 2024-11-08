@@ -12,7 +12,7 @@ class AuthenticationBloc extends AuthBloc {
 
   AuthenticationBloc() : super(AuthenticationInitial()) {
     ///Authentication verify event
-    on<AuthenticationVerify>((event, emit) async {
+    on<OnVerify>((event, emit) async {
       try {
         final user = await _getUserData.call();
         if (user == null) {
@@ -30,7 +30,7 @@ class AuthenticationBloc extends AuthBloc {
     });
 
     ///Authentication logged in event
-    on<AuthenticationLoggedIn>((event, emit) async {
+    on<OnLogIn>((event, emit) async {
       try {
         final user = await _login.call(event.username, event.password);
         emit(AuthenticationSuccess(user: user));
@@ -42,9 +42,9 @@ class AuthenticationBloc extends AuthBloc {
     });
 
     ///Authentication logged out event
-    on<AuthenticationLoggedOut>((event, emit) async {
+    on<OnLogOut>((event, emit) async {
       try {
-        final user = await _clearUserData.call();
+        await _clearUserData.call();
       } on Exception catch (error) {
         _messageBloc.add(
           OnMessage(title: error.toString().replaceAll("Exception: ", "")),

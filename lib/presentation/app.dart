@@ -9,9 +9,9 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ApplicationBloc>(
-          create: (BuildContext context) => ApplicationBloc(
-            sl(),
-          )..add(OnSetupApplication()),
+          create: (BuildContext context) {
+            return ApplicationBloc()..add(OnSetupApplication());
+          },
         ),
         BlocProvider<ConfigsBloc>(
           create: (BuildContext context) => ConfigsBloc(),

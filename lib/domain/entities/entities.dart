@@ -1,4 +1,4 @@
 export 'application.dart';
-export 'configs.dart';
+export 'config.dart';
 export 'picker.dart';
 export 'user.dart';

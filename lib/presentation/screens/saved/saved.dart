@@ -51,40 +51,28 @@ class _SavedState extends State<Saved> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(
-          parent: AlwaysScrollableScrollPhysics(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          Translate.of(context).translate('saved'),
         ),
-        slivers: [
-          SliverAppBar(
-            centerTitle: true,
-            title: Text(
-              Translate.of(context).translate('saved'),
-            ),
-            pinned: true,
-          ),
-          SliverFillRemaining(
-            child: Padding(
+      ),
+      body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, authentication) {
+          if (authentication is AuthenticationFail) {
+            return _buildAuthentication();
+          }
+          return Center(
+            child: SingleChildScrollView(
               padding: const EdgeInsets.all(12),
-              child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                builder: (context, authentication) {
-                  if (authentication is AuthenticationFail) {
-                    return _buildAuthentication();
-                  }
-                  return Center(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [Text("Saved List")],
-                      ),
-                    ),
-                  );
-                },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [Text("Saved List")],
               ),
             ),
-          )
-        ],
+          );
+        },
       ),
     );
   }

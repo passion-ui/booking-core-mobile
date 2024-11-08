@@ -1,15 +1,15 @@
 class AuthenticationEvent {}
 
-class AuthenticationVerify extends AuthenticationEvent {}
+class OnVerify extends AuthenticationEvent {}
 
-class AuthenticationLoggedIn extends AuthenticationEvent {
+class OnLogIn extends AuthenticationEvent {
   final String username;
   final String password;
 
-  AuthenticationLoggedIn({
+  OnLogIn({
     required this.username,
     required this.password,
   });
 }
 
-class AuthenticationLoggedOut extends AuthenticationEvent {}
+class OnLogOut extends AuthenticationEvent {}

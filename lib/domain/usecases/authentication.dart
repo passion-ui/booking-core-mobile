@@ -41,3 +41,33 @@ class ClearUserDataUseCase {
     return await repository.deleteUserData();
   }
 }
+
+class RegisterUseCase {
+  final AuthenticationRepositoryInterface repository;
+
+  RegisterUseCase(this.repository);
+
+  Future<bool> call(
+    String firstName,
+    String lastName,
+    String email,
+    String password,
+  ) async {
+    return await repository.register(
+      firstName,
+      lastName,
+      email,
+      password,
+    );
+  }
+}
+
+class ForgotPasswordUseCase {
+  final AuthenticationRepositoryInterface repository;
+
+  ForgotPasswordUseCase(this.repository);
+
+  Future<bool> call(String email) async {
+    return await repository.forgotPassword(email);
+  }
+}

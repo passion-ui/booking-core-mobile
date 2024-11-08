@@ -36,17 +36,12 @@ Future<void> bindingDependencies() async {
     ConfigsRepository(sl(), sl()),
   );
   sl.registerSingleton<AuthenticationRepositoryInterface>(
-    AuthenticationRepository(
-      sl(),
-      sl(),
-    ),
+    AuthenticationRepository(sl(), sl()),
   );
 
   /**
    * Register for bloc
    */
   sl.registerSingleton<MessageBloc>(MessageBloc());
-  sl.registerSingleton<AuthenticationBloc>(
-    AuthenticationBloc(),
-  );
+  sl.registerSingleton<AuthenticationBloc>(AuthenticationBloc());
 }

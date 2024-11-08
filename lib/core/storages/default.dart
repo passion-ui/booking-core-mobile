@@ -2,6 +2,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class DefaultStorage {
   final SharedPreferences prefs;
+  final String prefSettings = "APP_SETTINGS";
+  final String prefConfigs = "APP_CONFIGS";
 
   DefaultStorage(this.prefs);
 

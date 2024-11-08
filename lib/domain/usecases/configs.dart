@@ -1,4 +1,3 @@
-import 'package:booking/core/core.dart';
 import 'package:booking/domain/domain.dart';
 
 class SyncConfigUseCase {
@@ -6,8 +5,11 @@ class SyncConfigUseCase {
 
   SyncConfigUseCase(this.repository);
 
-  Future<void> call() async {
-    final configs = await repository.fetchConfigs();
-    Logger.log('SyncConfigs: $configs');
+  Future<ConfigEntity> call(Function(ConfigEntity) onSuccess) async {
+    final storage = await repository.getConfigs();
+    if (storage != null) {
+      onSuccess(storage);
+    }
+    return await repository.fetchConfigs();
   }
 }

@@ -1,4 +1,5 @@
 export 'account/account.dart';
+export 'forgot_password/forgot_password.dart';
 export 'home/home.dart';
 export 'login/login.dart';
 export 'news/news.dart';

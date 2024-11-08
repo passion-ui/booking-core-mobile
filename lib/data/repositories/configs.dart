@@ -7,8 +7,15 @@ class ConfigsRepository extends ConfigsRepositoryInterface {
 
   ConfigsRepository(this._localDataSource, this._remoteDataSource);
 
-  Future<void> getConfigs() async {}
+  @override
+  Future<ConfigEntity?> getConfigs() async {
+    final config = await _localDataSource.getConfigs();
+    return config?.toEntity();
+  }
 
   @override
-  Future<ConfigsEntity?> fetchConfigs() async {}
+  Future<ConfigEntity> fetchConfigs() async {
+    final config = await _remoteDataSource.getConfigs();
+    return config.toEntity();
+  }
 }

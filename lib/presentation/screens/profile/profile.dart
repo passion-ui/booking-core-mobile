@@ -6,30 +6,40 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            centerTitle: true,
-            title: Text(
-              Translate.of(context).translate('profile'),
-            ),
-            pinned: true,
-          ),
-          SliverFillRemaining(
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [Text("Saved List")],
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          Translate.of(context).translate('profile'),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          children: [
+            Box(
+              child: Column(
+                children: [
+                  ListTitle(
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.cyan.withAlpha(80),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.domain,
+                        color: Colors.cyan,
+                      ),
+                    ),
+                    title: Translate.of(context).translate('domain'),
+                    onPress: () {},
                   ),
-                ),
+                ],
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -8,6 +8,26 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   AuthenticationRepository(this._remoteDataSource, this._localDataSource);
 
   @override
+  Future<bool> register(
+    String firstName,
+    String lastName,
+    String email,
+    String password,
+  ) async {
+    return await _remoteDataSource.register(
+      firstName,
+      lastName,
+      email,
+      password,
+    );
+  }
+
+  @override
+  Future<bool> forgotPassword(String email) async {
+    return await _remoteDataSource.forgotPassword(email);
+  }
+
+  @override
   Future<UserEntity> login(String username, String password) async {
     final user = await _remoteDataSource.login(username, password);
     return user.toEntity();

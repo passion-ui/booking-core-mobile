@@ -220,145 +220,136 @@ class Setting extends StatelessWidget {
   Widget build(BuildContext context) {
     final application = context.read<ApplicationBloc>().state;
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            centerTitle: true,
-            title: Text(
-              Translate.of(context).translate('settings'),
-            ),
-            pinned: true,
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(12),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          Translate.of(context).translate('settings'),
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          children: [
+            Box(
               child: Column(
                 children: [
-                  Box(
-                    child: Column(
-                      children: [
-                        ListTitle(
-                          leading: Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.blue.withAlpha(80),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              Icons.language,
-                              color: Colors.blue,
-                            ),
-                          ),
-                          description: Translate.of(context).translate(
-                            application.language.languageCode,
-                          ),
-                          descriptionPosition: DescriptionPosition.right,
-                          title: Translate.of(context).translate('language'),
-                          onPress: () => _onLanguage(context),
-                        ),
-                        SizedBox(height: 12),
-                        ListTitle(
-                          leading: Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.purple.withAlpha(80),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              Icons.color_lens_outlined,
-                              color: Colors.purple,
-                            ),
-                          ),
-                          title: Translate.of(context).translate('theme'),
-                          description: Container(
-                            width: 20,
-                            height: 20,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.primary,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                          ),
-                          descriptionPosition: DescriptionPosition.right,
-                          onPress: () => _onTheme(context),
-                        ),
-                        SizedBox(height: 12),
-                        ListTitle(
-                          leading: Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.indigo.withAlpha(80),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              Icons.dark_mode_outlined,
-                              color: Colors.indigo,
-                            ),
-                          ),
-                          description: Translate.of(context).translate(
-                            application.themeMode.toString(),
-                          ),
-                          descriptionPosition: DescriptionPosition.right,
-                          title: Translate.of(context).translate('dark_mode'),
-                          onPress: () => _onChangeDarkOption(context),
-                        ),
-                        SizedBox(height: 12),
-                        ListTitle(
-                          leading: Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.orangeAccent.withAlpha(80),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              Icons.text_format,
-                              color: Colors.orangeAccent,
-                            ),
-                          ),
-                          description: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .fontFamily,
-                          descriptionPosition: DescriptionPosition.right,
-                          title: Translate.of(context).translate('font'),
-                          onPress: () => _onFont(context),
-                        ),
-                      ],
+                  ListTitle(
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.blue.withAlpha(80),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.language,
+                        color: Colors.blue,
+                      ),
                     ),
+                    description: Translate.of(context).translate(
+                      application.language.languageCode,
+                    ),
+                    descriptionPosition: DescriptionPosition.right,
+                    title: Translate.of(context).translate('language'),
+                    onPress: () => _onLanguage(context),
                   ),
                   SizedBox(height: 12),
-                  Box(
-                    child: Column(
-                      children: [
-                        ListTitle(
-                          leading: Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.cyan.withAlpha(80),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              Icons.domain,
-                              color: Colors.cyan,
-                            ),
-                          ),
-                          description: application.domain,
-                          descriptionPosition: DescriptionPosition.right,
-                          title: Translate.of(context).translate('domain'),
-                          onPress: () {},
-                        ),
-                      ],
+                  ListTitle(
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.purple.withAlpha(80),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.color_lens_outlined,
+                        color: Colors.purple,
+                      ),
                     ),
-                  )
+                    title: Translate.of(context).translate('theme'),
+                    description: Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    descriptionPosition: DescriptionPosition.right,
+                    onPress: () => _onTheme(context),
+                  ),
+                  SizedBox(height: 12),
+                  ListTitle(
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.indigo.withAlpha(80),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.dark_mode_outlined,
+                        color: Colors.indigo,
+                      ),
+                    ),
+                    description: Translate.of(context).translate(
+                      application.themeMode.toString(),
+                    ),
+                    descriptionPosition: DescriptionPosition.right,
+                    title: Translate.of(context).translate('dark_mode'),
+                    onPress: () => _onChangeDarkOption(context),
+                  ),
+                  SizedBox(height: 12),
+                  ListTitle(
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.orangeAccent.withAlpha(80),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.text_format,
+                        color: Colors.orangeAccent,
+                      ),
+                    ),
+                    description:
+                        Theme.of(context).textTheme.titleLarge!.fontFamily,
+                    descriptionPosition: DescriptionPosition.right,
+                    title: Translate.of(context).translate('font'),
+                    onPress: () => _onFont(context),
+                  ),
                 ],
               ),
             ),
-          )
-        ],
+            SizedBox(height: 12),
+            Box(
+              child: Column(
+                children: [
+                  ListTitle(
+                    leading: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.cyan.withAlpha(80),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.domain,
+                        color: Colors.cyan,
+                      ),
+                    ),
+                    description: application.domain,
+                    descriptionPosition: DescriptionPosition.right,
+                    title: Translate.of(context).translate('domain'),
+                    onPress: () {},
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

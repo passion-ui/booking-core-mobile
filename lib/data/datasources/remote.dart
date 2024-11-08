@@ -5,7 +5,9 @@ class RemoteDataSource {
   final HTTPClient _httpClient;
   final DeviceInfo _deviceInfo;
 
+  final String _configs = "/configs";
   final String _login = "/auth/login";
+  final String _register = "/auth/register";
 
   RemoteDataSource(this._httpClient, this._deviceInfo);
 
@@ -13,6 +15,48 @@ class RemoteDataSource {
     _httpClient.baseUrl = url;
   }
 
+  /// Get Configs
+  Future<ConfigModel> getConfigs() async {
+    final response = await _httpClient.get(
+      url: _configs,
+      loading: true,
+    );
+    if (response['status'] == true) {
+      return ConfigModel.fromJson(response);
+    }
+    throw Exception(response['message'] ?? "unknown_error");
+  }
+
+  /// Register
+  Future<bool> register(
+    String firstName,
+    String lastName,
+    String email,
+    String password,
+  ) async {
+    final response = await _httpClient.post(
+      url: _register,
+      data: {
+        "email": email,
+        "password": password,
+        "first_name": firstName,
+        "last_name": lastName,
+        "term": 1
+      },
+      loading: true,
+    );
+    if (response['status'] == true) {
+      return true;
+    }
+    throw Exception(response['message'] ?? "unknown_error");
+  }
+
+  /// Forgot Password
+  Future<bool> forgotPassword(String email) async {
+    throw Exception("Forgot Password Api missing");
+  }
+
+  /// Login
   Future<UserModel> login(String username, String password) async {
     final response = await _httpClient.post(
       url: _login,
