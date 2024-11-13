@@ -21,7 +21,12 @@ class RemoteDataSource {
       url: _configs,
       loading: true,
     );
-    if (response['status'] == true) {
+    if (response['status'] == 1) {
+      response["booking_types"] =
+          (response['booking_types'] as Map<String, dynamic>)
+              .entries
+              .map((e) => e.value)
+              .toList();
       return ConfigModel.fromJson(response);
     }
     throw Exception(response['message'] ?? "unknown_error");

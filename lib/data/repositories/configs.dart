@@ -18,4 +18,9 @@ class ConfigsRepository extends ConfigsRepositoryInterface {
     final config = await _remoteDataSource.getConfigs();
     return config.toEntity();
   }
+
+  @override
+  Future<void> saveConfigs(ConfigEntity config) async {
+    await _localDataSource.saveConfigs(ConfigModel.fromEntity(config));
+  }
 }

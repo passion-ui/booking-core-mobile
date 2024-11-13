@@ -17,9 +17,9 @@ class ApplicationRepository implements ApplicationRepositoryInterface {
   }
 
   @override
-  Future<bool> setApplicationSetting(ApplicationEntity setting) async {
+  Future<void> setApplicationSetting(ApplicationEntity setting) async {
     _remoteDataSource.setBaseUrl(setting.domain);
-    return await _localDataSource.setApplicationSettings(
+    await _localDataSource.setApplicationSettings(
       ApplicationModel.fromEntity(setting),
     );
   }

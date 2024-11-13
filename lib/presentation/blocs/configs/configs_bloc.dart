@@ -8,10 +8,10 @@ class ConfigsBloc extends Bloc<ConfigsEvent, ConfigsState> {
   ConfigsBloc() : super(ConfigsInitial()) {
     on<SyncConfigs>((event, emit) async {
       try {
-        // final config = await _syncConfigs.call((config) {
-        //   emit(ConfigsSuccess(config: config));
-        // });
-        // emit(ConfigsSuccess(config: config));
+        final config = await _syncConfigs.call((config) {
+          emit(ConfigsSuccess(config: config));
+        });
+        emit(ConfigsSuccess(config: config));
       } on Exception catch (error) {
         _messageBloc.add(
           OnMessage(title: error.toString().replaceAll("Exception: ", "")),

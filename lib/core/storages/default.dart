@@ -34,24 +34,27 @@ class DefaultStorage {
   }
 
   /// set value to shared preferences
-  Future<bool> setBool(String key, bool value) async {
-    return await prefs.setBool(key, value);
+  Future<void> setBool(String key, bool value) async {
+    await prefs.setBool(key, value);
   }
 
-  Future<bool> setInt(String key, int value) async {
-    return await prefs.setInt(key, value);
+  /// set value to shared preferences
+  Future<void> setInt(String key, int value) async {
+    await prefs.setInt(key, value);
   }
 
-  Future<bool> setDouble(String key, double value) async {
-    return await prefs.setDouble(key, value);
+  /// set value to shared preferences
+  Future<void> setDouble(String key, double value) async {
+    await prefs.setDouble(key, value);
   }
 
-  Future<bool> setString(String key, String value) async {
-    return await prefs.setString(key, value);
+  /// set value to shared preferences
+  Future<void> setString(String key, String value) async {
+    await prefs.setString(key, value);
   }
 
   /// remove value from shared preferences
-  Future<bool> remove(String key) async {
-    return await prefs.remove(key);
+  Future<void> remove(String key) async {
+    await prefs.remove(key);
   }
 }

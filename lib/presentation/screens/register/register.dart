@@ -9,10 +9,10 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  final _firstNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _firstNameController = TextEditingController(text: "John");
+  final _lastNameController = TextEditingController(text: "Doe");
+  final _emailController = TextEditingController(text: "example@gmail.com");
+  final _passwordController = TextEditingController(text: "123456");
 
   final _firstNameFocusNode = FocusNode();
   final _lastNameFocusNode = FocusNode();

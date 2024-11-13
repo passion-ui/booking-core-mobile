@@ -6,10 +6,14 @@ class SyncConfigUseCase {
   SyncConfigUseCase(this.repository);
 
   Future<ConfigEntity> call(Function(ConfigEntity) onSuccess) async {
-    final storage = await repository.getConfigs();
+    ConfigEntity? storage = await repository.getConfigs();
     if (storage != null) {
       onSuccess(storage);
     }
-    return await repository.fetchConfigs();
+
+    storage = await repository.fetchConfigs();
+    await repository.saveConfigs(storage);
+
+    return storage;
   }
 }

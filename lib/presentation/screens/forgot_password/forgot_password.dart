@@ -9,7 +9,7 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  final _emailController = TextEditingController();
+  final _emailController = TextEditingController(text: "example@gmail.com");
 
   final _emailFocusNode = FocusNode();
 

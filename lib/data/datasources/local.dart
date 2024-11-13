@@ -27,8 +27,8 @@ class LocalDataSource {
   }
 
   /// Set Application Settings
-  Future<bool> setApplicationSettings(ApplicationModel setting) async {
-    return await _defaultStorage.setString(
+  Future<void> setApplicationSettings(ApplicationModel setting) async {
+    await _defaultStorage.setString(
       _defaultStorage.prefSettings,
       jsonEncode(setting.toJson()),
     );
@@ -47,13 +47,24 @@ class LocalDataSource {
   }
 
   /// Save User Data
+  Future<void> saveConfigs(ConfigModel config) async {
+    return await _defaultStorage.setString(
+      _defaultStorage.prefConfigs,
+      jsonEncode(config.toJson()),
+    );
+  }
+
+  /// Save User Data
   Future<void> saveUserData(UserModel user) async {
-    return await _secureStorage.write("user", jsonEncode(user.toJson()));
+    return await _secureStorage.write(
+      _secureStorage.userKey,
+      jsonEncode(user.toJson()),
+    );
   }
 
   /// Get User Data
   Future<UserModel?> getUserData() async {
-    final jsonString = await _secureStorage.read("user");
+    final jsonString = await _secureStorage.read(_secureStorage.userKey);
     if (jsonString != null) {
       final json = jsonDecode(jsonString);
       return UserModel.fromJson(json);
@@ -63,6 +74,6 @@ class LocalDataSource {
 
   /// Delete User Data
   Future<void> deleteUserData() async {
-    return await _secureStorage.delete("user");
+    return await _secureStorage.delete(_secureStorage.userKey);
   }
 }
