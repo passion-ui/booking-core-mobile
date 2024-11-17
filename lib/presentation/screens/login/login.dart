@@ -123,7 +123,7 @@ class _LoginState extends State<Login> {
         ),
         body: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,

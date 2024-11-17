@@ -13,7 +13,7 @@ class Profile extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Column(
           children: [
             Box(

@@ -405,7 +405,7 @@ class _AccountState extends State<Account> {
             actions: actions,
           ),
           body: SingleChildScrollView(
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: container,
           ),
         );

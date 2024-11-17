@@ -141,7 +141,7 @@ class _RegisterState extends State<Register> {
               children: [
                 Expanded(
                   child: SingleChildScrollView(
-                    padding: const EdgeInsets.all(12),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     child: Box(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,7 +289,7 @@ class _RegisterState extends State<Register> {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
+                    horizontal: 16,
                     vertical: 8,
                   ),
                   decoration: BoxDecoration(

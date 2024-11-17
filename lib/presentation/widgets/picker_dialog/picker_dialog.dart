@@ -31,6 +31,10 @@ class _PickerDialogState<T> extends State<PickerDialog> {
 
   @override
   Widget build(BuildContext context) {
+    String title = Translate.of(context).translate('select_options');
+    if (widget.title != null) {
+      title = widget.title!;
+    }
     return SafeArea(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -50,12 +54,9 @@ class _PickerDialogState<T> extends State<PickerDialog> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: 44,
-                ),
+                SizedBox(width: 44),
                 Text(
-                  widget.title ??
-                      Translate.of(context).translate('select_options'),
+                  title,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 IconButton(
@@ -75,7 +76,7 @@ class _PickerDialogState<T> extends State<PickerDialog> {
               child: ListView.separated(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.all(12),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 itemCount: widget.items.length,
                 itemBuilder: (context, index) {
                   Widget? trailing;
@@ -108,13 +109,13 @@ class _PickerDialogState<T> extends State<PickerDialog> {
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(height: 8);
+                  return SizedBox(height: 12);
                 },
               ),
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 12),
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: Row(
               children: [
                 Expanded(
