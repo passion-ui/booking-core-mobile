@@ -1,18 +1,20 @@
 import 'package:booking/presentation/presentation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class ImageCached extends StatelessWidget {
+class CachedImage extends StatelessWidget {
   final String url;
   final double? width;
   final double? height;
   final BorderRadiusGeometry? borderRadius;
+  final BoxFit? fit;
 
-  const ImageCached({
+  const CachedImage({
     super.key,
     required this.url,
     this.width,
     this.height,
     this.borderRadius,
+    this.fit = BoxFit.cover,
   });
 
   @override
@@ -27,7 +29,7 @@ class ImageCached extends StatelessWidget {
             borderRadius: borderRadius,
             image: DecorationImage(
               image: imageProvider,
-              fit: BoxFit.cover,
+              fit: fit,
             ),
           ),
         );

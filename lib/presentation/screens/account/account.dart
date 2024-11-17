@@ -172,7 +172,7 @@ class _AccountState extends State<Account> {
           child: Column(
             children: [
               ListTitle(
-                leading: ImageCached(
+                leading: CachedImage(
                   width: 56,
                   height: 56,
                   url: user.avatar,

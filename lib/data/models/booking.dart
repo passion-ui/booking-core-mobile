@@ -11,7 +11,6 @@ class BookingModel {
     required this.searchFields,
   });
 
-
   BookingEntity toEntity() {
     return BookingEntity(
       name: name,
@@ -43,5 +42,4 @@ class BookingModel {
       searchFields: List<String>.from(json['searchFields'] ?? []),
     );
   }
-
 }

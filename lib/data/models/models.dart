@@ -1,4 +1,12 @@
 export 'application.dart';
+export 'block_bestseller.dart';
+export 'block_home.dart';
+export 'block_offers.dart';
+export 'block_services.dart';
 export 'booking.dart';
 export 'config.dart';
+export 'listing.dart';
+export 'location.dart';
+export 'offer.dart';
+export 'review.dart';
 export 'user.dart';

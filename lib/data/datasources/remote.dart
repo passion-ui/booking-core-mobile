@@ -8,6 +8,7 @@ class RemoteDataSource {
   final String _configs = "/configs";
   final String _login = "/auth/login";
   final String _register = "/auth/register";
+  final String _home = "/home-page";
 
   RemoteDataSource(this._httpClient, this._deviceInfo);
 
@@ -22,11 +23,6 @@ class RemoteDataSource {
       loading: true,
     );
     if (response['status'] == 1) {
-      response["booking_types"] =
-          (response['booking_types'] as Map<String, dynamic>)
-              .entries
-              .map((e) => e.value)
-              .toList();
       return ConfigModel.fromJson(response);
     }
     throw Exception(response['message'] ?? "unknown_error");
@@ -74,6 +70,31 @@ class RemoteDataSource {
     );
     if (response['status'] == 1) {
       return UserModel.fromJson(response);
+    }
+    throw Exception(response['message'] ?? "unknown_error");
+  }
+
+  /// Home
+  Future<List<BlockHomeModel>> loadHome() async {
+    final response = await _httpClient.get(
+      url: _home,
+    );
+    if (response['status'] == 1) {
+      return List.from(response['data'])
+          .where((item) => item['open'] == true)
+          .map((item) {
+        final String type = item['type'];
+        switch (type) {
+          case 'form_search_all_service':
+            return BlockServicesModel.fromJson(item);
+          case 'offer_block':
+            return BlockOffersModel.fromJson(item);
+          case 'list_hotel':
+            return BlockBestSellerModel.fromJson(item);
+          default:
+            return BlockHomeModel.fromJson(item);
+        }
+      }).toList();
     }
     throw Exception(response['message'] ?? "unknown_error");
   }

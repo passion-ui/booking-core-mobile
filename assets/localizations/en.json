@@ -65,5 +65,6 @@
   "confirm_new_password": "Confirm New Password",
   "save_changes": "Save Changes",
   "read_and_accept": "I have read and accept",
-  "forgot_message": "Please enter your email address. You will receive a link to create a new password via email"
+  "forgot_message": "Please enter your email address. You will receive a link to create a new password via email",
+  "where_would_you_go": "Where would you like to go?"
 }

@@ -22,6 +22,7 @@ dependencies:
   bloc: 8.1.4
   flutter_bloc: 8.1.6
   cached_network_image: 3.4.1
+  card_swiper: 3.0.1
   flutter_svprogresshud:
     git:
       url: https://github.com/lucianokapluk/flutter_svprogresshud.git

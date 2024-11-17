@@ -14,6 +14,7 @@ class Routers {
   static const String about = '/about';
   static const String privacy = '/privacy';
   static const String terms = '/terms';
+  static const String listing = '/listing';
 
   static const String notFound = '/404';
 
@@ -96,6 +97,12 @@ class Routers {
             path: settings,
             builder: (BuildContext context, GoRouterState state) {
               return const Setting();
+            },
+          ),
+          GoRoute(
+            path: listing,
+            builder: (BuildContext context, GoRouterState state) {
+              return const Listing();
             },
           ),
         ],
