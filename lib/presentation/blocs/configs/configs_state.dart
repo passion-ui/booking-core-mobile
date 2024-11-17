@@ -5,7 +5,7 @@ class ConfigsState {}
 class ConfigsInitial extends ConfigsState {}
 
 class ConfigsSuccess extends ConfigsState {
-  final ConfigEntity config;
+  final ConfigEntity data;
 
-  ConfigsSuccess({required this.config});
+  ConfigsSuccess({required this.data});
 }

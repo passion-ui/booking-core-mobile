@@ -1,0 +1,13 @@
+import 'package:booking/domain/domain.dart';
+
+class HotelEntity extends ListingEntity {
+  HotelEntity({
+    required super.id,
+    required super.title,
+    required super.price,
+    required super.image,
+    required super.content,
+    required super.location,
+    required super.review,
+  });
+}

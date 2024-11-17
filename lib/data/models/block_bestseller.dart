@@ -33,9 +33,9 @@ class BlockBestSellerModel extends BlockHomeModel {
     return BlockBestSellerModel(
       title: json['model']['title'] ?? '',
       description: json['model']['desc'] ?? json['model']['sub_title'] ?? '',
-      items: List.from(json['model']['data']).map((e) {
-        return ListingModel.fromJson(e);
-      }).toList(),
+      items: List<ListingModel>.from(
+        json['model']['data'].map((item) => ListingModel.fromJson(item)),
+      ),
       style: json['style'] ?? '',
     );
   }

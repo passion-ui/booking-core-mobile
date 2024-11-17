@@ -1,9 +1,15 @@
 import 'package:booking/domain/domain.dart';
 
+enum ListingViewStyle {
+  normal,
+  grid,
+  list,
+}
+
 class ListingEntity {
   final int id;
   final String title;
-  final String price;
+  final num price;
   final String image;
   final String content;
   final LocationEntity location;

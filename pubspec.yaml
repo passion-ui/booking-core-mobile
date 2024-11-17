@@ -22,6 +22,7 @@ dependencies:
   bloc: 8.1.4
   flutter_bloc: 8.1.6
   cached_network_image: 3.4.1
+  flutter_rating_bar: 4.0.1
   card_swiper: 3.0.1
   flutter_svprogresshud:
     git:
@@ -51,12 +52,6 @@ flutter_native_splash:
   color: "#ffffff"
   image: assets/images/logo.png
   color_dark: "#ffffff"
-
-  android_12:
-    image: assets/images/logo.png
-    icon_background_color: "#ffffff"
-    image_dark: assets/images/logo.png
-    icon_background_color_dark: "#ffffff"
 
   web: false
 

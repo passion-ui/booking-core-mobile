@@ -4,7 +4,7 @@ import 'package:booking/domain/domain.dart';
 class ListingModel {
   final int id;
   final String title;
-  final String price;
+  final num price;
   final String image;
   final String content;
   final LocationModel location;
@@ -33,14 +33,19 @@ class ListingModel {
   }
 
   factory ListingModel.fromJson(Map<String, dynamic> json) {
-    return ListingModel(
-      id: json['id'] ?? 0,
-      title: json['title'] ?? '',
-      price: json['price'] ?? '',
-      image: json['image'] ?? '',
-      content: json['content'] ?? '',
-      location: LocationModel.fromJson(json['location']),
-      review: ReviewModel.fromJson(json['review_score']),
-    );
+    switch (json['object_model']) {
+      case 'hotel':
+        return HotelModel.fromJson(json);
+      default:
+        return ListingModel(
+          id: json['id'] ?? 0,
+          title: json['title'] ?? '',
+          price: num.tryParse(json['price'] ?? "") ?? 0,
+          image: json['image'] ?? '',
+          content: json['content'] ?? '',
+          location: LocationModel.fromJson(json['location']),
+          review: ReviewModel.fromJson(json['review_score']),
+        );
+    }
   }
 }

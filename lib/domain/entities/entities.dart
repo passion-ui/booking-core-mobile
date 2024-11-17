@@ -5,6 +5,8 @@ export 'block_offers.dart';
 export 'block_services.dart';
 export 'booking.dart';
 export 'config.dart';
+export 'currency.dart';
+export 'hotel.dart';
 export 'listing.dart';
 export 'location.dart';
 export 'offer.dart';

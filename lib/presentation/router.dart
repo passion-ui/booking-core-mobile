@@ -1,4 +1,5 @@
 import 'package:booking/presentation/presentation.dart';
+import 'package:flutter/services.dart';
 
 class Routers {
   static const String main = '/';
@@ -59,6 +60,14 @@ class Routers {
             },
             child: BlocBuilder<ApplicationBloc, ApplicationState>(
               builder: (context, application) {
+                SystemChrome.setSystemUIOverlayStyle(
+                  SystemUiOverlayStyle(
+                    systemNavigationBarColor:
+                        Theme.of(context).colorScheme.primary.withAlpha(50),
+                    systemNavigationBarIconBrightness:
+                        Theme.of(context).brightness,
+                  ),
+                );
                 if (application is ApplicationLoaded) {
                   return const MainTab();
                 }

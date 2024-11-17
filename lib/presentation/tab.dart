@@ -10,6 +10,11 @@ class MainTab extends StatefulWidget {
 class _MainTabState extends State<MainTab> {
   int currentPageIndex = 0;
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void _onDestinationSelected(int index) async {
     setState(() {
       currentPageIndex = index;
@@ -26,6 +31,8 @@ class _MainTabState extends State<MainTab> {
       ],
       child: Scaffold(
         bottomNavigationBar: NavigationBar(
+          backgroundColor:
+              Theme.of(context).bottomNavigationBarTheme.backgroundColor,
           onDestinationSelected: _onDestinationSelected,
           selectedIndex: currentPageIndex,
           destinations: <Widget>[

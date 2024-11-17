@@ -1,6 +1,7 @@
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
+import 'bestseller.dart';
 import 'header.dart';
 import 'offers.dart';
 import 'services.dart';
@@ -33,6 +34,11 @@ class _HomeState extends State<Home> {
     context.go(Routers.listing);
   }
 
+  ///On Best Seller
+  void _onBestSeller(ListingEntity item) {
+    context.go(Routers.listing);
+  }
+
   ///Build block
   List<Widget> _buildBlock(BlockHomeEntity block) {
     if (block is BlockServicesEntity) {
@@ -51,7 +57,7 @@ class _HomeState extends State<Home> {
               List<BookingEntity> items = [];
               if (state is ConfigsSuccess) {
                 items = block.services.map((e) {
-                  return state.config.bookings[e]!;
+                  return state.data.bookings[e]!;
                 }).toList();
               }
               return ServicesBlock(
@@ -71,6 +77,15 @@ class _HomeState extends State<Home> {
           ),
         )
       ];
+    } else if (block is BlockBestSellerEntity) {
+      return [
+        SliverToBoxAdapter(
+          child: BestSellerBlock(
+            data: block,
+            onPressed: _onBestSeller,
+          ),
+        )
+      ];
     } else {
       return [
         SliverToBoxAdapter(
@@ -84,7 +99,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
+        builder: (context, home) {
           List<Widget> blocks = [
             SliverPersistentHeader(
               delegate: Header(),
@@ -95,10 +110,13 @@ class _HomeState extends State<Home> {
             ),
             SliverToBoxAdapter(
               child: OffersBlock(),
+            ),
+            SliverToBoxAdapter(
+              child: BestSellerBlock(),
             )
           ];
-          if (state is HomeSuccess) {
-            blocks = state.data
+          if (home is HomeSuccess) {
+            blocks = home.data
                 .map(_buildBlock)
                 .expand((sublist) => sublist)
                 .toList();

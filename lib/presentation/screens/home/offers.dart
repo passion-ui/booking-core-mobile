@@ -19,7 +19,7 @@ class OffersBlock extends StatelessWidget {
         margin: const EdgeInsets.all(8),
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary,
+          color: Theme.of(context).colorScheme.error,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Text(
@@ -117,9 +117,7 @@ class OffersBlock extends StatelessWidget {
                 final item = data!.offers[index];
                 return Stack(
                   children: [
-                    CachedImage(
-                      url: item.image,
-                    ),
+                    CachedImage(url: item.image),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -144,7 +142,7 @@ class OffersBlock extends StatelessWidget {
                                   item.description.replaceAll('<br>', ''),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .labelSmall
+                                      .bodySmall
                                       ?.copyWith(color: Colors.white),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 3,

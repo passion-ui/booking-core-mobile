@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 
 class Box extends StatelessWidget {
   final Widget child;
+  final EdgeInsets? padding;
 
-  const Box({super.key, required this.child});
+  const Box({
+    super.key,
+    required this.child,
+    this.padding = const EdgeInsets.all(12),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,8 @@ class Box extends StatelessWidget {
         ],
         borderRadius: BorderRadius.circular(12),
       ),
-      padding: const EdgeInsets.all(12),
+      clipBehavior: Clip.hardEdge,
+      padding: padding,
       child: child,
     );
   }
