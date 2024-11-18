@@ -6,6 +6,7 @@ import 'header.dart';
 import 'location.dart';
 import 'offers.dart';
 import 'services.dart';
+import 'tour.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -96,6 +97,15 @@ class _HomeState extends State<Home> {
       return [
         SliverToBoxAdapter(
           child: LocationBlock(
+            data: block,
+            onPressed: _onLocation,
+          ),
+        )
+      ];
+    } else if (block is BlockTourEntity) {
+      return [
+        SliverToBoxAdapter(
+          child: TourBlock(
             data: block,
             onPressed: _onLocation,
           ),

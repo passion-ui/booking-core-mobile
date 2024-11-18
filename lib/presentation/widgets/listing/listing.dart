@@ -18,9 +18,16 @@ class ListingItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (data is HotelEntity) {
-      return Hotel(
+      return HotelItem(
         data: data as HotelEntity,
         onPressed: onPressed as Function(HotelEntity)?,
+        style: style,
+        currency: currency,
+      );
+    } else if (data is TourEntity) {
+      return TourItem(
+        data: data as TourEntity,
+        onPressed: onPressed,
         style: style,
         currency: currency,
       );
@@ -31,7 +38,7 @@ class ListingItem extends StatelessWidget {
         style: style,
       );
     } else {
-      return Hotel(style: ListingViewStyle.normal);
+      return HotelItem(style: ListingViewStyle.normal);
     }
   }
 }

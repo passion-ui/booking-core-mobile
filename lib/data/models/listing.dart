@@ -28,6 +28,9 @@ class ListingModel {
       case 'hotel':
         return HotelModel.fromJson(json);
 
+      case 'tour':
+        return TourModel.fromJson(json);
+
       default:
         return ListingModel(
           id: json['id'] ?? 0,
