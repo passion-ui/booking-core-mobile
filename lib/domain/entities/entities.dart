@@ -1,8 +1,9 @@
 export 'application.dart';
 export 'block_bestseller.dart';
 export 'block_home.dart';
-export 'block_offers.dart';
-export 'block_services.dart';
+export 'block_location.dart';
+export 'block_offer.dart';
+export 'block_service.dart';
 export 'booking.dart';
 export 'config.dart';
 export 'currency.dart';

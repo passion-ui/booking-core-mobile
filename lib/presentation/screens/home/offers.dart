@@ -4,7 +4,7 @@ import 'package:booking/presentation/presentation.dart';
 import 'package:card_swiper/card_swiper.dart';
 
 class OffersBlock extends StatelessWidget {
-  final BlockOffersEntity? data;
+  final BlockOfferEntity? data;
   final Function(OfferEntity)? onPressed;
 
   const OffersBlock({

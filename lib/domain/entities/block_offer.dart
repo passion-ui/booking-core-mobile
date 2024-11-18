@@ -1,9 +1,9 @@
 import 'package:booking/domain/domain.dart';
 
-class BlockOffersEntity extends BlockHomeEntity {
+class BlockOfferEntity extends BlockHomeEntity {
   final List<OfferEntity> offers;
 
-  BlockOffersEntity({
+  BlockOfferEntity({
     required super.title,
     required super.description,
     required this.offers,

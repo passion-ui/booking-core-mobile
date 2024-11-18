@@ -3,6 +3,7 @@ import 'package:booking/presentation/presentation.dart';
 
 import 'bestseller.dart';
 import 'header.dart';
+import 'location.dart';
 import 'offers.dart';
 import 'services.dart';
 
@@ -39,9 +40,14 @@ class _HomeState extends State<Home> {
     context.go(Routers.listing);
   }
 
+  ///On Location
+  void _onLocation(ListingEntity item) {
+    context.go(Routers.listing);
+  }
+
   ///Build block
   List<Widget> _buildBlock(BlockHomeEntity block) {
-    if (block is BlockServicesEntity) {
+    if (block is BlockServiceEntity) {
       return [
         SliverPersistentHeader(
           delegate: Header(
@@ -68,7 +74,7 @@ class _HomeState extends State<Home> {
           ),
         )
       ];
-    } else if (block is BlockOffersEntity) {
+    } else if (block is BlockOfferEntity) {
       return [
         SliverToBoxAdapter(
           child: OffersBlock(
@@ -83,6 +89,15 @@ class _HomeState extends State<Home> {
           child: BestSellerBlock(
             data: block,
             onPressed: _onBestSeller,
+          ),
+        )
+      ];
+    } else if (block is BlockLocationEntity) {
+      return [
+        SliverToBoxAdapter(
+          child: LocationBlock(
+            data: block,
+            onPressed: _onLocation,
           ),
         )
       ];

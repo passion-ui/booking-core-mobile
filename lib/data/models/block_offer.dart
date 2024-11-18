@@ -1,10 +1,10 @@
 import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
-class BlockOffersModel extends BlockHomeModel {
+class BlockOfferModel extends BlockHomeModel {
   final List<OfferModel> offers;
 
-  BlockOffersModel({
+  BlockOfferModel({
     required super.title,
     required super.description,
     required this.offers,
@@ -12,15 +12,15 @@ class BlockOffersModel extends BlockHomeModel {
 
   @override
   BlockHomeEntity toEntity() {
-    return BlockOffersEntity(
+    return BlockOfferEntity(
       title: title,
       description: description,
       offers: offers.map((e) => e.toEntity()).toList(),
     );
   }
 
-  factory BlockOffersModel.fromJson(Map<String, dynamic> json) {
-    return BlockOffersModel(
+  factory BlockOfferModel.fromJson(Map<String, dynamic> json) {
+    return BlockOfferModel(
       title: json['model']['title'] ?? '',
       description: json['model']['desc'] ?? json['model']['sub_title'] ?? '',
       offers: List<OfferModel>.from(

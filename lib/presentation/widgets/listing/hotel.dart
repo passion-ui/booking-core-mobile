@@ -2,14 +2,14 @@ import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
 class Hotel extends StatelessWidget {
-  final HotelEntity data;
+  final HotelEntity? data;
   final ListingViewStyle style;
   final Function(HotelEntity)? onPressed;
   final String? currency;
 
   const Hotel({
     super.key,
-    required this.data,
+    this.data,
     required this.style,
     this.onPressed,
     this.currency,
@@ -17,10 +17,67 @@ class Hotel extends StatelessWidget {
 
   /// Build the normal view of the hotel.
   Widget _buildNormal(BuildContext context) {
+    if (data == null) {
+      return Box(
+        padding: EdgeInsets.zero,
+        child: Skeleton(
+          child: SizedBox(
+            width: 280,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 160,
+                  color: Colors.white,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 14,
+                        width: 80,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(height: 8),
+                      Container(
+                        height: 14,
+                        width: 200,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(height: 8),
+                      Container(
+                        height: 14,
+                        width: 150,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(height: 8),
+                      Container(
+                        height: 14,
+                        width: 220,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(height: 8),
+                      Container(
+                        height: 14,
+                        width: 120,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     return Box(
       padding: EdgeInsets.zero,
       child: GestureDetector(
-        onTap: () => onPressed!(data),
+        onTap: () => onPressed!(data!),
         child: SizedBox(
           width: 280,
           child: Column(
@@ -28,7 +85,7 @@ class Hotel extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  CachedImage(url: data.image, height: 160),
+                  CachedImage(url: data!.image, height: 160),
                   Positioned(
                     top: 8,
                     right: 8,
@@ -44,17 +101,17 @@ class Hotel extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Rating(value: data.review.score),
+                    Rating(value: data!.review.score),
                     const SizedBox(height: 4),
                     Text(
-                      data.title,
+                      data!.title,
                       style: Theme.of(context).textTheme.titleSmall,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      data.location.name,
+                      data!.location.name,
                       style: Theme.of(context).textTheme.bodySmall,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -72,7 +129,7 @@ class Hotel extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
-                            '${data.review.score}/5',
+                            '${data!.review.score}/5',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelSmall!
@@ -81,7 +138,7 @@ class Hotel extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          data.review.text,
+                          data!.review.text,
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium
@@ -91,7 +148,7 @@ class Hotel extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '(${data.review.total} ${Translate.of(context).translate('reviews')})',
+                          '(${data!.review.total} ${Translate.of(context).translate('reviews')})',
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
@@ -108,7 +165,7 @@ class Hotel extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '$currency${data.price.toStringAsFixed(0)}',
+                          '$currency${data!.price.toStringAsFixed(0)}',
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium

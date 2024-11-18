@@ -24,12 +24,14 @@ class ListingItem extends StatelessWidget {
         style: style,
         currency: currency,
       );
-    } else {
-      return Container(
-        width: 120,
-        height: 120,
-        color: Colors.red,
+    } else if (data is ListingEntity) {
+      return LocationItem(
+        data: data as ListingEntity,
+        onPressed: onPressed,
+        style: style,
       );
+    } else {
+      return Hotel(style: ListingViewStyle.normal);
     }
   }
 }

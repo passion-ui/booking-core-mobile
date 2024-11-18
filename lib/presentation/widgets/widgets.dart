@@ -3,6 +3,7 @@ export 'image/image.dart';
 export 'list_title/list_title.dart';
 export 'listing/hotel.dart';
 export 'listing/listing.dart';
+export 'listing/location.dart';
 export 'picker_dialog/picker_dialog.dart';
 export 'rating/rating.dart';
 export 'skeleton/skeleton.dart';

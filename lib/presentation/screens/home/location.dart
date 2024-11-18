@@ -1,11 +1,11 @@
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
-class BestSellerBlock extends StatelessWidget {
-  final BlockBestSellerEntity? data;
+class LocationBlock extends StatelessWidget {
+  final BlockLocationEntity? data;
   final Function(ListingEntity)? onPressed;
 
-  const BestSellerBlock({
+  const LocationBlock({
     super.key,
     this.data,
     this.onPressed,
@@ -58,7 +58,6 @@ class BestSellerBlock extends StatelessWidget {
       );
     }
 
-    String currency = '';
     Widget title = Container();
     Widget description = Container();
     Widget header = Container();
@@ -76,7 +75,7 @@ class BestSellerBlock extends StatelessWidget {
     }
     if (data!.title.isNotEmpty || data!.description.isNotEmpty) {
       header = Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
+        padding: const EdgeInsets.only(left: 16, right: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -87,18 +86,14 @@ class BestSellerBlock extends StatelessWidget {
       );
     }
 
-    final config = context.read<ConfigsBloc>().state;
-    if (config is ConfigsSuccess) {
-      currency = config.data.currency.symbol;
-    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         header,
         SizedBox(
-          height: 310,
+          height: 200,
           child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
@@ -107,7 +102,6 @@ class BestSellerBlock extends StatelessWidget {
                 data: item,
                 onPressed: onPressed,
                 style: ListingViewStyle.normal,
-                currency: currency,
               );
             },
             separatorBuilder: (BuildContext context, int index) {
