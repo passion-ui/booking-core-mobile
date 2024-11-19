@@ -96,9 +96,9 @@ class BestSellerBlock extends StatelessWidget {
       children: [
         header,
         SizedBox(
-          height: 310,
+          height: 260,
           child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {

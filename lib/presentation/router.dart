@@ -60,15 +60,20 @@ class Routers {
             },
             child: BlocBuilder<ApplicationBloc, ApplicationState>(
               builder: (context, application) {
-                SystemChrome.setSystemUIOverlayStyle(
-                  SystemUiOverlayStyle(
-                    systemNavigationBarColor:
-                        Theme.of(context).colorScheme.primary.withAlpha(50),
-                    systemNavigationBarIconBrightness:
-                        Theme.of(context).brightness,
-                  ),
-                );
                 if (application is ApplicationLoaded) {
+                  final color = Theme.of(context).dialogBackgroundColor;
+                  final brightness = Theme.of(context).brightness;
+                  Future.delayed(
+                    const Duration(milliseconds: 50),
+                    () {
+                      SystemChrome.setSystemUIOverlayStyle(
+                        SystemUiOverlayStyle(
+                          systemNavigationBarColor: color,
+                          systemNavigationBarIconBrightness: brightness,
+                        ),
+                      );
+                    },
+                  );
                   return const MainTab();
                 }
                 return const SplashScreen();

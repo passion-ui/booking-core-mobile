@@ -26,9 +26,7 @@ class Header extends SliverPersistentHeaderDelegate {
         url: banner!,
       );
     }
-    String search = Translate.of(context).translate(
-      'where_would_you_go',
-    );
+    String search = Translate.of(context).translate('where_would_you_go');
     if (placeholder != null && placeholder!.isNotEmpty) {
       search = placeholder!;
     }
@@ -45,12 +43,12 @@ class Header extends SliverPersistentHeaderDelegate {
                   child: image,
                 ),
               ),
-              SizedBox(height: 32),
+              SizedBox(height: 36),
             ],
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: SearchAnchor(
             searchController: _controller,
             viewOnSubmitted: (value) {

@@ -98,7 +98,6 @@ class HTTPClient {
   ///Error common handle
   Map<String, dynamic> errorHandle(DioException error) {
     String message = "unknown_error";
-    Map<String, dynamic> data = {};
 
     switch (error.type) {
       case DioExceptionType.sendTimeout:

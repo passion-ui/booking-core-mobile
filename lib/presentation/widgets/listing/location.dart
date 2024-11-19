@@ -16,35 +16,47 @@ class LocationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (data == null) {
-      return const Placeholder();
+      return Container(
+        width: 140,
+        height: 200,
+        color: Colors.white,
+      );
     }
 
-    return Box(
-      padding: EdgeInsets.zero,
-      child: GestureDetector(
-        onTap: () => onPressed!(data!),
-        child: SizedBox(
-          width: 140,
-          height: 220,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              CachedImage(url: data!.image),
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Text(
-                  data!.title,
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              )
-            ],
+    return GestureDetector(
+      onTap: () => onPressed!(data!),
+      child: Container(
+        width: 140,
+        height: 200,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            width: 1,
+            color: Theme.of(context).colorScheme.surfaceContainer,
           ),
+        ),
+        clipBehavior: Clip.hardEdge,
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            CachedImage(
+              url: data!.image,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Text(
+                data!.title,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Colors.white,
+                    ),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            )
+          ],
         ),
       ),
     );

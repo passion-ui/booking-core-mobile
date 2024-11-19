@@ -124,8 +124,8 @@ class OffersBlock extends StatelessWidget {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
+                              horizontal: 12,
+                              vertical: 8,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
