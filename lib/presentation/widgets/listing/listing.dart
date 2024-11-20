@@ -31,12 +31,6 @@ class ListingItem extends StatelessWidget {
         style: style,
         currency: currency,
       );
-    } else if (data is ListingEntity) {
-      return LocationItem(
-        data: data as ListingEntity,
-        onPressed: onPressed,
-        style: style,
-      );
     } else {
       return HotelItem(style: ListingViewStyle.normal);
     }

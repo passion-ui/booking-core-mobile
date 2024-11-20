@@ -3,7 +3,7 @@ import 'package:booking/presentation/presentation.dart';
 
 class LocationBlock extends StatelessWidget {
   final BlockLocationEntity? data;
-  final Function(ListingEntity)? onPressed;
+  final Function(LocationEntity)? onPressed;
 
   const LocationBlock({
     super.key,
@@ -98,7 +98,7 @@ class LocationBlock extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               final item = data!.items[index];
-              return ListingItem(
+              return LocationItem(
                 data: item,
                 onPressed: onPressed,
                 style: ListingViewStyle.normal,

@@ -2,8 +2,8 @@ import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
 class LocationItem extends StatelessWidget {
-  final ListingEntity? data;
-  final Function(ListingEntity)? onPressed;
+  final LocationEntity? data;
+  final Function(LocationEntity)? onPressed;
   final ListingViewStyle style;
 
   const LocationItem({
@@ -47,7 +47,7 @@ class LocationItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(12),
               child: Text(
-                data!.title,
+                data!.name,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: Colors.white,
                     ),

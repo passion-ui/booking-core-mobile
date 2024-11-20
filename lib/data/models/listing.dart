@@ -6,12 +6,20 @@ class ListingModel {
   final String title;
   final String image;
   final String content;
+  final bool isFeatured;
+  final num price;
+  final num salePrice;
+  final String saleOff;
 
   ListingModel({
     required this.id,
     required this.title,
     required this.image,
     required this.content,
+    required this.isFeatured,
+    required this.price,
+    required this.salePrice,
+    required this.saleOff,
   });
 
   ListingEntity toEntity() {
@@ -20,6 +28,10 @@ class ListingModel {
       title: title,
       image: image,
       content: content,
+      isFeatured: isFeatured,
+      price: price,
+      salePrice: salePrice,
+      saleOff: saleOff,
     );
   }
 
@@ -37,6 +49,10 @@ class ListingModel {
           title: json['title'] ?? '',
           image: json['image'] ?? '',
           content: json['content'] ?? '',
+          isFeatured: json['is_featured'] == 1,
+          saleOff: json['discount_percent'] ?? '',
+          price: num.tryParse(json['price'] ?? "") ?? 0,
+          salePrice: num.tryParse(json['sale_price'] ?? "") ?? 0,
         );
     }
   }

@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
   }
 
   ///On Location
-  void _onLocation(ListingEntity item) {
+  void _onLocation(LocationEntity item) {
     context.go(Routers.listing);
   }
 
@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
         SliverToBoxAdapter(
           child: TourBlock(
             data: block,
-            onPressed: _onLocation,
+            onPressed: _onBestSeller,
           ),
         )
       ];
@@ -138,6 +138,9 @@ class _HomeState extends State<Home> {
             ),
             SliverToBoxAdapter(
               child: BestSellerBlock(),
+            ),
+            SliverToBoxAdapter(
+              child: TourBlock(),
             )
           ];
           if (home is HomeSuccess) {

@@ -1,9 +1,6 @@
 import 'package:booking/domain/domain.dart';
 
 class TourEntity extends ListingEntity {
-  final num price;
-  final num salePrice;
-  final String saleOff;
   final String duration;
   final LocationEntity location;
   final ReviewEntity review;
@@ -13,9 +10,10 @@ class TourEntity extends ListingEntity {
     required super.title,
     required super.image,
     required super.content,
-    required this.price,
-    required this.salePrice,
-    required this.saleOff,
+    required super.isFeatured,
+    required super.price,
+    required super.salePrice,
+    required super.saleOff,
     required this.duration,
     required this.location,
     required this.review,

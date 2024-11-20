@@ -59,18 +59,69 @@ class HotelItem extends StatelessWidget {
                       width: 150,
                       color: Colors.white,
                     ),
-                    const SizedBox(height: 8),
-                    Container(
-                      height: 14,
-                      width: 220,
-                      color: Colors.white,
-                    ),
                   ],
                 ),
               ),
             ],
           ),
         ),
+      );
+    }
+
+    Widget featured = const SizedBox.shrink();
+    Widget sale = const SizedBox.shrink();
+
+    if (data!.isFeatured) {
+      featured = Positioned(
+        left: 8,
+        top: 8,
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8,
+            vertical: 4,
+          ),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.error,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            Translate.of(context).translate('featured'),
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: Colors.white,
+                ),
+          ),
+        ),
+      );
+    }
+
+    if (data!.saleOff.isNotEmpty) {
+      sale = Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 4,
+              vertical: 2,
+            ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.error,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              '-${data!.saleOff}',
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium
+                  ?.copyWith(color: Colors.white),
+            ),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            '${currency ?? ''}${data!.salePrice.toStringAsFixed(0)}',
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+          ),
+        ],
       );
     }
 
@@ -100,6 +151,7 @@ class HotelItem extends StatelessWidget {
                   url: data!.image,
                   height: 140,
                 ),
+                featured,
                 Positioned(
                   top: 8,
                   right: 8,
@@ -197,6 +249,8 @@ class HotelItem extends StatelessWidget {
                   const SizedBox(height: 4),
                   Row(
                     children: [
+                      sale,
+                      const SizedBox(width: 4),
                       Padding(
                         padding: const EdgeInsets.only(top: 2),
                         child: Text(

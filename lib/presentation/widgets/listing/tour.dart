@@ -71,11 +71,68 @@ class TourItem extends StatelessWidget {
       );
     }
 
+    Widget featured = const SizedBox.shrink();
+    Widget sale = const SizedBox.shrink();
+
+    if (data!.isFeatured) {
+      featured = Positioned(
+        left: 8,
+        top: 8,
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8,
+            vertical: 4,
+          ),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.error,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            Translate.of(context).translate('featured'),
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: Colors.white,
+                ),
+          ),
+        ),
+      );
+    }
+
+    if (data!.saleOff.isNotEmpty) {
+      sale = Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 4,
+              vertical: 2,
+            ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.error,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              '-${data!.saleOff}',
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium
+                  ?.copyWith(color: Colors.white),
+            ),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            '${currency ?? ''}${data!.salePrice.toStringAsFixed(0)}',
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+          ),
+        ],
+      );
+    }
+
     return GestureDetector(
       onTap: () => onPressed!(data!),
       child: Container(
         width: 280,
-        height: 310,
+        height: 300,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
@@ -113,6 +170,7 @@ class TourItem extends StatelessWidget {
                     ),
                   ),
                 ),
+                featured,
               ],
             ),
             Padding(
@@ -178,15 +236,7 @@ class TourItem extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
-                            '${currency ?? ''}${data!.salePrice.toStringAsFixed(0)}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge
-                                ?.copyWith(
-                                  color: Theme.of(context).colorScheme.error,
-                                ),
-                          ),
+                          sale,
                           Row(
                             children: [
                               Padding(

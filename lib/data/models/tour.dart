@@ -2,9 +2,6 @@ import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
 class TourModel extends ListingModel {
-  final num price;
-  final num salePrice;
-  final String saleOff;
   final String duration;
   final LocationModel location;
   final ReviewModel review;
@@ -14,9 +11,10 @@ class TourModel extends ListingModel {
     required super.title,
     required super.image,
     required super.content,
-    required this.price,
-    required this.salePrice,
-    required this.saleOff,
+    required super.isFeatured,
+    required super.price,
+    required super.salePrice,
+    required super.saleOff,
     required this.duration,
     required this.location,
     required this.review,
@@ -29,6 +27,7 @@ class TourModel extends ListingModel {
       title: title,
       image: image,
       content: content,
+      isFeatured: isFeatured,
       price: price,
       salePrice: salePrice,
       saleOff: saleOff,
@@ -48,6 +47,7 @@ class TourModel extends ListingModel {
       salePrice: num.tryParse(json['sale_price'] ?? "") ?? 0,
       image: json['image'] ?? '',
       content: json['content'] ?? '',
+      isFeatured: json['is_featured'] == 1,
       location: LocationModel.fromJson(json['location']),
       review: ReviewModel.fromJson(json['review_score']),
     );
