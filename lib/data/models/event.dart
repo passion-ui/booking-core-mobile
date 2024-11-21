@@ -1,8 +1,11 @@
 import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
-class HotelModel extends ListingModel {
-  HotelModel({
+class EventModel extends ListingModel {
+  final String duration;
+  final String startTime;
+
+  EventModel({
     required super.id,
     required super.title,
     required super.image,
@@ -13,11 +16,13 @@ class HotelModel extends ListingModel {
     required super.saleOff,
     required super.location,
     required super.review,
+    required this.duration,
+    required this.startTime,
   });
 
   @override
   ListingEntity toEntity() {
-    return HotelEntity(
+    return EventEntity(
       id: id,
       title: title,
       image: image,
@@ -28,11 +33,13 @@ class HotelModel extends ListingModel {
       saleOff: saleOff,
       location: location.toEntity(),
       review: review.toEntity(),
+      duration: duration,
+      startTime: startTime,
     );
   }
 
-  factory HotelModel.fromJson(Map<String, dynamic> json) {
-    return HotelModel(
+  factory EventModel.fromJson(Map<String, dynamic> json) {
+    return EventModel(
       id: json['id'] ?? 0,
       title: json['title'] ?? '',
       image: json['image'] ?? '',
@@ -43,6 +50,8 @@ class HotelModel extends ListingModel {
       salePrice: num.tryParse('${json['sale_price']}') ?? 0,
       location: LocationModel.fromJson(json['location']),
       review: ReviewModel.fromJson(json['review_score']),
+      duration: json['duration'] ?? '',
+      startTime: json['start_time'] ?? '',
     );
   }
 }

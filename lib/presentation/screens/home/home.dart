@@ -2,6 +2,8 @@ import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
 import 'bestseller.dart';
+import 'car.dart';
+import 'event.dart';
 import 'header.dart';
 import 'location.dart';
 import 'offers.dart';
@@ -121,6 +123,24 @@ class _HomeState extends State<Home> {
           ),
         )
       ];
+    } else if (block is BlockCarEntity) {
+      return [
+        SliverToBoxAdapter(
+          child: CarBlock(
+            data: block,
+            onPressed: _onListing,
+          ),
+        )
+      ];
+    } else if (block is BlockEventEntity) {
+      return [
+        SliverToBoxAdapter(
+          child: EventBlock(
+            data: block,
+            onPressed: _onListing,
+          ),
+        )
+      ];
     } else {
       return [
         SliverToBoxAdapter(
@@ -151,6 +171,9 @@ class _HomeState extends State<Home> {
             ),
             SliverToBoxAdapter(
               child: TourBlock(),
+            ),
+            SliverToBoxAdapter(
+              child: SpaceBlock(),
             )
           ];
           if (home is HomeSuccess) {

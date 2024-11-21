@@ -38,6 +38,19 @@ class ListingItem extends StatelessWidget {
         style: style,
         currency: currency,
       );
+    } else if (data is CarEntity) {
+      return Container(
+        width: 200,
+        height: 200,
+        color: Colors.red,
+      );
+    } else if (data is EventEntity) {
+      return EventItem(
+        data: data as EventEntity,
+        onPressed: onPressed,
+        style: style,
+        currency: currency,
+      );
     } else {
       return HotelItem(style: ListingViewStyle.normal);
     }

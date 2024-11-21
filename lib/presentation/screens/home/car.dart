@@ -1,11 +1,11 @@
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
-class LocationBlock extends StatelessWidget {
-  final BlockLocationEntity? data;
-  final Function(LocationEntity)? onPressed;
+class CarBlock extends StatelessWidget {
+  final BlockCarEntity? data;
+  final Function(ListingEntity)? onPressed;
 
-  const LocationBlock({
+  const CarBlock({
     super.key,
     this.data,
     this.onPressed,
@@ -40,9 +40,9 @@ class LocationBlock extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 310,
+            height: 260,
             child: ListView.separated(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
@@ -58,10 +58,16 @@ class LocationBlock extends StatelessWidget {
       );
     }
 
+    String currency = '';
     Widget title = SizedBox.shrink();
     Widget description = SizedBox.shrink();
     Widget header = SizedBox.shrink();
     Widget listing = SizedBox.shrink();
+
+    final config = context.read<ConfigsBloc>().state;
+    if (config is ConfigsSuccess) {
+      currency = config.data.currency.symbol;
+    }
 
     if (data!.title.isNotEmpty) {
       title = Text(
@@ -89,18 +95,19 @@ class LocationBlock extends StatelessWidget {
     }
 
     if (data!.items.isNotEmpty) {
-      return SizedBox(
-        height: 200,
+      listing = SizedBox(
+        height: 260,
         child: ListView.separated(
           padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             final item = data!.items[index];
-            return LocationItem(
+            return ListingItem(
               data: item,
               onPressed: onPressed,
               style: ListingViewStyle.normal,
+              currency: currency,
             );
           },
           separatorBuilder: (BuildContext context, int index) {

@@ -1,6 +1,7 @@
 export 'box/box.dart';
 export 'image/image.dart';
 export 'list_title/list_title.dart';
+export 'listing/event.dart';
 export 'listing/hotel.dart';
 export 'listing/listing.dart';
 export 'listing/location.dart';

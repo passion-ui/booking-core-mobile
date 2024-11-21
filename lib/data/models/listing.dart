@@ -52,6 +52,12 @@ class ListingModel {
       case 'space':
         return SpaceModel.fromJson(json);
 
+      case 'car':
+        return CarModel.fromJson(json);
+
+      case 'event':
+        return EventModel.fromJson(json);
+
       default:
         return ListingModel(
           id: json['id'] ?? 0,
@@ -60,8 +66,8 @@ class ListingModel {
           content: json['content'] ?? '',
           isFeatured: json['is_featured'] == 1,
           saleOff: json['discount_percent'] ?? '',
-          price: num.tryParse(json['price'] ?? "") ?? 0,
-          salePrice: num.tryParse(json['sale_price'] ?? "") ?? 0,
+          price: num.tryParse('${json['price']}') ?? 0,
+          salePrice: num.tryParse('${json['sale_price']}') ?? 0,
           location: LocationModel.fromJson(json['location']),
           review: ReviewModel.fromJson(json['review_score']),
         );

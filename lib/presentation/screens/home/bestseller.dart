@@ -59,9 +59,16 @@ class BestSellerBlock extends StatelessWidget {
     }
 
     String currency = '';
-    Widget title = Container();
-    Widget description = Container();
-    Widget header = Container();
+    Widget title = SizedBox.shrink();
+    Widget description = SizedBox.shrink();
+    Widget header = SizedBox.shrink();
+    Widget listing = SizedBox.shrink();
+
+    final config = context.read<ConfigsBloc>().state;
+    if (config is ConfigsSuccess) {
+      currency = config.data.currency.symbol;
+    }
+
     if (data!.title.isNotEmpty) {
       title = Text(
         data!.title,
@@ -87,35 +94,35 @@ class BestSellerBlock extends StatelessWidget {
       );
     }
 
-    final config = context.read<ConfigsBloc>().state;
-    if (config is ConfigsSuccess) {
-      currency = config.data.currency.symbol;
+    if (data!.items.isNotEmpty) {
+      listing = SizedBox(
+        height: 260,
+        child: ListView.separated(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            final item = data!.items[index];
+            return ListingItem(
+              data: item,
+              onPressed: onPressed,
+              style: ListingViewStyle.normal,
+              currency: currency,
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) {
+            return const SizedBox(width: 8);
+          },
+          itemCount: data!.items.length,
+        ),
+      );
     }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         header,
-        SizedBox(
-          height: 260,
-          child: ListView.separated(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              final item = data!.items[index];
-              return ListingItem(
-                data: item,
-                onPressed: onPressed,
-                style: ListingViewStyle.normal,
-                currency: currency,
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return const SizedBox(width: 8);
-            },
-            itemCount: data!.items.length,
-          ),
-        )
+        listing,
       ],
     );
   }

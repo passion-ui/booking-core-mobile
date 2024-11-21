@@ -1,13 +1,13 @@
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
-class TourItem extends StatelessWidget {
-  final TourEntity? data;
+class EventItem extends StatelessWidget {
+  final EventEntity? data;
   final ListingViewStyle style;
-  final Function(TourEntity)? onPressed;
+  final Function(EventEntity)? onPressed;
   final String? currency;
 
-  const TourItem({
+  const EventItem({
     super.key,
     this.data,
     required this.style,
@@ -179,7 +179,7 @@ class TourItem extends StatelessWidget {
       onTap: () => onPressed!(data!),
       child: Container(
         width: 280,
-        height: 300,
+        height: 320,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
@@ -260,6 +260,8 @@ class TourItem extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 4),
+                  Divider(),
+                  const SizedBox(height: 4),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -270,6 +272,18 @@ class TourItem extends StatelessWidget {
                             Icons.access_time,
                             size: 18,
                             color: Theme.of(context).colorScheme.primary,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            data!.startTime,
+                            style: Theme.of(context).textTheme.bodySmall,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            "/",
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                           const SizedBox(width: 4),
                           Text(

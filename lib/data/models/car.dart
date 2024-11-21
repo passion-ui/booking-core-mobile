@@ -1,8 +1,8 @@
 import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
-class HotelModel extends ListingModel {
-  HotelModel({
+class CarModel extends ListingModel {
+  CarModel({
     required super.id,
     required super.title,
     required super.image,
@@ -17,7 +17,7 @@ class HotelModel extends ListingModel {
 
   @override
   ListingEntity toEntity() {
-    return HotelEntity(
+    return CarEntity(
       id: id,
       title: title,
       image: image,
@@ -31,8 +31,8 @@ class HotelModel extends ListingModel {
     );
   }
 
-  factory HotelModel.fromJson(Map<String, dynamic> json) {
-    return HotelModel(
+  factory CarModel.fromJson(Map<String, dynamic> json) {
+    return CarModel(
       id: json['id'] ?? 0,
       title: json['title'] ?? '',
       image: json['image'] ?? '',

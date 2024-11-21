@@ -69,7 +69,32 @@ class HotelItem extends StatelessWidget {
     }
 
     Widget featured = const SizedBox.shrink();
-    Widget sale = const SizedBox.shrink();
+    Widget sale = Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 2),
+          child: Text(
+            Translate.of(context).translate('from'),
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
+        ),
+        const SizedBox(width: 4),
+        Text(
+          '$currency${data!.price.toStringAsFixed(0)}',
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+        ),
+        const SizedBox(width: 4),
+        Padding(
+          padding: const EdgeInsets.only(top: 2),
+          child: Text(
+            '/${Translate.of(context).translate('night')}',
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
+        ),
+      ],
+    );
 
     if (data!.isFeatured) {
       featured = Positioned(
@@ -116,10 +141,35 @@ class HotelItem extends StatelessWidget {
           ),
           const SizedBox(width: 4),
           Text(
-            '${currency ?? ''}${data!.salePrice.toStringAsFixed(0)}',
+            '${currency ?? ''}${data!.price.toStringAsFixed(0)}',
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: Theme.of(context).colorScheme.error,
+                  decoration: TextDecoration.lineThrough,
+                  decorationColor: Theme.of(context).colorScheme.error,
                 ),
+          ),
+          const SizedBox(width: 4),
+          Padding(
+            padding: const EdgeInsets.only(top: 2),
+            child: Text(
+              Translate.of(context).translate('from'),
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+          ),
+          const SizedBox(width: 4),
+          Text(
+            '$currency${data!.salePrice.toStringAsFixed(0)}',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+          ),
+          const SizedBox(width: 4),
+          Padding(
+            padding: const EdgeInsets.only(top: 2),
+            child: Text(
+              '/${Translate.of(context).translate('night')}',
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
           ),
         ],
       );
@@ -247,35 +297,7 @@ class HotelItem extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      sale,
-                      const SizedBox(width: 4),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 2),
-                        child: Text(
-                          Translate.of(context).translate('from'),
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        '$currency${data!.price.toStringAsFixed(0)}',
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                      ),
-                      const SizedBox(width: 4),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 2),
-                        child: Text(
-                          '/${Translate.of(context).translate('night')}',
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                      ),
-                    ],
-                  ),
+                  sale,
                 ],
               ),
             ),

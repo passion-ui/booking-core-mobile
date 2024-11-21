@@ -74,9 +74,11 @@ class OffersBlock extends StatelessWidget {
         ),
       );
     }
-    Widget title = Container();
-    Widget description = Container();
-    Widget header = Container();
+    Widget title = SizedBox.shrink();
+    Widget description = SizedBox.shrink();
+    Widget header = SizedBox.shrink();
+    Widget slider = SizedBox.shrink();
+
     if (data!.title.isNotEmpty) {
       title = Text(
         data!.title,
@@ -100,95 +102,99 @@ class OffersBlock extends StatelessWidget {
       );
     }
 
+    if (data!.items.isNotEmpty) {
+      slider = Container(
+        height: 120,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Swiper(
+          itemBuilder: (context, index) {
+            final item = data!.items[index];
+            return Stack(
+              children: [
+                CachedImage(url: item.image),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item.title,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(color: Colors.white),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              item.description.replaceAll('<br>', ''),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(color: Colors.white),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    _buildFeatured(context, item),
+                    _buildIcon(context, item),
+                  ],
+                ),
+                Positioned(
+                  bottom: 8,
+                  right: 8,
+                  child: SizedBox(
+                    height: 32,
+                    child: FilledButton.tonal(
+                      onPressed: () {
+                        onPressed!(item);
+                      },
+                      child: Text(
+                        item.action,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+          autoplayDelay: 3000,
+          autoplayDisableOnInteraction: false,
+          autoplay: true,
+          itemCount: data!.items.length,
+          pagination: SwiperPagination(
+            alignment: const Alignment(0.0, 1.1),
+            builder: DotSwiperPaginationBuilder(
+              activeColor: Theme.of(context).colorScheme.primary,
+              color: Colors.white,
+              size: 6,
+              activeSize: 8,
+            ),
+          ),
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           header,
-          Container(
-            height: 120,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Swiper(
-              itemBuilder: (context, index) {
-                final item = data!.offers[index];
-                return Stack(
-                  children: [
-                    CachedImage(url: item.image),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  item.title,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(color: Colors.white),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  item.description.replaceAll('<br>', ''),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(color: Colors.white),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        _buildFeatured(context, item),
-                        _buildIcon(context, item),
-                      ],
-                    ),
-                    Positioned(
-                      bottom: 8,
-                      right: 8,
-                      child: SizedBox(
-                        height: 32,
-                        child: FilledButton.tonal(
-                          onPressed: () {
-                            onPressed!(item);
-                          },
-                          child: Text(
-                            item.action,
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
-              autoplayDelay: 3000,
-              autoplayDisableOnInteraction: false,
-              autoplay: true,
-              itemCount: data!.offers.length,
-              pagination: SwiperPagination(
-                alignment: const Alignment(0.0, 1.1),
-                builder: DotSwiperPaginationBuilder(
-                  activeColor: Theme.of(context).colorScheme.primary,
-                  color: Colors.white,
-                  size: 6,
-                  activeSize: 8,
-                ),
-              ),
-            ),
-          )
+          slider,
         ],
       ),
     );

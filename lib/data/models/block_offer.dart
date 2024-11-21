@@ -2,12 +2,12 @@ import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
 class BlockOfferModel extends BlockHomeModel {
-  final List<OfferModel> offers;
+  final List<OfferModel> items;
 
   BlockOfferModel({
     required super.title,
     required super.description,
-    required this.offers,
+    required this.items,
   });
 
   @override
@@ -15,7 +15,7 @@ class BlockOfferModel extends BlockHomeModel {
     return BlockOfferEntity(
       title: title,
       description: description,
-      offers: offers.map((e) => e.toEntity()).toList(),
+      items: items.map((e) => e.toEntity()).toList(),
     );
   }
 
@@ -23,7 +23,7 @@ class BlockOfferModel extends BlockHomeModel {
     return BlockOfferModel(
       title: json['model']['title'] ?? '',
       description: json['model']['desc'] ?? json['model']['sub_title'] ?? '',
-      offers: List<OfferModel>.from(
+      items: List<OfferModel>.from(
         json['model']['list_item'].map((item) => OfferModel.fromJson(item)),
       ),
     );
