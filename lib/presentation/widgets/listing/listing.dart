@@ -31,6 +31,13 @@ class ListingItem extends StatelessWidget {
         style: style,
         currency: currency,
       );
+    } else if (data is SpaceEntity) {
+      return SpaceItem(
+        data: data as SpaceEntity,
+        onPressed: onPressed,
+        style: style,
+        currency: currency,
+      );
     } else {
       return HotelItem(style: ListingViewStyle.normal);
     }

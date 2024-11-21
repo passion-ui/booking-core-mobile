@@ -1,9 +1,6 @@
 import 'package:booking/domain/domain.dart';
 
 class HotelEntity extends ListingEntity {
-  final LocationEntity location;
-  final ReviewEntity review;
-
   HotelEntity({
     required super.id,
     required super.title,
@@ -13,7 +10,7 @@ class HotelEntity extends ListingEntity {
     required super.price,
     required super.salePrice,
     required super.saleOff,
-    required this.location,
-    required this.review,
+    required super.location,
+    required super.review,
   });
 }

@@ -95,6 +95,8 @@ class RemoteDataSource {
             return BlockLocationModel.fromJson(item);
           case 'list_tours':
             return BlockTourModel.fromJson(item);
+          case 'list_space':
+            return BlockSpaceModel.fromJson(item);
           default:
             return BlockHomeModel.fromJson(item);
         }

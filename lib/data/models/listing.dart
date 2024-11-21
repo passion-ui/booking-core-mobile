@@ -10,6 +10,8 @@ class ListingModel {
   final num price;
   final num salePrice;
   final String saleOff;
+  final LocationModel location;
+  final ReviewModel review;
 
   ListingModel({
     required this.id,
@@ -20,6 +22,8 @@ class ListingModel {
     required this.price,
     required this.salePrice,
     required this.saleOff,
+    required this.location,
+    required this.review,
   });
 
   ListingEntity toEntity() {
@@ -32,6 +36,8 @@ class ListingModel {
       price: price,
       salePrice: salePrice,
       saleOff: saleOff,
+      location: location.toEntity(),
+      review: review.toEntity(),
     );
   }
 
@@ -43,6 +49,9 @@ class ListingModel {
       case 'tour':
         return TourModel.fromJson(json);
 
+      case 'space':
+        return SpaceModel.fromJson(json);
+
       default:
         return ListingModel(
           id: json['id'] ?? 0,
@@ -53,6 +62,8 @@ class ListingModel {
           saleOff: json['discount_percent'] ?? '',
           price: num.tryParse(json['price'] ?? "") ?? 0,
           salePrice: num.tryParse(json['sale_price'] ?? "") ?? 0,
+          location: LocationModel.fromJson(json['location']),
+          review: ReviewModel.fromJson(json['review_score']),
         );
     }
   }

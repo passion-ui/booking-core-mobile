@@ -6,6 +6,7 @@ import 'header.dart';
 import 'location.dart';
 import 'offers.dart';
 import 'services.dart';
+import 'space.dart';
 import 'tour.dart';
 
 class Home extends StatefulWidget {
@@ -37,7 +38,7 @@ class _HomeState extends State<Home> {
   }
 
   ///On Best Seller
-  void _onBestSeller(ListingEntity item) {
+  void _onListing(ListingEntity item) {
     context.go(Routers.listing);
   }
 
@@ -89,7 +90,7 @@ class _HomeState extends State<Home> {
         SliverToBoxAdapter(
           child: BestSellerBlock(
             data: block,
-            onPressed: _onBestSeller,
+            onPressed: _onListing,
           ),
         )
       ];
@@ -107,7 +108,16 @@ class _HomeState extends State<Home> {
         SliverToBoxAdapter(
           child: TourBlock(
             data: block,
-            onPressed: _onBestSeller,
+            onPressed: _onListing,
+          ),
+        )
+      ];
+    } else if (block is BlockSpaceEntity) {
+      return [
+        SliverToBoxAdapter(
+          child: SpaceBlock(
+            data: block,
+            onPressed: _onListing,
           ),
         )
       ];
@@ -154,7 +164,12 @@ class _HomeState extends State<Home> {
             edgeOffset: 246,
             onRefresh: () async {},
             child: CustomScrollView(
-              slivers: blocks,
+              slivers: [
+                ...blocks,
+                SliverPadding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                ),
+              ],
             ),
           );
         },

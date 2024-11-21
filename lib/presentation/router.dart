@@ -61,7 +61,7 @@ class Routers {
             child: BlocBuilder<ApplicationBloc, ApplicationState>(
               builder: (context, application) {
                 if (application is ApplicationLoaded) {
-                  final color = Theme.of(context).dialogBackgroundColor;
+                  final color = Theme.of(context).colorScheme.surfaceContainer;
                   final brightness = Theme.of(context).brightness;
                   Future.delayed(
                     const Duration(milliseconds: 50),

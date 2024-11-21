@@ -1,3 +1,5 @@
+import 'package:booking/domain/domain.dart';
+
 enum ListingViewStyle {
   normal,
   grid,
@@ -13,6 +15,8 @@ class ListingEntity {
   final num price;
   final num salePrice;
   final String saleOff;
+  final LocationEntity location;
+  final ReviewEntity review;
 
   ListingEntity({
     required this.id,
@@ -23,5 +27,7 @@ class ListingEntity {
     required this.price,
     required this.salePrice,
     required this.saleOff,
+    required this.location,
+    required this.review,
   });
 }

@@ -27,6 +27,9 @@ class ThemeUtils {
           borderRadius: BorderRadius.circular(12),
         ),
       ),
+      dividerTheme: DividerThemeData(
+        thickness: 0.5,
+      ),
     );
   }
 }

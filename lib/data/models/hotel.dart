@@ -2,9 +2,6 @@ import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
 class HotelModel extends ListingModel {
-  final LocationModel location;
-  final ReviewModel review;
-
   HotelModel({
     required super.id,
     required super.title,
@@ -14,8 +11,8 @@ class HotelModel extends ListingModel {
     required super.price,
     required super.salePrice,
     required super.saleOff,
-    required this.location,
-    required this.review,
+    required super.location,
+    required super.review,
   });
 
   @override

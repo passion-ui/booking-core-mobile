@@ -1,9 +1,12 @@
 import 'package:booking/domain/domain.dart';
 
-class TourEntity extends ListingEntity {
-  final String duration;
+class SpaceEntity extends ListingEntity {
+  final int guests;
+  final int beds;
+  final int bathrooms;
+  final int squares;
 
-  TourEntity({
+  SpaceEntity({
     required super.id,
     required super.title,
     required super.image,
@@ -14,6 +17,9 @@ class TourEntity extends ListingEntity {
     required super.saleOff,
     required super.location,
     required super.review,
-    required this.duration,
+    required this.guests,
+    required this.beds,
+    required this.bathrooms,
+    required this.squares,
   });
 }

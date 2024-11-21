@@ -31,7 +31,7 @@ class _MainTabState extends State<MainTab> {
       ],
       child: Scaffold(
         bottomNavigationBar: NavigationBar(
-          backgroundColor: Theme.of(context).dialogBackgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
           onDestinationSelected: _onDestinationSelected,
           selectedIndex: currentPageIndex,
           destinations: <Widget>[
