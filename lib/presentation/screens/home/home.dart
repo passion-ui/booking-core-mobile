@@ -46,7 +46,7 @@ class _HomeState extends State<Home> {
   }
 
   ///On Location
-  void _onLocation(LocationEntity item) {
+  void _onLocation(CategoryEntity item) {
     context.go(Routers.listing);
   }
 

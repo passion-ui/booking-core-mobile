@@ -15,7 +15,7 @@ class ListingEntity {
   final num price;
   final num salePrice;
   final String saleOff;
-  final LocationEntity location;
+  final CategoryEntity location;
   final ReviewEntity review;
 
   ListingEntity({

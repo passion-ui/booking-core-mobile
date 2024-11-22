@@ -181,7 +181,7 @@ class EventItem extends StatelessWidget {
         width: 280,
         height: 320,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.surfaceContainerLowest,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             width: 1,

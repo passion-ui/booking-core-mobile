@@ -46,7 +46,7 @@ class TourModel extends ListingModel {
       image: json['image'] ?? '',
       content: json['content'] ?? '',
       isFeatured: json['is_featured'] == 1,
-      location: LocationModel.fromJson(json['location']),
+      location: CategoryModel.fromJson(json['location']),
       review: ReviewModel.fromJson(json['review_score']),
     );
   }

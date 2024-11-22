@@ -54,7 +54,7 @@ class SpaceModel extends ListingModel {
       saleOff: json['discount_percent'] ?? '',
       price: num.tryParse('${json['price']}') ?? 0,
       salePrice: num.tryParse('${json['sale_price']}') ?? 0,
-      location: LocationModel.fromJson(json['location']),
+      location: CategoryModel.fromJson(json['location']),
       review: ReviewModel.fromJson(json['review_score']),
       guests: json['max_guests'] ?? 0,
       beds: json['bed'] ?? 0,

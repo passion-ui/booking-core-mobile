@@ -2,7 +2,7 @@ import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
 class BlockLocationModel extends BlockHomeModel {
-  final List<LocationModel> items;
+  final List<CategoryModel> items;
 
   BlockLocationModel({
     required super.title,
@@ -23,8 +23,8 @@ class BlockLocationModel extends BlockHomeModel {
     return BlockLocationModel(
       title: json['model']['title'] ?? '',
       description: json['model']['desc'] ?? json['model']['sub_title'] ?? '',
-      items: List<LocationModel>.from(
-        json['model']['data'].map((item) => LocationModel.fromJson(item)),
+      items: List<CategoryModel>.from(
+        json['model']['data'].map((item) => CategoryModel.fromJson(item)),
       ),
     );
   }

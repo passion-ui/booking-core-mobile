@@ -181,7 +181,7 @@ class TourItem extends StatelessWidget {
         width: 280,
         height: 300,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.surfaceContainerLowest,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             width: 1,

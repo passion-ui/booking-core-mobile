@@ -3,7 +3,7 @@ import 'package:booking/presentation/presentation.dart';
 
 class LocationBlock extends StatelessWidget {
   final BlockLocationEntity? data;
-  final Function(LocationEntity)? onPressed;
+  final Function(CategoryEntity)? onPressed;
 
   const LocationBlock({
     super.key,

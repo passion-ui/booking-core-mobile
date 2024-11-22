@@ -181,7 +181,7 @@ class HotelItem extends StatelessWidget {
         width: 240,
         height: 260,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.surfaceContainerLowest,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             width: 1,

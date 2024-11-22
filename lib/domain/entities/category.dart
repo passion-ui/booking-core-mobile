@@ -1,9 +1,9 @@
-class LocationEntity {
+class CategoryEntity {
   final int id;
   final String name;
   final String image;
 
-  LocationEntity({
+  CategoryEntity({
     required this.id,
     required this.name,
     required this.image,

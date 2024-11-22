@@ -103,6 +103,8 @@ class RemoteDataSource {
             return BlockEventModel.fromJson(item);
           case 'list_boat':
             return BlockBoatModel.fromJson(item);
+          case 'list_news':
+            return BlockNewModel.fromJson(item);
           default:
             return BlockHomeModel.fromJson(item);
         }

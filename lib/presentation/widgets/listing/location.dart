@@ -2,8 +2,8 @@ import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
 class LocationItem extends StatelessWidget {
-  final LocationEntity? data;
-  final Function(LocationEntity)? onPressed;
+  final CategoryEntity? data;
+  final Function(CategoryEntity)? onPressed;
   final ListingViewStyle style;
 
   const LocationItem({
@@ -29,7 +29,7 @@ class LocationItem extends StatelessWidget {
         width: 140,
         height: 200,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.surfaceContainerLowest,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             width: 1,

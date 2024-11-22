@@ -181,7 +181,7 @@ class SpaceItem extends StatelessWidget {
         width: 240,
         height: 300,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.surfaceContainerLowest,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             width: 1,
