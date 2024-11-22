@@ -7,7 +7,8 @@ import 'car.dart';
 import 'event.dart';
 import 'header.dart';
 import 'location.dart';
-import 'offers.dart';
+import 'offer.dart';
+import 'post.dart';
 import 'services.dart';
 import 'space.dart';
 import 'tour.dart';
@@ -42,6 +43,11 @@ class _HomeState extends State<Home> {
 
   ///On Best Seller
   void _onListing(ListingEntity item) {
+    context.go(Routers.listing);
+  }
+
+  ///On New
+  void _onNew(PostEntity item) {
     context.go(Routers.listing);
   }
 
@@ -82,7 +88,7 @@ class _HomeState extends State<Home> {
     } else if (block is BlockOfferEntity) {
       return [
         SliverToBoxAdapter(
-          child: OffersBlock(
+          child: OfferBlock(
             data: block,
             onPressed: _onOffer,
           ),
@@ -151,6 +157,15 @@ class _HomeState extends State<Home> {
           ),
         )
       ];
+    } else if (block is BlockPostEntity) {
+      return [
+        SliverToBoxAdapter(
+          child: PostBlock(
+            data: block,
+            onPressed: _onNew,
+          ),
+        )
+      ];
     } else {
       return [
         SliverToBoxAdapter(
@@ -174,7 +189,7 @@ class _HomeState extends State<Home> {
               child: ServicesBlock(),
             ),
             SliverToBoxAdapter(
-              child: OffersBlock(),
+              child: OfferBlock(),
             ),
             SliverToBoxAdapter(
               child: BestSellerBlock(),

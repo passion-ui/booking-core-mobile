@@ -7,6 +7,7 @@ class PostModel {
   final String title;
   final String image;
   final String content;
+  final String createdAt;
   final CategoryModel category;
   final UserModel author;
 
@@ -16,6 +17,7 @@ class PostModel {
     required this.title,
     required this.image,
     required this.content,
+    required this.createdAt,
     required this.category,
     required this.author,
   });
@@ -27,6 +29,7 @@ class PostModel {
       title: title,
       image: image,
       content: content,
+      createdAt: createdAt,
       category: category.toEntity(),
       author: author.toEntity(),
     );
@@ -37,8 +40,9 @@ class PostModel {
       id: json['id'] ?? 0,
       slug: json['slug'] ?? '',
       title: json['title'] ?? '',
-      image: json['image'] ?? '',
+      image: json['image_url'] ?? '',
       content: json['content'] ?? '',
+      createdAt: json['created_at'] ?? '',
       category: CategoryModel.fromJson(json['category'] ?? {}),
       author: UserModel.fromJson({"user": json['author']}),
     );

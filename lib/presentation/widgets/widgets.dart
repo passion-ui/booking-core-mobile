@@ -6,6 +6,7 @@ export 'listing/event.dart';
 export 'listing/hotel.dart';
 export 'listing/listing.dart';
 export 'listing/location.dart';
+export 'listing/post.dart';
 export 'listing/space.dart';
 export 'listing/tour.dart';
 export 'picker_dialog/picker_dialog.dart';

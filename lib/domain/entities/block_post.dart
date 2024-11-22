@@ -1,10 +1,10 @@
 import 'package:booking/domain/domain.dart';
 
-class BlockNewEntity extends BlockHomeEntity {
+class BlockPostEntity extends BlockHomeEntity {
   final List<PostEntity> items;
   final ListingViewStyle style;
 
-  BlockNewEntity({
+  BlockPostEntity({
     required super.title,
     required super.description,
     required this.items,

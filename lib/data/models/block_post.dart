@@ -1,11 +1,11 @@
 import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
-class BlockNewModel extends BlockHomeModel {
+class BlockPostModel extends BlockHomeModel {
   final List<PostModel> items;
   final String style;
 
-  BlockNewModel({
+  BlockPostModel({
     required super.title,
     required super.description,
     required this.items,
@@ -21,7 +21,7 @@ class BlockNewModel extends BlockHomeModel {
       style = ListingViewStyle.list;
     }
 
-    return BlockNewEntity(
+    return BlockPostEntity(
       title: title,
       description: description,
       items: items.map((e) => e.toEntity()).toList(),
@@ -29,8 +29,8 @@ class BlockNewModel extends BlockHomeModel {
     );
   }
 
-  factory BlockNewModel.fromJson(Map<String, dynamic> json) {
-    return BlockNewModel(
+  factory BlockPostModel.fromJson(Map<String, dynamic> json) {
+    return BlockPostModel(
       title: json['model']['title'] ?? '',
       description: json['model']['desc'] ?? json['model']['sub_title'] ?? '',
       items: List<PostModel>.from(

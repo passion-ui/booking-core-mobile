@@ -16,47 +16,51 @@ class ServicesBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme.primary;
     if (items != null && items!.isNotEmpty) {
-      return Padding(
-        padding: const EdgeInsets.only(top: 12),
-        child: GridView.count(
-          crossAxisCount: 4,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-          shrinkWrap: true,
-          childAspectRatio: 1.2,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          physics: const NeverScrollableScrollPhysics(),
-          children: items!.map((item) {
-            return GestureDetector(
-              onTap: () => onPressed!(item),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    width: 44,
-                    height: 44,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: color.withOpacity(.15),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Icon(
-                      IconFactory.get(item.icon),
-                      color: color,
+      return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final width = constraints.maxWidth;
+          final itemWidth = (width - 32 - 24) / 4;
+          return Container(
+            padding: const EdgeInsets.only(top: 12, left: 16, right: 16),
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: items!.map((item) {
+                return SizedBox(
+                  width: itemWidth,
+                  child: GestureDetector(
+                    onTap: () => onPressed!(item),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          width: 44,
+                          height: 44,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: color.withOpacity(.15),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Icon(
+                            IconFactory.get(item.icon),
+                            color: color,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          item.name,
+                          maxLines: 1,
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    item.name,
-                    maxLines: 1,
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
-        ),
+                );
+              }).toList(),
+            ),
+          );
+        },
       );
     }
 

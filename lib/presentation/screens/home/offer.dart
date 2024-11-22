@@ -3,11 +3,11 @@ import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 import 'package:card_swiper/card_swiper.dart';
 
-class OffersBlock extends StatelessWidget {
+class OfferBlock extends StatelessWidget {
   final BlockOfferEntity? data;
   final Function(OfferEntity)? onPressed;
 
-  const OffersBlock({
+  const OfferBlock({
     super.key,
     this.data,
     this.onPressed,
