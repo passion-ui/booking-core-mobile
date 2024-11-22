@@ -1,4 +1,5 @@
 import 'package:booking/data/data.dart';
+import 'package:booking/data/models/boat.dart';
 import 'package:booking/domain/domain.dart';
 
 class ListingModel {
@@ -57,6 +58,9 @@ class ListingModel {
 
       case 'event':
         return EventModel.fromJson(json);
+
+      case 'boat':
+        return BoatModel.fromJson(json);
 
       default:
         return ListingModel(

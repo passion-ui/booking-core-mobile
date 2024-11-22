@@ -1,5 +1,6 @@
 export 'application.dart';
 export 'block_bestseller.dart';
+export 'block_boat.dart';
 export 'block_car.dart';
 export 'block_event.dart';
 export 'block_home.dart';

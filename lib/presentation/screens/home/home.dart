@@ -2,6 +2,7 @@ import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
 import 'bestseller.dart';
+import 'boat.dart';
 import 'car.dart';
 import 'event.dart';
 import 'header.dart';
@@ -136,6 +137,15 @@ class _HomeState extends State<Home> {
       return [
         SliverToBoxAdapter(
           child: EventBlock(
+            data: block,
+            onPressed: _onListing,
+          ),
+        )
+      ];
+    } else if (block is BlockBoatEntity) {
+      return [
+        SliverToBoxAdapter(
+          child: BoatBlock(
             data: block,
             onPressed: _onListing,
           ),

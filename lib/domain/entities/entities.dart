@@ -1,5 +1,6 @@
 export 'application.dart';
 export 'block_bestseller.dart';
+export 'block_boat.dart';
 export 'block_car.dart';
 export 'block_event.dart';
 export 'block_home.dart';
@@ -8,6 +9,7 @@ export 'block_offer.dart';
 export 'block_service.dart';
 export 'block_space.dart';
 export 'block_tour.dart';
+export 'boat.dart';
 export 'booking.dart';
 export 'car.dart';
 export 'config.dart';
