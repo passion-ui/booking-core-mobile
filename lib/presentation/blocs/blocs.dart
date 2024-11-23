@@ -20,3 +20,6 @@ export 'observer.dart';
 export 'register/register_bloc.dart';
 export 'register/register_event.dart';
 export 'register/register_state.dart';
+export 'wishlist/wish_list_bloc.dart';
+export 'wishlist/wish_list_event.dart';
+export 'wishlist/wish_list_state.dart';

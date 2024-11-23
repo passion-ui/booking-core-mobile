@@ -5,7 +5,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final _messageBloc = sl<MessageBloc>();
   final _loadHome = LoadHomeUseCase(sl());
   HomeBloc() : super(HomeInitial()) {
-    on<OnLoad>((event, emit) async {
+    on<OnLoadHome>((event, emit) async {
       try {
         final data = await _loadHome.call();
         emit(HomeSuccess(data: data));

@@ -41,6 +41,7 @@ Future<void> bindingDependencies() async {
   sl.registerSingleton<HomeRepositoryInterface>(
     HomeRepository(sl()),
   );
+
   /**
    * Register for bloc
    */

@@ -36,13 +36,13 @@ class LocalDataSource {
 
   /// Get Application Settings
   Future<ConfigModel?> getConfigs() async {
-    // final jsonString = _defaultStorage.getString(
-    //   _defaultStorage.prefConfigs,
-    // );
-    // if (jsonString != null) {
-    //   final json = jsonDecode(jsonString);
-    //   return ConfigModel.fromJson(json);
-    // }
+    final jsonString = _defaultStorage.getString(
+      _defaultStorage.prefConfigs,
+    );
+    if (jsonString != null) {
+      final json = jsonDecode(jsonString);
+      return ConfigModel.fromJson(json);
+    }
     return null;
   }
 

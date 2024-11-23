@@ -19,7 +19,6 @@ class AuthenticationBloc extends AuthBloc {
           emit(AuthenticationFail());
         } else {
           emit(AuthenticationSuccess(user: user));
-          final verify = await _verifyUser.call();
         }
       } on Exception catch (error) {
         _messageBloc.add(

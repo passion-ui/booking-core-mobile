@@ -1,14 +1,14 @@
 import 'package:booking/core/core.dart';
 import 'package:booking/presentation/presentation.dart';
 
-class Saved extends StatefulWidget {
-  const Saved({super.key});
+class WishList extends StatefulWidget {
+  const WishList({super.key});
 
   @override
-  State<Saved> createState() => _SavedState();
+  State<WishList> createState() => _WishListState();
 }
 
-class _SavedState extends State<Saved> {
+class _WishListState extends State<WishList> {
   /// Login
   void _onLogin() {
     context.go(Routers.login);
@@ -54,10 +54,15 @@ class _SavedState extends State<Saved> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          Translate.of(context).translate('saved'),
+          Translate.of(context).translate('wishlist'),
         ),
       ),
-      body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      body: BlocConsumer<AuthenticationBloc, AuthenticationState>(
+        listener: (context, state) {
+          if (state is AuthenticationSuccess) {
+            context.read<WishListBloc>().add(OnLoadWishList());
+          }
+        },
         builder: (context, authentication) {
           if (authentication is AuthenticationFail) {
             return _buildAuthentication();

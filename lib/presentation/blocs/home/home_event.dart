@@ -1,3 +1,3 @@
 class HomeEvent {}
 
-class OnLoad extends HomeEvent {}
+class OnLoadHome extends HomeEvent {}

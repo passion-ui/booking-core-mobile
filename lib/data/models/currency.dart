@@ -18,7 +18,7 @@ class CurrencyModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'main': main,
+      'currency_main': main,
       'symbol': symbol,
     };
   }

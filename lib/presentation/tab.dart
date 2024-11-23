@@ -26,7 +26,10 @@ class _MainTabState extends State<MainTab> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => HomeBloc()..add(OnLoad()),
+          create: (BuildContext context) => HomeBloc()..add(OnLoadHome()),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => WishListBloc(),
         ),
       ],
       child: Scaffold(
@@ -46,7 +49,7 @@ class _MainTabState extends State<MainTab> {
                 label: Text('2'),
                 child: Icon(Icons.favorite_border),
               ),
-              label: Translate.of(context).translate('saved'),
+              label: Translate.of(context).translate('wishlist'),
             ),
             NavigationDestination(
               selectedIcon: Icon(Icons.bookmark),
@@ -64,7 +67,7 @@ class _MainTabState extends State<MainTab> {
           index: currentPageIndex,
           children: <Widget>[
             Home(),
-            Saved(),
+            WishList(),
             News(),
             Account(),
           ],
