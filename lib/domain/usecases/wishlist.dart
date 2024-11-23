@@ -5,5 +5,7 @@ class GetWishListUseCase {
 
   GetWishListUseCase(this.repository);
 
-  Future<void> call() async {}
+  Future<void> call() async {
+    return await repository.fetch();
+  }
 }

@@ -3,7 +3,7 @@ import 'package:booking/presentation/presentation.dart';
 
 class TourBlock extends StatelessWidget {
   final BlockTourEntity? data;
-  final Function(ListingEntity)? onPressed;
+  final Function(ProductEntity)? onPressed;
 
   const TourBlock({
     super.key,

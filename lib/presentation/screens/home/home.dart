@@ -22,11 +22,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   ///On Scan
   void _onScan() {
     context.go(Routers.listing);
@@ -43,7 +38,7 @@ class _HomeState extends State<Home> {
   }
 
   ///On Best Seller
-  void _onListing(ListingEntity item) {
+  void _onListing(ProductEntity item) {
     context.go(Routers.listing);
   }
 

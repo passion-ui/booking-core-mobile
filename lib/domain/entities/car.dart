@@ -1,6 +1,6 @@
 import 'package:booking/domain/domain.dart';
 
-class CarEntity extends ListingEntity {
+class CarEntity extends ProductEntity {
   CarEntity({
     required super.id,
     required super.title,

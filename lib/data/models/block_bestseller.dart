@@ -2,7 +2,7 @@ import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
 class BlockBestSellerModel extends BlockHomeModel {
-  final List<ListingModel> items;
+  final List<ProductModel> items;
   final String style;
 
   BlockBestSellerModel({
@@ -33,8 +33,8 @@ class BlockBestSellerModel extends BlockHomeModel {
     return BlockBestSellerModel(
       title: json['model']['title'] ?? '',
       description: json['model']['desc'] ?? json['model']['sub_title'] ?? '',
-      items: List<ListingModel>.from(
-        json['model']['data'].map((item) => ListingModel.fromJson(item)),
+      items: List<ProductModel>.from(
+        json['model']['data'].map((item) => ProductModel.fromJson(item)),
       ),
       style: json['style'] ?? '',
     );

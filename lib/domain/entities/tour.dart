@@ -1,6 +1,6 @@
 import 'package:booking/domain/domain.dart';
 
-class TourEntity extends ListingEntity {
+class TourEntity extends ProductEntity {
   final String duration;
 
   TourEntity({

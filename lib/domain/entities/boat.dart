@@ -1,6 +1,6 @@
 import 'package:booking/domain/domain.dart';
 
-class BoatEntity extends ListingEntity {
+class BoatEntity extends ProductEntity {
   final int guests;
   final int cabins;
   final String length;

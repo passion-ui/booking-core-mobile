@@ -3,7 +3,7 @@ import 'package:booking/presentation/presentation.dart';
 
 class EventBlock extends StatelessWidget {
   final BlockEventEntity? data;
-  final Function(ListingEntity)? onPressed;
+  final Function(ProductEntity)? onPressed;
 
   const EventBlock({
     super.key,

@@ -1,7 +1,7 @@
 import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
-class EventModel extends ListingModel {
+class EventModel extends ProductModel {
   final String duration;
   final String startTime;
 
@@ -21,7 +21,7 @@ class EventModel extends ListingModel {
   });
 
   @override
-  ListingEntity toEntity() {
+  ProductEntity toEntity() {
     return EventEntity(
       id: id,
       title: title,

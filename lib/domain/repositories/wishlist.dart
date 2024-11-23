@@ -1,3 +1,3 @@
 abstract class WishListRepositoryInterface {
-  Future<void> getWishlist();
+  Future<void> fetch();
 }

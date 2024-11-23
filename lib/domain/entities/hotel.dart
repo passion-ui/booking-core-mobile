@@ -1,6 +1,6 @@
 import 'package:booking/domain/domain.dart';
 
-class HotelEntity extends ListingEntity {
+class HotelEntity extends ProductEntity {
   HotelEntity({
     required super.id,
     required super.title,

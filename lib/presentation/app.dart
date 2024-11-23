@@ -22,6 +22,12 @@ class App extends StatelessWidget {
         BlocProvider<MessageBloc>(
           create: (BuildContext context) => sl(),
         ),
+        BlocProvider(
+          create: (BuildContext context) => HomeBloc()..add(OnLoadHome()),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => WishListBloc(),
+        ),
       ],
       child: BlocConsumer<ApplicationBloc, ApplicationState>(
         listener: (context, state) {

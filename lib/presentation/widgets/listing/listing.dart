@@ -2,8 +2,8 @@ import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
 class ListingItem extends StatelessWidget {
-  final ListingEntity? data;
-  final Function(ListingEntity)? onPressed;
+  final ProductEntity? data;
+  final Function(ProductEntity)? onPressed;
   final ListingViewStyle style;
   final String? currency;
 

@@ -6,7 +6,7 @@ enum ListingViewStyle {
   list,
 }
 
-class ListingEntity {
+class ProductEntity {
   final int id;
   final String title;
   final String image;
@@ -18,7 +18,7 @@ class ListingEntity {
   final CategoryEntity location;
   final ReviewEntity review;
 
-  ListingEntity({
+  ProductEntity({
     required this.id,
     required this.title,
     required this.image,

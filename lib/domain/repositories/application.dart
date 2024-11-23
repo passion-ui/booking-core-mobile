@@ -1,6 +1,6 @@
 import 'package:booking/domain/domain.dart';
 
 abstract class ApplicationRepositoryInterface {
-  Future<ApplicationEntity?> getApplicationSetting();
-  Future<void> setApplicationSetting(ApplicationEntity setting);
+  Future<ApplicationEntity?> get();
+  Future<void> save(ApplicationEntity setting);
 }

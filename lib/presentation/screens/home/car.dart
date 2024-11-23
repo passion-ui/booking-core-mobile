@@ -3,7 +3,7 @@ import 'package:booking/presentation/presentation.dart';
 
 class CarBlock extends StatelessWidget {
   final BlockCarEntity? data;
-  final Function(ListingEntity)? onPressed;
+  final Function(ProductEntity)? onPressed;
 
   const CarBlock({
     super.key,

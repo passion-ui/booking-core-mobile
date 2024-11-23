@@ -1,7 +1,7 @@
 import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
-class TourModel extends ListingModel {
+class TourModel extends ProductModel {
   final String duration;
 
   TourModel({
@@ -19,7 +19,7 @@ class TourModel extends ListingModel {
   });
 
   @override
-  ListingEntity toEntity() {
+  ProductEntity toEntity() {
     return TourEntity(
       id: id,
       title: title,

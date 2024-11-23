@@ -3,7 +3,7 @@ import 'package:booking/presentation/presentation.dart';
 
 class BoatBlock extends StatelessWidget {
   final BlockBoatEntity? data;
-  final Function(ListingEntity)? onPressed;
+  final Function(ProductEntity)? onPressed;
 
   const BoatBlock({
     super.key,

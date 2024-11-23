@@ -41,6 +41,9 @@ Future<void> bindingDependencies() async {
   sl.registerSingleton<HomeRepositoryInterface>(
     HomeRepository(sl()),
   );
+  sl.registerSingleton<WishListRepositoryInterface>(
+    WishListRepository(sl()),
+  );
 
   /**
    * Register for bloc

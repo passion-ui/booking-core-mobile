@@ -8,7 +8,7 @@ class ApplicationRepository implements ApplicationRepositoryInterface {
   ApplicationRepository(this._remoteDataSource, this._localDataSource);
 
   @override
-  Future<ApplicationEntity?> getApplicationSetting() async {
+  Future<ApplicationEntity?> get() async {
     final application = await _localDataSource.getApplicationSettings();
     if (application != null) {
       return application.toEntity();
@@ -17,7 +17,7 @@ class ApplicationRepository implements ApplicationRepositoryInterface {
   }
 
   @override
-  Future<void> setApplicationSetting(ApplicationEntity setting) async {
+  Future<void> save(ApplicationEntity setting) async {
     _remoteDataSource.setBaseUrl(setting.domain);
     await _localDataSource.setApplicationSettings(
       ApplicationModel.fromEntity(setting),

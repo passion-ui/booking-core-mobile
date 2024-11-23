@@ -9,6 +9,15 @@ class WishList extends StatefulWidget {
 }
 
 class _WishListState extends State<WishList> {
+  @override
+  void initState() {
+    super.initState();
+    final auth = context.read<AuthenticationBloc>();
+    if (auth.state is AuthenticationSuccess) {
+      context.read<WishListBloc>().add(OnLoadWishList());
+    }
+  }
+
   /// Login
   void _onLogin() {
     context.go(Routers.login);

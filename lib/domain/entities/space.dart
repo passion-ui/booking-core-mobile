@@ -1,6 +1,6 @@
 import 'package:booking/domain/domain.dart';
 
-class SpaceEntity extends ListingEntity {
+class SpaceEntity extends ProductEntity {
   final int guests;
   final int beds;
   final int bathrooms;

@@ -9,6 +9,7 @@ class RemoteDataSource {
   final String _login = "/auth/login";
   final String _register = "/auth/register";
   final String _home = "/home-page";
+  final String _wishlist = "/user/wishlist";
 
   RemoteDataSource(this._httpClient, this._deviceInfo);
 
@@ -112,6 +113,19 @@ class RemoteDataSource {
         }
       }).toList();
     }
+    throw Exception(response['message'] ?? "unknown_error");
+  }
+
+  /// Fetch Wishlist
+  Future<List<ProductModel>> fetchWishList() async {
+    final response = await _httpClient.get(
+      url: _wishlist,
+    );
+    // if (response['status'] == 1) {
+    //   return List<ListingModel>.from(
+    //     response['data'].map((item) => ListingModel.fromJson(item)),
+    //   );
+    // }
     throw Exception(response['message'] ?? "unknown_error");
   }
 }

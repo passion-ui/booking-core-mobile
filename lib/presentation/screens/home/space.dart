@@ -3,7 +3,7 @@ import 'package:booking/presentation/presentation.dart';
 
 class SpaceBlock extends StatelessWidget {
   final BlockSpaceEntity? data;
-  final Function(ListingEntity)? onPressed;
+  final Function(ProductEntity)? onPressed;
 
   const SpaceBlock({
     super.key,

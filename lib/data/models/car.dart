@@ -1,7 +1,7 @@
 import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
-class CarModel extends ListingModel {
+class CarModel extends ProductModel {
   CarModel({
     required super.id,
     required super.title,
@@ -16,7 +16,7 @@ class CarModel extends ListingModel {
   });
 
   @override
-  ListingEntity toEntity() {
+  ProductEntity toEntity() {
     return CarEntity(
       id: id,
       title: title,

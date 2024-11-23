@@ -6,7 +6,7 @@ class SetupApplicationUseCase {
   SetupApplicationUseCase(this.repository);
 
   Future<ApplicationEntity?> call() async {
-    return await repository.getApplicationSetting();
+    return await repository.get();
   }
 }
 
@@ -16,6 +16,6 @@ class UpdateApplicationUseCase {
   UpdateApplicationUseCase(this.repository);
 
   Future<void> call(ApplicationEntity setting) async {
-    return await repository.setApplicationSetting(setting);
+    return await repository.save(setting);
   }
 }

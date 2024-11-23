@@ -1,7 +1,7 @@
 import 'package:booking/domain/domain.dart';
 
 class BlockEventEntity extends BlockHomeEntity {
-  final List<ListingEntity> items;
+  final List<ProductEntity> items;
   final ListingViewStyle style;
 
   BlockEventEntity({

@@ -3,7 +3,7 @@ import 'package:booking/presentation/presentation.dart';
 
 class BestSellerBlock extends StatelessWidget {
   final BlockBestSellerEntity? data;
-  final Function(ListingEntity)? onPressed;
+  final Function(ProductEntity)? onPressed;
 
   const BestSellerBlock({
     super.key,

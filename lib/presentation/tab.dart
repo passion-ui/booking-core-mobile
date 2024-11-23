@@ -23,55 +23,45 @@ class _MainTabState extends State<MainTab> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (BuildContext context) => HomeBloc()..add(OnLoadHome()),
-        ),
-        BlocProvider(
-          create: (BuildContext context) => WishListBloc(),
-        ),
-      ],
-      child: Scaffold(
-        bottomNavigationBar: NavigationBar(
-          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
-          onDestinationSelected: _onDestinationSelected,
-          selectedIndex: currentPageIndex,
-          destinations: <Widget>[
-            NavigationDestination(
-              selectedIcon: Icon(Icons.home),
-              icon: Icon(Icons.home_outlined),
-              label: Translate.of(context).translate('home'),
+    return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+        onDestinationSelected: _onDestinationSelected,
+        selectedIndex: currentPageIndex,
+        destinations: <Widget>[
+          NavigationDestination(
+            selectedIcon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            label: Translate.of(context).translate('home'),
+          ),
+          NavigationDestination(
+            selectedIcon: Badge(child: Icon(Icons.favorite)),
+            icon: Badge(
+              label: Text('2'),
+              child: Icon(Icons.favorite_border),
             ),
-            NavigationDestination(
-              selectedIcon: Badge(child: Icon(Icons.favorite)),
-              icon: Badge(
-                label: Text('2'),
-                child: Icon(Icons.favorite_border),
-              ),
-              label: Translate.of(context).translate('wishlist'),
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.bookmark),
-              icon: Icon(Icons.bookmark_border),
-              label: Translate.of(context).translate('news'),
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.account_circle_rounded),
-              icon: Icon(Icons.account_circle_outlined),
-              label: Translate.of(context).translate('account'),
-            ),
-          ],
-        ),
-        body: IndexedStack(
-          index: currentPageIndex,
-          children: <Widget>[
-            Home(),
-            WishList(),
-            News(),
-            Account(),
-          ],
-        ),
+            label: Translate.of(context).translate('wishlist'),
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.bookmark),
+            icon: Icon(Icons.bookmark_border),
+            label: Translate.of(context).translate('news'),
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.account_circle_rounded),
+            icon: Icon(Icons.account_circle_outlined),
+            label: Translate.of(context).translate('account'),
+          ),
+        ],
+      ),
+      body: IndexedStack(
+        index: currentPageIndex,
+        children: <Widget>[
+          Home(),
+          WishList(),
+          News(),
+          Account(),
+        ],
       ),
     );
   }
