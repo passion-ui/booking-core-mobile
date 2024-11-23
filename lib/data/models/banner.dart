@@ -1,6 +1,6 @@
 import 'package:booking/domain/domain.dart';
 
-class OfferModel {
+class BannerModel {
   final String title;
   final String description;
   final String action;
@@ -8,7 +8,7 @@ class OfferModel {
   final String icon;
   final String image;
 
-  OfferModel({
+  BannerModel({
     required this.title,
     required this.description,
     required this.action,
@@ -17,8 +17,8 @@ class OfferModel {
     required this.image,
   });
 
-  OfferEntity toEntity() {
-    return OfferEntity(
+  BannerEntity toEntity() {
+    return BannerEntity(
       title: title,
       description: description,
       action: action,
@@ -28,10 +28,10 @@ class OfferModel {
     );
   }
 
-  factory OfferModel.fromJson(Map<String, dynamic> json) {
-    return OfferModel(
+  factory BannerModel.fromJson(Map<String, dynamic> json) {
+    return BannerModel(
       title: json['title'] ?? '',
-      description: json['desc'] ?? '',
+      description: json['desc'] ?? json['sub_title'] ?? '',
       action: json['link_title'] ?? '',
       featured: json['featured_text'] ?? '',
       icon: json['featured_icon'] ?? '',

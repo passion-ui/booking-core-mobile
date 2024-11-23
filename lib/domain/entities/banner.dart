@@ -1,4 +1,4 @@
-class OfferEntity {
+class BannerEntity {
   final String title;
   final String description;
   final String action;
@@ -6,7 +6,7 @@ class OfferEntity {
   final String icon;
   final String image;
 
-  OfferEntity({
+  BannerEntity({
     required this.title,
     required this.description,
     required this.action,

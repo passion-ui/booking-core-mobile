@@ -1,4 +1,6 @@
 export 'application.dart';
+export 'banner.dart';
+export 'block_banner.dart';
 export 'block_bestseller.dart';
 export 'block_boat.dart';
 export 'block_car.dart';
@@ -18,7 +20,6 @@ export 'currency.dart';
 export 'event.dart';
 export 'hotel.dart';
 export 'listing.dart';
-export 'offer.dart';
 export 'post.dart';
 export 'review.dart';
 export 'space.dart';

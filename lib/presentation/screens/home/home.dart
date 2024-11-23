@@ -1,6 +1,7 @@
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
+import 'banner.dart';
 import 'bestseller.dart';
 import 'boat.dart';
 import 'car.dart';
@@ -37,7 +38,7 @@ class _HomeState extends State<Home> {
   }
 
   ///On Booking
-  void _onOffer(OfferEntity item) {
+  void _onOffer(BannerEntity item) {
     context.go(Routers.listing);
   }
 
@@ -163,6 +164,15 @@ class _HomeState extends State<Home> {
           child: PostBlock(
             data: block,
             onPressed: _onNew,
+          ),
+        )
+      ];
+    } else if (block is BlockBannerEntity) {
+      return [
+        SliverToBoxAdapter(
+          child: BannerBlock(
+            data: block,
+            onPressed: _onOffer,
           ),
         )
       ];

@@ -5,7 +5,7 @@ import 'package:card_swiper/card_swiper.dart';
 
 class OfferBlock extends StatelessWidget {
   final BlockOfferEntity? data;
-  final Function(OfferEntity)? onPressed;
+  final Function(BannerEntity)? onPressed;
 
   const OfferBlock({
     super.key,
@@ -13,7 +13,7 @@ class OfferBlock extends StatelessWidget {
     this.onPressed,
   });
 
-  Widget _buildFeatured(BuildContext context, OfferEntity item) {
+  Widget _buildFeatured(BuildContext context, BannerEntity item) {
     if (item.featured.isNotEmpty) {
       return Container(
         margin: const EdgeInsets.all(8),
@@ -33,7 +33,7 @@ class OfferBlock extends StatelessWidget {
     return SizedBox.shrink();
   }
 
-  Widget _buildIcon(BuildContext context, OfferEntity item) {
+  Widget _buildIcon(BuildContext context, BannerEntity item) {
     if (item.icon.isNotEmpty) {
       return Container(
         width: 44,
