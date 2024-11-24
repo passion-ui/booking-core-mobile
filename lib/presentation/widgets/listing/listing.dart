@@ -59,7 +59,7 @@ class ListingItem extends StatelessWidget {
         currency: currency,
       );
     } else {
-      return HotelItem(style: ListingViewStyle.normal);
+      return HotelItem(style: style);
     }
   }
 }

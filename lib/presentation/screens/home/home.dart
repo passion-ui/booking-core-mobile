@@ -32,12 +32,12 @@ class _HomeState extends State<Home> {
     context.go(Routers.listing);
   }
 
-  ///On Booking
+  ///On Offer
   void _onOffer(BannerEntity item) {
     context.go(Routers.listing);
   }
 
-  ///On Best Seller
+  ///On Listing
   void _onListing(ProductEntity item) {
     context.go(Routers.listing);
   }

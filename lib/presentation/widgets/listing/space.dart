@@ -15,7 +15,7 @@ class SpaceItem extends StatelessWidget {
     this.currency,
   });
 
-  /// Build the normal view of the hotel.
+  /// Build the card view of the space.
   Widget _buildNormal(BuildContext context) {
     if (data == null) {
       return Skeleton(
@@ -289,7 +289,7 @@ class SpaceItem extends StatelessWidget {
                                   color: Theme.of(context).colorScheme.primary,
                                 ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 4),
                       Text(
                         '(${data!.review.total} ${Translate.of(context).translate('reviews')})',
                         style: Theme.of(context).textTheme.bodySmall,
@@ -372,11 +372,265 @@ class SpaceItem extends StatelessWidget {
     );
   }
 
+  /// Build the list view of the space.
+  Widget _buildList(BuildContext context) {
+    if (data == null) {
+      return Skeleton(
+        child: SizedBox(
+          height: 140,
+          child: Row(
+            children: [
+              Container(
+                width: 120,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.white,
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 14,
+                        width: 200,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(height: 8),
+                      Container(
+                        height: 14,
+                        width: 150,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(height: 12),
+                      Container(
+                        height: 14,
+                        width: 150,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(height: 8),
+                      Container(
+                        height: 14,
+                        width: 250,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    Widget featured = const SizedBox.shrink();
+    Widget sale = Row(
+      children: [
+        Text(
+          Translate.of(context).translate('from'),
+          style: Theme.of(context).textTheme.labelSmall,
+        ),
+        const SizedBox(width: 4),
+        Text(
+          '$currency${data!.price.toStringAsFixed(0)}',
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+        ),
+        const SizedBox(width: 4),
+        Text(
+          '/${Translate.of(context).translate('night')}',
+          style: Theme.of(context).textTheme.labelSmall,
+        ),
+      ],
+    );
+
+    if (data!.isFeatured) {
+      featured = Positioned(
+        left: 8,
+        top: 8,
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8,
+            vertical: 4,
+          ),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.error,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            Translate.of(context).translate('featured'),
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: Colors.white,
+                ),
+          ),
+        ),
+      );
+    }
+
+    if (data!.saleOff.isNotEmpty) {
+      sale = Wrap(
+        alignment: WrapAlignment.start,
+        spacing: 8,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 4,
+                  vertical: 2,
+                ),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.error,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  '-${data!.saleOff}',
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelMedium
+                      ?.copyWith(color: Colors.white),
+                ),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                '${currency ?? ''}${data!.price.toStringAsFixed(0)}',
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.error,
+                      decoration: TextDecoration.lineThrough,
+                      decorationColor: Theme.of(context).colorScheme.error,
+                    ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                Translate.of(context).translate('from'),
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                '$currency${data!.salePrice.toStringAsFixed(0)}',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                '/${Translate.of(context).translate('night')}',
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+            ],
+          )
+        ],
+      );
+    }
+
+    return GestureDetector(
+      onTap: () => onPressed!(data!),
+      child: SizedBox(
+        height: 140,
+        child: Row(
+          children: [
+            Stack(
+              children: [
+                CachedImage(
+                  url: data!.image,
+                  width: 120,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                featured
+              ],
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      data!.title,
+                      style: Theme.of(context).textTheme.titleSmall,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          size: 12,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          data!.location.name,
+                          style: Theme.of(context).textTheme.bodySmall,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    sale,
+                    const SizedBox(height: 4),
+                    Rating(value: data!.review.score),
+                    Row(
+                      children: [
+                        Text(
+                          data!.review.text,
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            '(${data!.review.total} ${Translate.of(context).translate('reviews')})',
+                            style: Theme.of(context).textTheme.bodySmall,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                child: Icon(
+                  Icons.more_vert,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     switch (style) {
-      case ListingViewStyle.normal:
+      case ListingViewStyle.card:
         return _buildNormal(context);
+
+      case ListingViewStyle.list:
+        return _buildList(context);
+
       default:
         return _buildNormal(context);
     }

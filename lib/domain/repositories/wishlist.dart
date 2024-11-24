@@ -1,3 +1,5 @@
+import 'package:booking/domain/domain.dart';
+
 abstract class WishListRepositoryInterface {
-  Future<void> fetch();
+  Future<ListingEntity<WishListEntity>> fetch(int page);
 }

@@ -46,7 +46,7 @@ class LocationBlock extends StatelessWidget {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return ListingItem(style: ListingViewStyle.normal);
+                return ListingItem(style: ListingViewStyle.card);
               },
               separatorBuilder: (BuildContext context, int index) {
                 return const SizedBox(width: 8);
@@ -100,7 +100,7 @@ class LocationBlock extends StatelessWidget {
             return LocationItem(
               data: item,
               onPressed: onPressed,
-              style: ListingViewStyle.normal,
+              style: ListingViewStyle.card,
             );
           },
           separatorBuilder: (BuildContext context, int index) {

@@ -15,10 +15,10 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
     String password,
   ) async {
     return await _remoteDataSource.register(
-      firstName,
-      lastName,
-      email,
-      password,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
     );
   }
 
@@ -29,7 +29,10 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
 
   @override
   Future<UserEntity> login(String username, String password) async {
-    final user = await _remoteDataSource.login(username, password);
+    final user = await _remoteDataSource.login(
+      username: username,
+      password: password,
+    );
     return user.toEntity();
   }
 

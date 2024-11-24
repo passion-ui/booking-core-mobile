@@ -19,7 +19,10 @@ class LocationItem extends StatelessWidget {
       return Container(
         width: 140,
         height: 200,
-        color: Colors.white,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
       );
     }
 

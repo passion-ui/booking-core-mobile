@@ -30,12 +30,12 @@ class RemoteDataSource {
   }
 
   /// Register
-  Future<bool> register(
-    String firstName,
-    String lastName,
-    String email,
-    String password,
-  ) async {
+  Future<bool> register({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+  }) async {
     final response = await _httpClient.post(
       url: _register,
       data: {
@@ -59,7 +59,10 @@ class RemoteDataSource {
   }
 
   /// Login
-  Future<UserModel> login(String username, String password) async {
+  Future<UserModel> login({
+    required String username,
+    required String password,
+  }) async {
     final response = await _httpClient.post(
       url: _login,
       data: {
@@ -117,15 +120,17 @@ class RemoteDataSource {
   }
 
   /// Fetch Wishlist
-  Future<List<ProductModel>> fetchWishList() async {
+  Future<ListingModel<WishListModel>> fetchWishList({int page = 1}) async {
     final response = await _httpClient.get(
       url: _wishlist,
+      params: {"page": page},
     );
-    // if (response['status'] == 1) {
-    //   return List<ListingModel>.from(
-    //     response['data'].map((item) => ListingModel.fromJson(item)),
-    //   );
-    // }
+    if (response['status'] == 1) {
+      return ListingModel.fromJson(
+        response,
+        (item) => WishListModel.fromJson(item),
+      );
+    }
     throw Exception(response['message'] ?? "unknown_error");
   }
 }

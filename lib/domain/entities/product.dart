@@ -1,7 +1,7 @@
 import 'package:booking/domain/domain.dart';
 
 enum ListingViewStyle {
-  normal,
+  card,
   grid,
   list,
 }

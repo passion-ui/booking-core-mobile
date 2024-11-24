@@ -1,4 +1,5 @@
 import 'package:booking/core/core.dart';
+import 'package:booking/presentation/presentation.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
 
@@ -19,8 +20,11 @@ class HTTPClient {
     _dio.interceptors.add(
       QueuedInterceptorsWrapper(
         onRequest: (options, handler) {
-          final regName = RegExp('[^A-Za-z0-9 ]');
           Map<String, dynamic> headers = {};
+          final auth = sl<AuthenticationBloc>().state;
+          if (auth is AuthenticationSuccess) {
+            headers['Authorization'] = 'Bearer ${auth.user.token}';
+          }
           options.headers.addAll(headers);
           printRequest(options);
           return handler.next(options);

@@ -7,7 +7,12 @@ class WishListRepository extends WishListRepositoryInterface {
   WishListRepository(this._remoteDataSource);
 
   @override
-  Future<void> fetch() async {
-    await _remoteDataSource.fetchWishList();
+  Future<ListingEntity<WishListEntity>> fetch(page) async {
+    final list = await _remoteDataSource.fetchWishList(page: page);
+    return ListingEntity<WishListEntity>(
+      items: list.items.map((e) => e.toEntity()).toList(),
+      total: list.total,
+      totalPages: list.totalPages,
+    );
   }
 }

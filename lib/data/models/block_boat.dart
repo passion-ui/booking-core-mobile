@@ -14,7 +14,7 @@ class BlockBoatModel extends BlockHomeModel {
 
   @override
   BlockHomeEntity toEntity() {
-    ListingViewStyle style = ListingViewStyle.normal;
+    ListingViewStyle style = ListingViewStyle.card;
     if (this.style == 'grid') {
       style = ListingViewStyle.grid;
     } else if (this.style == 'list') {

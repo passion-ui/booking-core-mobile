@@ -13,7 +13,7 @@ class PostItem extends StatelessWidget {
     this.onPressed,
   });
 
-  /// Build the normal view of the hotel.
+  /// Build the card view of the post new.
   Widget _buildNormal(BuildContext context) {
     if (data == null) {
       return Skeleton(
@@ -200,11 +200,34 @@ class PostItem extends StatelessWidget {
     );
   }
 
+  /// Build the list view of the post new.
+  Widget _buildList(BuildContext context) {
+    if (data == null) {
+      return Skeleton(
+        child: Container(
+          height: 260,
+          color: Colors.red,
+        ),
+      );
+    }
+
+    return GestureDetector(
+      onTap: () => onPressed!(data!),
+      child: Container(
+        height: 260,
+        color: Colors.red,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     switch (style) {
-      case ListingViewStyle.normal:
+      case ListingViewStyle.card:
         return _buildNormal(context);
+      case ListingViewStyle.list:
+        return _buildList(context);
+
       default:
         return _buildNormal(context);
     }
