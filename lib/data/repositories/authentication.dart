@@ -8,12 +8,12 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   AuthenticationRepository(this._remoteDataSource, this._localDataSource);
 
   @override
-  Future<bool> register(
-    String firstName,
-    String lastName,
-    String email,
-    String password,
-  ) async {
+  Future<bool> register({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+  }) async {
     return await _remoteDataSource.register(
       firstName: firstName,
       lastName: lastName,
@@ -23,12 +23,13 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   }
 
   @override
-  Future<bool> forgotPassword(String email) async {
-    return await _remoteDataSource.forgotPassword(email);
+  Future<bool> forgotPassword({required String email}) async {
+    return await _remoteDataSource.forgotPassword(email: email);
   }
 
   @override
-  Future<UserEntity> login(String username, String password) async {
+  Future<UserEntity> login(
+      {required String username, required String password}) async {
     final user = await _remoteDataSource.login(
       username: username,
       password: password,

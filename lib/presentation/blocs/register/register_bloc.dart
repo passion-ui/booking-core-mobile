@@ -10,10 +10,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     on<OnRegister>((event, emit) async {
       try {
         await _register.call(
-          event.firstName,
-          event.lastName,
-          event.email,
-          event.password,
+          firstName: event.firstName,
+          lastName: event.lastName,
+          email: event.email,
+          password: event.password,
         );
         emit(RegisterSuccess());
       } on Exception catch (error) {

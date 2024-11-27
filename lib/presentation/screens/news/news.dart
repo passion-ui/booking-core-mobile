@@ -12,6 +12,8 @@ class News extends StatefulWidget {
 }
 
 class _NewsState extends State<News> {
+  final _controller = TextEditingController();
+
   ///On New
   void _onNew(PostEntity item) {
     context.go(Routers.listing);
@@ -32,6 +34,7 @@ class _NewsState extends State<News> {
 
   @override
   void dispose() {
+    _controller.dispose();
     super.dispose();
   }
 
@@ -85,6 +88,7 @@ class _NewsState extends State<News> {
               slivers: [
                 SliverPersistentHeader(
                   delegate: Header(
+                    controller: _controller,
                     onChanged: (value) {
                       context.read<NewsBloc>().add(OnLoadNews(keyword: value));
                     },

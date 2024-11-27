@@ -9,7 +9,7 @@ class ForgotBloc extends Bloc<ForgotEvent, ForgotState> {
     ///Authentication register event
     on<OnForgotPassword>((event, emit) async {
       try {
-        await _forgot.call(event.email);
+        await _forgot.call(email: event.email);
         emit(ForgotPasswordSuccess());
       } on Exception catch (error) {
         _messageBloc.add(

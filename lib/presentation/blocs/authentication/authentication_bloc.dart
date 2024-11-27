@@ -30,7 +30,10 @@ class AuthenticationBloc extends AuthBloc {
     ///Authentication logged in event
     on<OnLogIn>((event, emit) async {
       try {
-        final user = await _login.call(event.username, event.password);
+        final user = await _login.call(
+          username: event.username,
+          password: event.password,
+        );
         emit(AuthenticationSuccess(user: user));
       } on Exception catch (error) {
         _messageBloc.add(

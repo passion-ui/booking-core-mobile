@@ -16,7 +16,7 @@ class WishListBloc extends Bloc<WishListEvent, WishListState> {
         page = 1;
       }
       try {
-        final list = await _loadWishListUseCase.call(page);
+        final list = await _loadWishListUseCase.call(page: page);
         if (page == 1) {
           data = list;
         } else {

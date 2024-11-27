@@ -1,4 +1,3 @@
-import 'package:booking/core/core.dart';
 import 'package:booking/presentation/presentation.dart';
 
 class Header extends SliverPersistentHeaderDelegate {
@@ -6,14 +5,14 @@ class Header extends SliverPersistentHeaderDelegate {
   final double height;
   final VoidCallback onSort;
   final VoidCallback onCategory;
+  final TextEditingController controller;
   final ValueChanged<String>? onChanged;
-
-  final _controller = TextEditingController();
 
   Header({
     required this.onSort,
     required this.onCategory,
     required this.height,
+    required this.controller,
     required this.onChanged,
   });
 
@@ -29,7 +28,7 @@ class Header extends SliverPersistentHeaderDelegate {
             Expanded(
               child: SearchBar(
                 hintText: Translate.of(context).translate('search_news'),
-                controller: _controller,
+                controller: controller,
                 focusNode: _focusNode,
                 shadowColor: WidgetStateProperty.resolveWith((states) {
                   return Theme.of(context).colorScheme.surfaceContainerLowest;
@@ -38,20 +37,32 @@ class Header extends SliverPersistentHeaderDelegate {
                   return Theme.of(context).colorScheme.surfaceContainerLowest;
                 }),
                 onTapOutside: (value) {
-                  Logger.log("onTapOutside", value);
                   _focusNode.unfocus();
                 },
                 onTap: () {
-                  Logger.log("onTap");
+                  _focusNode.requestFocus();
+                },
+                onSubmitted: (value) {
+                  _focusNode.unfocus();
                 },
                 onChanged: onChanged,
-                onSubmitted: (value) {
-                  Logger.log("onSubmitted", value);
-                },
                 leading: Padding(
                   padding: const EdgeInsets.only(left: 8),
                   child: Icon(Icons.search),
                 ),
+                trailing: [
+                  if (controller.text.isNotEmpty)
+                    InkWell(
+                      onTap: () {
+                        controller.clear();
+                        onChanged?.call('');
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Icon(Icons.clear),
+                      ),
+                    ),
+                ],
               ),
             ),
             SizedBox(width: 8),

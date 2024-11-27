@@ -5,8 +5,9 @@ class LoginUseCase {
 
   LoginUseCase(this.repository);
 
-  Future<UserEntity> call(String username, String password) async {
-    final user = await repository.login(username, password);
+  Future<UserEntity> call(
+      {required String username, required String password}) async {
+    final user = await repository.login(username: username, password: password);
     await repository.saveUserData(user);
     return user;
   }
@@ -37,17 +38,17 @@ class RegisterUseCase {
 
   RegisterUseCase(this.repository);
 
-  Future<bool> call(
-    String firstName,
-    String lastName,
-    String email,
-    String password,
-  ) async {
+  Future<bool> call({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String password,
+  }) async {
     return await repository.register(
-      firstName,
-      lastName,
-      email,
-      password,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
     );
   }
 }
@@ -57,7 +58,7 @@ class ForgotPasswordUseCase {
 
   ForgotPasswordUseCase(this.repository);
 
-  Future<bool> call(String email) async {
-    return await repository.forgotPassword(email);
+  Future<bool> call({required String email}) async {
+    return await repository.forgotPassword(email: email);
   }
 }

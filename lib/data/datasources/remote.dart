@@ -55,7 +55,7 @@ class RemoteDataSource {
   }
 
   /// Forgot Password
-  Future<bool> forgotPassword(String email) async {
+  Future<bool> forgotPassword({required String email}) async {
     throw Exception("Forgot Password Api missing");
   }
 
@@ -121,7 +121,7 @@ class RemoteDataSource {
   }
 
   /// Fetch Wishlist
-  Future<ListingModel<WishListModel>> fetchWishList({int page = 1}) async {
+  Future<ListingModel<WishListModel>> fetchWishList({int? page = 1}) async {
     final response = await _httpClient.get(
       url: _wishlist,
       params: {"page": page},

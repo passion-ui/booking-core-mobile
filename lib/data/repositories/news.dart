@@ -8,7 +8,10 @@ class NewsRepository extends NewsRepositoryInterface {
 
   @override
   Future<ListingEntity<PostEntity>> fetch({int? page, String? keyword}) async {
-    final list = await _remoteDataSource.fetchNews(page: page);
+    final list = await _remoteDataSource.fetchNews(
+      page: page,
+      keyword: keyword,
+    );
     return ListingEntity<PostEntity>(
       items: list.items.map((e) => e.toEntity()).toList(),
       total: list.total,
