@@ -37,12 +37,6 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   }
 
   @override
-  Future<UserEntity?> verify() async {
-    ///TODO: Implement verify token user
-    return null;
-  }
-
-  @override
   Future<void> saveUserData(UserEntity user) async {
     return await _localDataSource.saveUserData(UserModel.fromEntity(user));
   }

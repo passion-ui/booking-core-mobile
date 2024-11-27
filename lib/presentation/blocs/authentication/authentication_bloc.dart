@@ -6,7 +6,6 @@ typedef AuthBloc = Bloc<AuthenticationEvent, AuthenticationState>;
 class AuthenticationBloc extends AuthBloc {
   final _login = LoginUseCase(sl());
   final _getUserData = GetUserDataUseCase(sl());
-  final _verifyUser = AuthenticationVerifyUseCase(sl());
   final _clearUserData = ClearUserDataUseCase(sl());
   final MessageBloc _messageBloc = sl();
 

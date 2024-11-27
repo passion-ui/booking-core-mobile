@@ -71,5 +71,9 @@
   "from": "from",
   "night": "night",
   "featured": "Featured",
-  "wishlist_is_empty": "Your wishlist is empty"
+  "wishlist_is_empty": "Your wishlist is empty",
+  "delete": "Delete",
+  "share": "Share",
+  "book_now": "Book Now",
+  "search_news": "Search news..."
 }

@@ -10,6 +10,7 @@ class RemoteDataSource {
   final String _register = "/auth/register";
   final String _home = "/home-page";
   final String _wishlist = "/user/wishlist";
+  final String _news = "/news";
 
   RemoteDataSource(this._httpClient, this._deviceInfo);
 
@@ -129,6 +130,21 @@ class RemoteDataSource {
       return ListingModel.fromJson(
         response,
         (item) => WishListModel.fromJson(item),
+      );
+    }
+    throw Exception(response['message'] ?? "unknown_error");
+  }
+
+  /// Fetch Wishlist
+  Future<ListingModel<PostModel>> fetchNews({int page = 1}) async {
+    final response = await _httpClient.get(
+      url: _news,
+      params: {"page": page},
+    );
+    if (response['status'] == 1) {
+      return ListingModel.fromJson(
+        response,
+        (item) => PostModel.fromJson(item),
       );
     }
     throw Exception(response['message'] ?? "unknown_error");

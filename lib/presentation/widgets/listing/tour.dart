@@ -5,6 +5,7 @@ class TourItem extends StatelessWidget {
   final TourEntity? data;
   final ListingViewStyle style;
   final Function(TourEntity)? onPressed;
+  final Function(TourEntity)? onAction;
   final String? currency;
 
   const TourItem({
@@ -12,6 +13,7 @@ class TourItem extends StatelessWidget {
     this.data,
     required this.style,
     this.onPressed,
+    this.onAction,
     this.currency,
   });
 
@@ -535,13 +537,14 @@ class TourItem extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                if (onAction != null) {
+                  onAction!(data!);
+                }
+              },
               child: Container(
                 padding: const EdgeInsets.all(4),
-                child: Icon(
-                  Icons.more_vert,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                child: Icon(Icons.more_vert),
               ),
             ),
           ],

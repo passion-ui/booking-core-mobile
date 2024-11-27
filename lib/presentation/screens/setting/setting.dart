@@ -12,7 +12,7 @@ class Setting extends StatelessWidget {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (BuildContext context) {
         Locale locale = Localizations.localeOf(context);
-        return PickerDialog(
+        return BottomSheetSelect(
           title: Translate.of(context).translate('language'),
           items: Application.supportedLocales.map((e) {
             return PickerEntity(
@@ -64,7 +64,7 @@ class Setting extends StatelessWidget {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (BuildContext context) {
         String font = Theme.of(context).textTheme.titleLarge!.fontFamily!;
-        return PickerDialog(
+        return BottomSheetSelect(
           title: Translate.of(context).translate('font'),
           items: Application.fontFamilySupport.map((e) {
             return PickerEntity(
@@ -171,7 +171,7 @@ class Setting extends StatelessWidget {
       context: context,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (BuildContext context) {
-        return PickerDialog(
+        return BottomSheetSelect(
           title: Translate.of(context).translate('theme'),
           items: Application.themeSupport.map((e) {
             ColorScheme colorScheme = ColorScheme.fromSeed(

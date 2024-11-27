@@ -4,6 +4,7 @@ import 'package:booking/presentation/presentation.dart';
 class ListingItem extends StatelessWidget {
   final ProductEntity? data;
   final Function(ProductEntity)? onPressed;
+  final Function(ProductEntity)? onAction;
   final ListingViewStyle style;
   final String? currency;
 
@@ -11,6 +12,7 @@ class ListingItem extends StatelessWidget {
     super.key,
     this.data,
     this.onPressed,
+    this.onAction,
     required this.style,
     this.currency,
   });
@@ -20,7 +22,8 @@ class ListingItem extends StatelessWidget {
     if (data is HotelEntity) {
       return HotelItem(
         data: data as HotelEntity,
-        onPressed: onPressed as Function(HotelEntity)?,
+        onPressed: onPressed,
+        onAction: onAction,
         style: style,
         currency: currency,
       );
@@ -28,6 +31,7 @@ class ListingItem extends StatelessWidget {
       return TourItem(
         data: data as TourEntity,
         onPressed: onPressed,
+        onAction: onAction,
         style: style,
         currency: currency,
       );
@@ -35,6 +39,23 @@ class ListingItem extends StatelessWidget {
       return SpaceItem(
         data: data as SpaceEntity,
         onPressed: onPressed,
+        onAction: onAction,
+        style: style,
+        currency: currency,
+      );
+    } else if (data is EventEntity) {
+      return EventItem(
+        data: data as EventEntity,
+        onPressed: onPressed,
+        onAction: onAction,
+        style: style,
+        currency: currency,
+      );
+    } else if (data is BoatEntity) {
+      return BoatItem(
+        data: data as BoatEntity,
+        onPressed: onPressed,
+        onAction: onAction,
         style: style,
         currency: currency,
       );
@@ -43,20 +64,6 @@ class ListingItem extends StatelessWidget {
         width: 200,
         height: 200,
         color: Colors.red,
-      );
-    } else if (data is EventEntity) {
-      return EventItem(
-        data: data as EventEntity,
-        onPressed: onPressed,
-        style: style,
-        currency: currency,
-      );
-    } else if (data is BoatEntity) {
-      return BoatItem(
-        data: data as BoatEntity,
-        onPressed: onPressed,
-        style: style,
-        currency: currency,
       );
     } else {
       return HotelItem(style: style);

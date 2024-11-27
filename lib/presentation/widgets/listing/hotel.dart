@@ -5,6 +5,8 @@ class HotelItem extends StatelessWidget {
   final HotelEntity? data;
   final ListingViewStyle style;
   final Function(HotelEntity)? onPressed;
+  final Function(HotelEntity)? onAction;
+
   final String? currency;
 
   const HotelItem({
@@ -12,6 +14,7 @@ class HotelItem extends StatelessWidget {
     this.data,
     required this.style,
     this.onPressed,
+    this.onAction,
     this.currency,
   });
 
@@ -542,13 +545,14 @@ class HotelItem extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                if (onAction != null) {
+                  onAction!(data!);
+                }
+              },
               child: Container(
                 padding: const EdgeInsets.all(4),
-                child: Icon(
-                  Icons.more_vert,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                child: Icon(Icons.more_vert),
               ),
             ),
           ],

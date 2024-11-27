@@ -5,6 +5,7 @@ class EventItem extends StatelessWidget {
   final EventEntity? data;
   final ListingViewStyle style;
   final Function(EventEntity)? onPressed;
+  final Function(EventEntity)? onAction;
   final String? currency;
 
   const EventItem({
@@ -12,6 +13,7 @@ class EventItem extends StatelessWidget {
     this.data,
     required this.style,
     this.onPressed,
+    this.onAction,
     this.currency,
   });
 
@@ -549,13 +551,14 @@ class EventItem extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                if (onAction != null) {
+                  onAction!(data!);
+                }
+              },
               child: Container(
                 padding: const EdgeInsets.all(4),
-                child: Icon(
-                  Icons.more_vert,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                child: Icon(Icons.more_vert),
               ),
             ),
           ],

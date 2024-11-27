@@ -5,6 +5,7 @@ class BoatItem extends StatelessWidget {
   final BoatEntity? data;
   final ListingViewStyle style;
   final Function(BoatEntity)? onPressed;
+  final Function(BoatEntity)? onAction;
   final String? currency;
 
   const BoatItem({
@@ -12,6 +13,7 @@ class BoatItem extends StatelessWidget {
     this.data,
     required this.style,
     this.onPressed,
+    this.onAction,
     this.currency,
   });
 
@@ -607,13 +609,14 @@ class BoatItem extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                if (onAction != null) {
+                  onAction!(data!);
+                }
+              },
               child: Container(
                 padding: const EdgeInsets.all(4),
-                child: Icon(
-                  Icons.more_vert,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                child: Icon(Icons.more_vert),
               ),
             ),
           ],

@@ -49,6 +49,42 @@ class _WishListState extends State<WishList> {
     context.go(Routers.listing);
   }
 
+  void _onAction(ProductEntity item) async {
+    final data = await showModalBottomSheet<PickerEntity>(
+      context: context,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      builder: (BuildContext context) {
+        return BottomSheetAction(
+          title: Translate.of(context).translate('wishlist'),
+          items: [
+            PickerEntity(
+              id: 'delete',
+              leading: Icon(Icons.delete_outline),
+              title: Translate.of(context).translate('delete'),
+            ),
+            PickerEntity(
+              id: 'share',
+              leading: Icon(Icons.share),
+              title: Translate.of(context).translate('share'),
+            )
+          ],
+        );
+      },
+    );
+
+    if (data != null && mounted) {
+      context
+          .read<MessageBloc>()
+          .add(OnMessage(title: "TODO Action ${data.id}"));
+      switch (data.id) {
+        case 'delete':
+          break;
+        case 'share':
+          break;
+      }
+    }
+  }
+
   /// Build Authentication
   Widget _buildAuthentication() {
     return Center(
@@ -122,7 +158,11 @@ class _WishListState extends State<WishList> {
           IconButton(
             enableFeedback: true,
             icon: const Icon(Icons.delete_outline),
-            onPressed: () {},
+            onPressed: () {
+              context
+                  .read<MessageBloc>()
+                  .add(OnMessage(title: "TODO Action delete all"));
+            },
           ),
         ],
       ),
@@ -182,6 +222,7 @@ class _WishListState extends State<WishList> {
                         data: product.item,
                         style: ListingViewStyle.list,
                         onPressed: _onListing,
+                        onAction: _onAction,
                         currency: currency,
                       );
                     },

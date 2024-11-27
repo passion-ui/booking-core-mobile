@@ -1,39 +1,20 @@
 import 'package:booking/presentation/presentation.dart';
 
-import 'picker_item.dart';
-
-class PickerDialog extends StatefulWidget {
+class BottomSheetAction<T> extends StatelessWidget {
   final String? title;
-  final List items;
-  final bool multiples;
-  final List selected;
+  final List<T> items;
 
-  const PickerDialog({
+  const BottomSheetAction({
     super.key,
     this.title,
     required this.items,
-    required this.multiples,
-    required this.selected,
   });
-
-  @override
-  createState() => _PickerDialogState();
-}
-
-class _PickerDialogState<T> extends State<PickerDialog> {
-  List _selectedItems = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedItems = widget.selected;
-  }
 
   @override
   Widget build(BuildContext context) {
     String title = Translate.of(context).translate('select_options');
-    if (widget.title != null) {
-      title = widget.title!;
+    if (this.title != null) {
+      title = this.title!;
     }
     return SafeArea(
       child: Column(
@@ -77,56 +58,21 @@ class _PickerDialogState<T> extends State<PickerDialog> {
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                itemCount: widget.items.length,
+                itemCount: items.length,
                 itemBuilder: (context, index) {
-                  Widget? trailing;
-                  final item = widget.items[index];
-                  final selected = _selectedItems.contains(item);
-
-                  if (selected) {
-                    trailing = Icon(
-                      Icons.check,
-                      color: Theme.of(context).colorScheme.primary,
-                    );
-                  }
-
-                  return PickerItem(
-                    title: item.title,
+                  final dynamic item = items[index];
+                  return ListTitle(
                     leading: item.leading,
-                    trailing: trailing,
+                    title: item.title,
                     onPress: () {
-                      if (widget.multiples) {
-                        if (selected) {
-                          _selectedItems.remove(item);
-                        } else {
-                          _selectedItems.add(item);
-                        }
-                      } else {
-                        _selectedItems = [item];
-                      }
-                      setState(() {});
+                      context.pop(item);
                     },
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(height: 12);
+                  return Divider();
                 },
               ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Row(
-              children: [
-                Expanded(
-                  child: FilledButton(
-                    onPressed: () {
-                      context.pop(_selectedItems);
-                    },
-                    child: Text(Translate.of(context).translate('apply')),
-                  ),
-                ),
-              ],
             ),
           ),
         ],

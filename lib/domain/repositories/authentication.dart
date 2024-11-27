@@ -12,5 +12,4 @@ abstract class AuthenticationRepositoryInterface {
   Future<UserEntity?> getUserData();
   Future<void> saveUserData(UserEntity user);
   Future<void> deleteUserData();
-  Future<UserEntity?> verify();
 }

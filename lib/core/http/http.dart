@@ -36,6 +36,7 @@ class HTTPClient {
     );
   }
 
+  /// Set domain
   set baseUrl(String domain) {
     _dio.options.baseUrl = '$domain/api';
   }
