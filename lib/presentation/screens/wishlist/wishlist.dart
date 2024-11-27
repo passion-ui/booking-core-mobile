@@ -17,10 +17,6 @@ class _WishListState extends State<WishList> {
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
-    final auth = context.read<AuthenticationBloc>();
-    if (auth.state is AuthenticationSuccess) {
-      context.read<WishListBloc>().add(OnLoadWishList());
-    }
   }
 
   @override
@@ -166,25 +162,20 @@ class _WishListState extends State<WishList> {
           ),
         ],
       ),
-      body: BlocConsumer<WishListBloc, WishListState>(
-        listener: (context, wishlist) {
-          if (wishlist is WishListSuccess) {
-            _fetching = false;
+      body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: (context, authentication) {
+          /// Need Authentication
+          if (authentication is AuthenticationFail) {
+            return _buildAuthentication();
           }
-        },
-        builder: (context, wishlist) {
-          return BlocConsumer<AuthenticationBloc, AuthenticationState>(
-            listener: (context, authentication) {
-              if (authentication is AuthenticationSuccess) {
-                context.read<WishListBloc>().add(OnLoadWishList());
+
+          return BlocConsumer<WishListBloc, WishListState>(
+            listener: (context, wishlist) {
+              if (wishlist is WishListSuccess) {
+                _fetching = false;
               }
             },
-            builder: (context, authentication) {
-              /// Need Authentication
-              if (authentication is AuthenticationFail) {
-                return _buildAuthentication();
-              }
-
+            builder: (context, wishlist) {
               if (wishlist is WishListSuccess) {
                 /// Empty list
                 if (wishlist.data.items.isEmpty) {

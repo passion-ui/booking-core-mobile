@@ -136,10 +136,11 @@ class RemoteDataSource {
   }
 
   /// Fetch Wishlist
-  Future<ListingModel<PostModel>> fetchNews({int page = 1}) async {
+  Future<ListingModel<PostModel>> fetchNews(
+      {int? page = 1, String? keyword}) async {
     final response = await _httpClient.get(
       url: _news,
-      params: {"page": page},
+      params: {"page": page, "s": keyword},
     );
     if (response['status'] == 1) {
       return ListingModel.fromJson(

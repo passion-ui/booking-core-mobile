@@ -7,6 +7,7 @@ class PostEntity {
   final String image;
   final String content;
   final String createdAt;
+  final String url;
   final CategoryEntity category;
   final UserEntity author;
 
@@ -17,6 +18,7 @@ class PostEntity {
     required this.image,
     required this.content,
     required this.createdAt,
+    required this.url,
     required this.category,
     required this.author,
   });

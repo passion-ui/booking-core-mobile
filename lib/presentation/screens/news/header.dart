@@ -3,16 +3,18 @@ import 'package:booking/presentation/presentation.dart';
 
 class Header extends SliverPersistentHeaderDelegate {
   final _focusNode = FocusNode();
-  final _controller = SearchController();
-
   final double height;
   final VoidCallback onSort;
   final VoidCallback onCategory;
+  final ValueChanged<String>? onChanged;
+
+  final _controller = TextEditingController();
 
   Header({
     required this.onSort,
     required this.onCategory,
     required this.height,
+    required this.onChanged,
   });
 
   @override
@@ -21,12 +23,13 @@ class Header extends SliverPersistentHeaderDelegate {
       color: Theme.of(context).scaffoldBackgroundColor,
       alignment: Alignment.bottomCenter,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Row(
           children: [
             Expanded(
               child: SearchBar(
                 hintText: Translate.of(context).translate('search_news'),
+                controller: _controller,
                 focusNode: _focusNode,
                 shadowColor: WidgetStateProperty.resolveWith((states) {
                   return Theme.of(context).colorScheme.surfaceContainerLowest;
@@ -41,9 +44,7 @@ class Header extends SliverPersistentHeaderDelegate {
                 onTap: () {
                   Logger.log("onTap");
                 },
-                onChanged: (value) {
-                  Logger.log("onChanged", value);
-                },
+                onChanged: onChanged,
                 onSubmitted: (value) {
                   Logger.log("onSubmitted", value);
                 },

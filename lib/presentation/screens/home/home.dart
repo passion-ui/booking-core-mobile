@@ -215,7 +215,9 @@ class _HomeState extends State<Home> {
 
           return RefreshIndicator(
             edgeOffset: 246,
-            onRefresh: () async {},
+            onRefresh: () async {
+              context.read<HomeBloc>().add(OnLoadHome());
+            },
             child: CustomScrollView(
               slivers: [
                 ...blocks,
