@@ -27,6 +27,7 @@ class Header extends SliverPersistentHeaderDelegate {
           children: [
             Expanded(
               child: SearchBar(
+                constraints: BoxConstraints(minHeight: 52),
                 hintText: Translate.of(context).translate('search_news'),
                 controller: controller,
                 focusNode: _focusNode,
@@ -63,6 +64,7 @@ class Header extends SliverPersistentHeaderDelegate {
                       ),
                     ),
                 ],
+                keyboardType: TextInputType.text,
               ),
             ),
             SizedBox(width: 8),

@@ -1,7 +1,7 @@
 import 'package:booking/presentation/presentation.dart';
 
-class Empty extends StatelessWidget {
-  const Empty({super.key});
+class ScanQR extends StatelessWidget {
+  const ScanQR({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +9,7 @@ class Empty extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          Translate.of(context).translate('settings'),
+          Translate.of(context).translate('scan_qr'),
         ),
       ),
       body: Padding(
@@ -32,7 +32,7 @@ class Empty extends StatelessWidget {
                         color: Colors.cyan,
                       ),
                     ),
-                    title: Translate.of(context).translate('settings'),
+                    title: Translate.of(context).translate('scan_qr'),
                     onPress: () {},
                   ),
                 ],

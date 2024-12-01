@@ -7,15 +7,17 @@ class Routers {
   static const String register = '/register';
   static const String forgotPassword = '/forgotPassword';
   static const String changePassword = '/changePassword';
-  static const String detail = '/detail';
-  static const String create = '/create';
-  static const String update = '/update';
   static const String profile = '/profile';
+  static const String author = '/author';
   static const String settings = '/settings';
   static const String about = '/about';
   static const String privacy = '/privacy';
   static const String terms = '/terms';
   static const String listing = '/listing';
+  static const String search = '/search';
+  static const String scanQR = '/scanQR';
+  static const String detailNew = '/detailNew';
+  static const String detailService = '/detailService';
 
   static const String notFound = '/404';
 
@@ -114,9 +116,39 @@ class Routers {
             },
           ),
           GoRoute(
+            path: author,
+            builder: (BuildContext context, GoRouterState state) {
+              return const Author();
+            },
+          ),
+          GoRoute(
             path: listing,
             builder: (BuildContext context, GoRouterState state) {
               return const Listing();
+            },
+          ),
+          GoRoute(
+            path: search,
+            builder: (BuildContext context, GoRouterState state) {
+              return const Search();
+            },
+          ),
+          GoRoute(
+            path: scanQR,
+            builder: (BuildContext context, GoRouterState state) {
+              return const ScanQR();
+            },
+          ),
+          GoRoute(
+            path: detailService,
+            builder: (BuildContext context, GoRouterState state) {
+              return const ServiceDetail();
+            },
+          ),
+          GoRoute(
+            path: detailNew,
+            builder: (BuildContext context, GoRouterState state) {
+              return const DetailNew();
             },
           ),
         ],

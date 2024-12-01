@@ -1,4 +1,3 @@
-import 'package:booking/core/core.dart';
 import 'package:booking/presentation/presentation.dart';
 
 class Header extends SliverPersistentHeaderDelegate {
@@ -7,11 +6,13 @@ class Header extends SliverPersistentHeaderDelegate {
   final String? banner;
   final String? placeholder;
   final VoidCallback? onScan;
+  final VoidCallback? onSearch;
 
   Header({
     this.banner,
     this.placeholder,
     this.onScan,
+    this.onSearch,
   });
 
   @override
@@ -49,67 +50,40 @@ class Header extends SliverPersistentHeaderDelegate {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: SearchAnchor(
-            searchController: _controller,
-            viewOnSubmitted: (value) {
-              Logger.log("viewOnSubmitted", value);
+          child: SearchBar(
+            hintText: search,
+            focusNode: _focusNode,
+            shadowColor: WidgetStateProperty.resolveWith((states) {
+              return Theme.of(context).colorScheme.surfaceContainerLowest;
+            }),
+            backgroundColor: WidgetStateProperty.resolveWith((states) {
+              return Theme.of(context).colorScheme.surfaceContainerLowest;
+            }),
+            onTapOutside: (value) {
+              _focusNode.unfocus();
             },
-            viewOnChanged: (value) {
-              Logger.log("viewOnChanged", value);
+            onTap: () {
+              _focusNode.unfocus();
+              onSearch?.call();
             },
-            builder: (context, controller) {
-              return SearchBar(
-                hintText: search,
-                focusNode: _focusNode,
-                shadowColor: WidgetStateProperty.resolveWith((states) {
-                  return Theme.of(context).colorScheme.surfaceContainerLowest;
-                }),
-                backgroundColor: WidgetStateProperty.resolveWith((states) {
-                  return Theme.of(context).colorScheme.surfaceContainerLowest;
-                }),
-                onTapOutside: (value) {
-                  Logger.log("onTapOutside", value);
-                  _focusNode.unfocus();
-                },
-                onTap: () {
-                  Logger.log("onTap");
-                  _focusNode.unfocus();
-                  controller.openView();
-                },
-                onChanged: (value) {
-                  Logger.log("onChanged", value);
-                  _focusNode.unfocus();
-                  controller.openView();
-                },
-                onSubmitted: (value) {
-                  Logger.log("onSubmitted", value);
-                  _focusNode.unfocus();
-                },
-                leading: Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: Icon(Icons.search),
-                ),
-                trailing: <Widget>[
-                  SizedBox(
-                    height: 32,
-                    child: VerticalDivider(),
-                  ),
-                  IconButton(
-                    onPressed: onScan,
-                    icon: Icon(Icons.qr_code_scanner),
-                  )
-                ],
-              );
-            },
-            suggestionsBuilder: (context, controller) {
-              return List<ListTile>.generate(5, (int index) {
-                final String item = 'item $index';
-                return ListTile(
-                  title: Text(item),
-                  onTap: () {},
-                );
-              });
-            },
+            leading: GestureDetector(
+              onTap: () {},
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Icon(Icons.search),
+              ),
+            ),
+            trailing: <Widget>[
+              SizedBox(
+                height: 32,
+                child: VerticalDivider(),
+              ),
+              IconButton(
+                onPressed: onScan,
+                icon: Icon(Icons.qr_code_scanner),
+              )
+            ],
+            keyboardType: TextInputType.text,
           ),
         )
       ],

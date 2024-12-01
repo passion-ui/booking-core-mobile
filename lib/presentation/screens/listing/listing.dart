@@ -15,30 +15,7 @@ class Listing extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Column(
-          children: [
-            Box(
-              child: Column(
-                children: [
-                  ListTitle(
-                    leading: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.cyan.withAlpha(80),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.domain,
-                        color: Colors.cyan,
-                      ),
-                    ),
-                    title: Translate.of(context).translate('listing'),
-                    onPress: () {},
-                  ),
-                ],
-              ),
-            )
-          ],
+          children: [],
         ),
       ),
     );

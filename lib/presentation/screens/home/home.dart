@@ -22,29 +22,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  ///On Search
+  void _onSearch() {
+    context.go(Routers.search);
+  }
+
   ///On Scan
   void _onScan() {
-    context.go(Routers.listing);
+    context.go(Routers.scanQR);
   }
 
   ///On Booking
-  void _onBooking(BookingEntity item) {
+  void _onService(BookingEntity item) {
     context.go(Routers.listing);
   }
 
   ///On Offer
-  void _onOffer(BannerEntity item) {
-    context.go(Routers.listing);
-  }
+  void _onOffer(BannerEntity item) {}
 
-  ///On Listing
-  void _onListing(ProductEntity item) {
-    context.go(Routers.listing);
+  ///On Detail
+  void _onDetail(ProductEntity item) {
+    context.go(Routers.detailService);
   }
 
   ///On New
   void _onNew(PostEntity item) {
-    context.go(Routers.listing);
+    context.go(Routers.detailNew);
   }
 
   ///On Location
@@ -61,6 +64,7 @@ class _HomeState extends State<Home> {
             banner: block.image,
             placeholder: block.description,
             onScan: _onScan,
+            onSearch: _onSearch,
           ),
           pinned: true,
         ),
@@ -75,7 +79,7 @@ class _HomeState extends State<Home> {
               }
               return ServicesBlock(
                 items: items,
-                onPressed: _onBooking,
+                onPressed: _onService,
               );
             },
           ),
@@ -95,7 +99,7 @@ class _HomeState extends State<Home> {
         SliverToBoxAdapter(
           child: BestSellerBlock(
             data: block,
-            onPressed: _onListing,
+            onPressed: _onDetail,
           ),
         )
       ];
@@ -113,7 +117,7 @@ class _HomeState extends State<Home> {
         SliverToBoxAdapter(
           child: TourBlock(
             data: block,
-            onPressed: _onListing,
+            onPressed: _onDetail,
           ),
         )
       ];
@@ -122,7 +126,7 @@ class _HomeState extends State<Home> {
         SliverToBoxAdapter(
           child: SpaceBlock(
             data: block,
-            onPressed: _onListing,
+            onPressed: _onDetail,
           ),
         )
       ];
@@ -131,7 +135,7 @@ class _HomeState extends State<Home> {
         SliverToBoxAdapter(
           child: CarBlock(
             data: block,
-            onPressed: _onListing,
+            onPressed: _onDetail,
           ),
         )
       ];
@@ -140,7 +144,7 @@ class _HomeState extends State<Home> {
         SliverToBoxAdapter(
           child: EventBlock(
             data: block,
-            onPressed: _onListing,
+            onPressed: _onDetail,
           ),
         )
       ];
@@ -149,7 +153,7 @@ class _HomeState extends State<Home> {
         SliverToBoxAdapter(
           child: BoatBlock(
             data: block,
-            onPressed: _onListing,
+            onPressed: _onDetail,
           ),
         )
       ];
@@ -187,7 +191,9 @@ class _HomeState extends State<Home> {
         builder: (context, home) {
           List<Widget> blocks = [
             SliverPersistentHeader(
-              delegate: Header(),
+              delegate: Header(
+                onSearch: _onSearch,
+              ),
               pinned: true,
             ),
             SliverToBoxAdapter(

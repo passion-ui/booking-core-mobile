@@ -16,7 +16,7 @@ class _NewsState extends State<News> {
 
   ///On New
   void _onNew(PostEntity item) {
-    context.go(Routers.listing);
+    context.go(Routers.detailNew);
   }
 
   ///On share
@@ -29,7 +29,7 @@ class _NewsState extends State<News> {
 
   ///On Author
   void _onAuthor(UserEntity item) {
-    context.go(Routers.listing);
+    context.go(Routers.author);
   }
 
   @override
@@ -93,12 +93,8 @@ class _NewsState extends State<News> {
                       context.read<NewsBloc>().add(OnLoadNews(keyword: value));
                     },
                     height: 60 + MediaQuery.of(context).padding.top,
-                    onSort: () {
-                      context.go(Routers.listing);
-                    },
-                    onCategory: () {
-                      context.go(Routers.listing);
-                    },
+                    onSort: () {},
+                    onCategory: () {},
                   ),
                   floating: true,
                   pinned: true,

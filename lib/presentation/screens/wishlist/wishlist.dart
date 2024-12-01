@@ -42,7 +42,7 @@ class _WishListState extends State<WishList> {
 
   ///On Listing
   void _onListing(ProductEntity item) {
-    context.go(Routers.listing);
+    context.go(Routers.detailService);
   }
 
   void _onAction(ProductEntity item) async {
