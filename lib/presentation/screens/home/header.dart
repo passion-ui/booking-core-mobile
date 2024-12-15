@@ -2,7 +2,6 @@ import 'package:booking/presentation/presentation.dart';
 
 class Header extends SliverPersistentHeaderDelegate {
   final _focusNode = FocusNode();
-  final _controller = SearchController();
   final String? banner;
   final String? placeholder;
   final VoidCallback? onScan;

@@ -1,4 +1,3 @@
-import 'package:booking/core/core.dart';
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
@@ -31,34 +30,12 @@ class _AccountState extends State<Account> {
     return Column(
       children: [
         Box(
-          child: Column(
-            children: [
-              Image.asset(
-                Images.waiting,
-                height: 150,
-                fit: BoxFit.cover,
-              ),
-              const SizedBox(height: 24),
-              Text(
-                Translate.of(context).translate(
-                  'sign_in_to_continue_explore',
-                ),
-                style: Theme.of(context).textTheme.labelLarge,
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: FilledButton(
-                      onPressed: _onLogin,
-                      child: Text(
-                        Translate.of(context).translate('login'),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
+          child: Empty(
+            message: Translate.of(context).translate(
+              'sign_in_to_continue_explore',
+            ),
+            action: Translate.of(context).translate('login'),
+            onAction: _onLogin,
           ),
         ),
         SizedBox(height: 12),

@@ -12,11 +12,9 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _emailController = TextEditingController(
-    text: "pau.passionui@gmail.com",
+    text: "admin@bookingcore.test",
   );
-  final _passwordController = TextEditingController(
-    text: "admin123",
-  );
+  final _passwordController = TextEditingController(text: "admin123");
 
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();

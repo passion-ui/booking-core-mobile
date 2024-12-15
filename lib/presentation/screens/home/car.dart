@@ -96,7 +96,7 @@ class CarBlock extends StatelessWidget {
 
     if (data!.items.isNotEmpty) {
       listing = SizedBox(
-        height: 260,
+        height: 300,
         child: ListView.separated(
           padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
           shrinkWrap: true,

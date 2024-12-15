@@ -2,6 +2,11 @@ import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
 class CarModel extends ProductModel {
+  final int passenger;
+  final String gear;
+  final int baggage;
+  final int door;
+
   CarModel({
     required super.id,
     required super.title,
@@ -13,6 +18,10 @@ class CarModel extends ProductModel {
     required super.saleOff,
     required super.location,
     required super.review,
+    required this.passenger,
+    required this.gear,
+    required this.baggage,
+    required this.door,
   });
 
   @override
@@ -28,6 +37,10 @@ class CarModel extends ProductModel {
       saleOff: saleOff,
       location: location.toEntity(),
       review: review.toEntity(),
+      passenger: passenger,
+      gear: gear,
+      baggage: baggage,
+      door: door,
     );
   }
 
@@ -43,6 +56,10 @@ class CarModel extends ProductModel {
       salePrice: num.tryParse('${json['sale_price']}') ?? 0,
       location: CategoryModel.fromJson(json['location']),
       review: ReviewModel.fromJson(json['review_score']),
+      passenger: json['max_guest'] ?? 0,
+      gear: json['gear'] ?? '',
+      baggage: json['baggage'] ?? 0,
+      door: json['door'] ?? 0,
     );
   }
 }

@@ -14,6 +14,9 @@ class AuthenticationBloc extends AuthBloc {
     on<OnVerify>((event, emit) async {
       try {
         final user = await _getUserData.call();
+
+        ///TODO for token verify here
+        await Future.delayed(const Duration(milliseconds: 500));
         if (user == null) {
           emit(AuthenticationFail());
         } else {

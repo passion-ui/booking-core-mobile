@@ -18,7 +18,7 @@ class PostItem extends StatelessWidget {
   });
 
   /// Build the card view of the post new.
-  Widget _buildNormal(BuildContext context) {
+  Widget _buildCard(BuildContext context) {
     if (data == null) {
       return Skeleton(
         child: Container(
@@ -411,13 +411,13 @@ class PostItem extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (style) {
       case ListingViewStyle.card:
-        return _buildNormal(context);
+        return _buildCard(context);
 
       case ListingViewStyle.list:
         return _buildList(context);
 
       default:
-        return _buildNormal(context);
+        return _buildCard(context);
     }
   }
 }

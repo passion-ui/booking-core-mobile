@@ -87,14 +87,6 @@ class BoatItem extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
         ),
-        const SizedBox(width: 4),
-        Padding(
-          padding: const EdgeInsets.only(top: 2),
-          child: Text(
-            '/${Translate.of(context).translate('night')}',
-            style: Theme.of(context).textTheme.labelSmall,
-          ),
-        ),
       ],
     );
 
@@ -165,14 +157,6 @@ class BoatItem extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
           ),
-          const SizedBox(width: 4),
-          Padding(
-            padding: const EdgeInsets.only(top: 2),
-            child: Text(
-              '/${Translate.of(context).translate('night')}',
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-          ),
         ],
       );
     }
@@ -210,7 +194,7 @@ class BoatItem extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(.6),
+                      color: Colors.black.withAlpha(150),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
@@ -229,7 +213,7 @@ class BoatItem extends StatelessWidget {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(.6),
+                      color: Colors.black.withAlpha(150),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
@@ -378,52 +362,50 @@ class BoatItem extends StatelessWidget {
   Widget _buildList(BuildContext context) {
     if (data == null) {
       return Skeleton(
-        child: SizedBox(
-          height: 140,
-          child: Row(
-            children: [
-              Container(
-                width: 120,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.white,
+        child: Row(
+          children: [
+            Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.white,
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 14,
+                      width: 200,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(height: 8),
+                    Container(
+                      height: 14,
+                      width: 150,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(height: 12),
+                    Container(
+                      height: 14,
+                      width: 150,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(height: 8),
+                    Container(
+                      height: 14,
+                      width: 250,
+                      color: Colors.white,
+                    ),
+                  ],
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 14,
-                        width: 200,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        height: 14,
-                        width: 150,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(height: 12),
-                      Container(
-                        height: 14,
-                        width: 150,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        height: 14,
-                        width: 250,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     }
@@ -431,9 +413,12 @@ class BoatItem extends StatelessWidget {
     Widget featured = const SizedBox.shrink();
     Widget sale = Row(
       children: [
-        Text(
-          Translate.of(context).translate('from'),
-          style: Theme.of(context).textTheme.labelSmall,
+        Padding(
+          padding: const EdgeInsets.only(top: 2),
+          child: Text(
+            Translate.of(context).translate('from'),
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
         ),
         const SizedBox(width: 4),
         Text(
@@ -441,11 +426,6 @@ class BoatItem extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: Theme.of(context).colorScheme.primary,
               ),
-        ),
-        const SizedBox(width: 4),
-        Text(
-          '/${Translate.of(context).translate('night')}',
-          style: Theme.of(context).textTheme.labelSmall,
         ),
       ],
     );
@@ -512,9 +492,12 @@ class BoatItem extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                Translate.of(context).translate('from'),
-                style: Theme.of(context).textTheme.labelSmall,
+              Padding(
+                padding: const EdgeInsets.only(top: 2),
+                child: Text(
+                  Translate.of(context).translate('from'),
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
               ),
               const SizedBox(width: 4),
               Text(
@@ -536,91 +519,88 @@ class BoatItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: () => onPressed!(data!),
-      child: SizedBox(
-        height: 140,
-        child: Row(
-          children: [
-            Stack(
-              children: [
-                CachedImage(
-                  url: data!.image,
-                  width: 120,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                featured
-              ],
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      data!.title,
-                      style: Theme.of(context).textTheme.titleSmall,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_on,
-                          size: 12,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          data!.location.name,
+      child: Row(
+        children: [
+          Stack(
+            children: [
+              CachedImage(
+                url: data!.image,
+                width: 120,
+                height: 120,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              featured
+            ],
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data!.title,
+                    style: Theme.of(context).textTheme.titleSmall,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        size: 12,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        data!.location.name,
+                        style: Theme.of(context).textTheme.bodySmall,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  sale,
+                  const SizedBox(height: 4),
+                  Rating(value: data!.review.score),
+                  const SizedBox(height: 2),
+                  Row(
+                    children: [
+                      Text(
+                        data!.review.text,
+                        style:
+                            Theme.of(context).textTheme.labelMedium?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                      ),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          '(${data!.review.total} ${Translate.of(context).translate('reviews')})',
                           style: Theme.of(context).textTheme.bodySmall,
-                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    sale,
-                    const SizedBox(height: 4),
-                    Rating(value: data!.review.score),
-                    Row(
-                      children: [
-                        Text(
-                          data!.review.text,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                        ),
-                        const SizedBox(width: 4),
-                        Expanded(
-                          child: Text(
-                            '(${data!.review.total} ${Translate.of(context).translate('reviews')})',
-                            style: Theme.of(context).textTheme.bodySmall,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-            InkWell(
-              onTap: () {
-                if (onAction != null) {
-                  onAction!(data!);
-                }
-              },
-              child: Container(
-                padding: const EdgeInsets.all(4),
-                child: Icon(Icons.more_vert),
-              ),
+          ),
+          InkWell(
+            onTap: () {
+              if (onAction != null) {
+                onAction!(data!);
+              }
+            },
+            child: Container(
+              padding: const EdgeInsets.all(4),
+              child: Icon(Icons.more_vert),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

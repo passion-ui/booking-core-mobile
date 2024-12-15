@@ -68,12 +68,15 @@
   "forgot_message": "Please enter your email address. You will receive a link to create a new password via email",
   "where_would_you_go": "Where would you like to go?",
   "reviews": "Reviews",
-  "from": "from",
+  "from": "From",
   "night": "night",
+  "day": "day",
   "featured": "Featured",
   "wishlist_is_empty": "Your wishlist is empty",
+  "your_data_is_empty": "Your data is empty",
   "delete": "Delete",
   "share": "Share",
   "book_now": "Book Now",
-  "search_news": "Search news..."
+  "search_news": "Search news...",
+  "refresh": "Refresh"
 }

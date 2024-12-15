@@ -1,14 +1,14 @@
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
-class SpaceItem extends StatelessWidget {
-  final SpaceEntity? data;
+class CarItem extends StatelessWidget {
+  final CarEntity? data;
   final ListingViewStyle style;
-  final Function(SpaceEntity)? onPressed;
-  final Function(SpaceEntity)? onAction;
+  final Function(CarEntity)? onPressed;
+  final Function(CarEntity)? onAction;
   final String? currency;
 
-  const SpaceItem({
+  const CarItem({
     super.key,
     this.data,
     required this.style,
@@ -17,7 +17,7 @@ class SpaceItem extends StatelessWidget {
     this.currency,
   });
 
-  /// Build the card view of the space.
+  /// Build the card view of the car.
   Widget _buildCard(BuildContext context) {
     if (data == null) {
       return Skeleton(
@@ -151,12 +151,9 @@ class SpaceItem extends StatelessWidget {
                 ),
           ),
           const SizedBox(width: 4),
-          Padding(
-            padding: const EdgeInsets.only(top: 2),
-            child: Text(
-              Translate.of(context).translate('from'),
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
+          Text(
+            Translate.of(context).translate('from'),
+            style: Theme.of(context).textTheme.labelSmall,
           ),
           const SizedBox(width: 4),
           Text(
@@ -164,14 +161,6 @@ class SpaceItem extends StatelessWidget {
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                 ),
-          ),
-          const SizedBox(width: 4),
-          Padding(
-            padding: const EdgeInsets.only(top: 2),
-            child: Text(
-              '/${Translate.of(context).translate('day')}',
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
           ),
         ],
       );
@@ -309,13 +298,13 @@ class SpaceItem extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              Icons.groups_outlined,
+                              Icons.people_outline,
                               size: 18,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '${data!.guests}',
+                              '${data!.passenger}',
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
@@ -323,13 +312,13 @@ class SpaceItem extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              Icons.bed_outlined,
+                              Icons.auto_mode_outlined,
                               size: 18,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '${data!.beds}',
+                              data!.gear,
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
@@ -337,13 +326,13 @@ class SpaceItem extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              Icons.bathtub_outlined,
+                              Icons.shopping_bag_outlined,
                               size: 18,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '${data!.bathrooms}',
+                              '${data!.baggage}',
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
@@ -351,13 +340,13 @@ class SpaceItem extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              Icons.square_foot_outlined,
+                              Icons.window_outlined,
                               size: 18,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '${data!.squares}m²',
+                              '${data!.door}',
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
@@ -374,7 +363,7 @@ class SpaceItem extends StatelessWidget {
     );
   }
 
-  /// Build the list view of the space.
+  /// Build the list view of the car.
   Widget _buildList(BuildContext context) {
     if (data == null) {
       return Skeleton(
@@ -429,12 +418,9 @@ class SpaceItem extends StatelessWidget {
     Widget featured = const SizedBox.shrink();
     Widget sale = Row(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 2),
-          child: Text(
-            Translate.of(context).translate('from'),
-            style: Theme.of(context).textTheme.labelSmall,
-          ),
+        Text(
+          Translate.of(context).translate('from'),
+          style: Theme.of(context).textTheme.labelSmall,
         ),
         const SizedBox(width: 4),
         Text(
@@ -442,14 +428,6 @@ class SpaceItem extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: Theme.of(context).colorScheme.primary,
               ),
-        ),
-        const SizedBox(width: 4),
-        Padding(
-          padding: const EdgeInsets.only(top: 2),
-          child: Text(
-            '/${Translate.of(context).translate('day')}',
-            style: Theme.of(context).textTheme.labelSmall,
-          ),
         ),
       ],
     );
@@ -516,12 +494,9 @@ class SpaceItem extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 2),
-                child: Text(
-                  Translate.of(context).translate('from'),
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
+              Text(
+                Translate.of(context).translate('from'),
+                style: Theme.of(context).textTheme.labelSmall,
               ),
               const SizedBox(width: 4),
               Text(
@@ -531,12 +506,9 @@ class SpaceItem extends StatelessWidget {
                     ),
               ),
               const SizedBox(width: 4),
-              Padding(
-                padding: const EdgeInsets.only(top: 2),
-                child: Text(
-                  '/${Translate.of(context).translate('day')}',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
+              Text(
+                '/${Translate.of(context).translate('day')}',
+                style: Theme.of(context).textTheme.labelSmall,
               ),
             ],
           )
@@ -592,6 +564,7 @@ class SpaceItem extends StatelessWidget {
                   sale,
                   const SizedBox(height: 4),
                   Rating(value: data!.review.score),
+                  const SizedBox(height: 2),
                   Row(
                     children: [
                       Text(
@@ -639,7 +612,6 @@ class SpaceItem extends StatelessWidget {
 
       case ListingViewStyle.list:
         return _buildList(context);
-
       default:
         return _buildCard(context);
     }

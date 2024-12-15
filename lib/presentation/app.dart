@@ -25,17 +25,9 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) => HomeBloc()..add(OnLoadHome()),
         ),
+        BlocProvider(create: (BuildContext context) => WishListBloc()),
         BlocProvider(
-          create: (BuildContext context) => WishListBloc()
-            ..add(
-              OnLoadWishList(),
-            ),
-        ),
-        BlocProvider(
-          create: (BuildContext context) => NewsBloc()
-            ..add(
-              OnLoadNews(),
-            ),
+          create: (BuildContext context) => NewsBloc()..add(OnLoadNews()),
         ),
       ],
       child: BlocConsumer<ApplicationBloc, ApplicationState>(

@@ -22,6 +22,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  ///On Refresh
+  Future<void> _onRefresh() async {
+    context.read<HomeBloc>().add(OnLoadHome());
+  }
+
   ///On Search
   void _onSearch() {
     context.go(Routers.search);
@@ -213,17 +218,29 @@ class _HomeState extends State<Home> {
             )
           ];
           if (home is HomeSuccess) {
-            blocks = home.data
-                .map(_buildBlock)
-                .expand((sublist) => sublist)
-                .toList();
+            if (home.data.isEmpty) {
+              blocks = [
+                SliverFillRemaining(
+                  child: Empty(
+                    message: Translate.of(context).translate(
+                      'your_data_is_empty',
+                    ),
+                    action: Translate.of(context).translate('refresh'),
+                    onAction: _onRefresh,
+                  ),
+                )
+              ];
+            } else {
+              blocks = home.data
+                  .map(_buildBlock)
+                  .expand((sublist) => sublist)
+                  .toList();
+            }
           }
 
           return RefreshIndicator(
             edgeOffset: 246,
-            onRefresh: () async {
-              context.read<HomeBloc>().add(OnLoadHome());
-            },
+            onRefresh: _onRefresh,
             child: CustomScrollView(
               slivers: [
                 ...blocks,

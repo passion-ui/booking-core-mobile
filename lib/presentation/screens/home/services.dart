@@ -39,7 +39,7 @@ class ServicesBlock extends StatelessWidget {
                           height: 44,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: color.withOpacity(.15),
+                            color: color.withAlpha(40),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Icon(

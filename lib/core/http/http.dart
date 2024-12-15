@@ -30,7 +30,28 @@ class HTTPClient {
           return handler.next(options);
         },
         onError: (DioException error, handler) async {
-          return handler.next(error);
+          if (error.response?.statusCode == 401) {
+            final options = error.requestOptions;
+            try {
+              ///TODO for refresh token
+              sl<AuthenticationBloc>().add(OnLogOut());
+              await Future.delayed(const Duration(milliseconds: 500));
+              final response = await _dio.request(
+                options.path,
+                options: Options(
+                  method: options.method,
+                  headers: options.headers,
+                ),
+                data: options.data,
+                queryParameters: options.queryParameters,
+              );
+              return handler.resolve(response);
+            } catch (e) {
+              return handler.next(error);
+            }
+          } else {
+            return handler.next(error);
+          }
         },
       ),
     );
@@ -111,7 +132,7 @@ class HTTPClient {
         break;
 
       default:
-        message = "cannot_connect_server";
+        message = error.response?.data["message"] ?? "cannot_connect_server";
         break;
     }
 

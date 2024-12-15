@@ -60,10 +60,12 @@ class ListingItem extends StatelessWidget {
         currency: currency,
       );
     } else if (data is CarEntity) {
-      return Container(
-        width: 200,
-        height: 200,
-        color: Colors.red,
+      return CarItem(
+        data: data as CarEntity,
+        onPressed: onPressed,
+        onAction: onAction,
+        style: style,
+        currency: currency,
       );
     } else {
       return HotelItem(style: style);

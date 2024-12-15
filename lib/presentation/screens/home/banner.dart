@@ -41,6 +41,7 @@ class BannerBlock extends StatelessWidget {
     }
     Widget banner = Container(
       height: 120,
+      width: double.infinity,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -65,14 +66,16 @@ class BannerBlock extends StatelessWidget {
                       ?.copyWith(color: Colors.white),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  data!.item.description.replaceAll('<br>', ''),
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: Colors.white),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
+                Expanded(
+                  child: Text(
+                    data!.item.description.replaceAll('<br>', ''),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(color: Colors.white),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                  ),
                 ),
               ],
             ),

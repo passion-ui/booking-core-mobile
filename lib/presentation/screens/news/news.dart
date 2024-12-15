@@ -14,6 +14,11 @@ class News extends StatefulWidget {
 class _NewsState extends State<News> {
   final _controller = TextEditingController();
 
+  ///On Refresh
+  Future<void> _onRefresh() async {
+    context.read<NewsBloc>().add(OnLoadNews());
+  }
+
   ///On New
   void _onNew(PostEntity item) {
     context.go(Routers.detailNew);
@@ -81,9 +86,7 @@ class _NewsState extends State<News> {
         return Scaffold(
           body: RefreshIndicator(
             edgeOffset: 60 + MediaQuery.of(context).padding.top,
-            onRefresh: () async {
-              context.read<WishListBloc>().add(OnLoadWishList());
-            },
+            onRefresh: _onRefresh,
             child: CustomScrollView(
               slivers: [
                 SliverPersistentHeader(
