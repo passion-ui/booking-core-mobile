@@ -136,8 +136,10 @@ class RemoteDataSource {
   }
 
   /// Fetch Wishlist
-  Future<ListingModel<PostModel>> fetchNews(
-      {int? page = 1, String? keyword}) async {
+  Future<ListingModel<PostModel>> fetchNews({
+    int? page = 1,
+    String? keyword,
+  }) async {
     final response = await _httpClient.get(
       url: _news,
       params: {"page": page, "s": keyword},

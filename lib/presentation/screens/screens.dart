@@ -1,7 +1,6 @@
 export 'account/account.dart';
 export 'author/author.dart';
 export 'detail_new/detail_new.dart';
-export 'detail_service/detail_service.dart';
 export 'forgot_password/forgot_password.dart';
 export 'home/home.dart';
 export 'listing/listing.dart';
@@ -11,6 +10,8 @@ export 'profile/profile.dart';
 export 'register/register.dart';
 export 'scan/scan.dart';
 export 'search/search.dart';
+export 'service_detail/hotel_detail.dart';
+export 'service_detail/service_detail.dart';
 export 'setting/setting.dart';
 export 'splash/splash.dart';
 export 'wishlist/wishlist.dart';

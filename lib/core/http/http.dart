@@ -132,7 +132,9 @@ class HTTPClient {
         break;
 
       default:
-        message = error.response?.data["message"] ?? "cannot_connect_server";
+        if (error.response?.data is Map) {
+          message = error.response?.data["message"] ?? "cannot_connect_server";
+        }
         break;
     }
 

@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
 
   ///On Detail
   void _onDetail(ProductEntity item) {
-    context.go(Routers.detailService);
+    context.go(Routers.detailService, extra: item);
   }
 
   ///On New

@@ -21,7 +21,7 @@ class ReviewModel {
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
     return ReviewModel(
-      score: double.tryParse(json['score_total'] ?? "") ?? 0.0,
+      score: double.tryParse('${json['score_total']}') ?? 0.0,
       total: json['total_review'] ?? 0,
       text: json['review_text'] ?? '',
     );

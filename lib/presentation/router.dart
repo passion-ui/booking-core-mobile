@@ -1,3 +1,4 @@
+import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 import 'package:flutter/services.dart';
 
@@ -142,7 +143,10 @@ class Routers {
           GoRoute(
             path: detailService,
             builder: (BuildContext context, GoRouterState state) {
-              return const ServiceDetail();
+              if (state.extra is HotelEntity) {
+                return HotelDetail(item: state.extra as HotelEntity);
+              }
+              return ServiceDetail(item: state.extra as ProductEntity);
             },
           ),
           GoRoute(
