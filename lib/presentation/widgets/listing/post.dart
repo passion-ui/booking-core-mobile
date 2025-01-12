@@ -116,9 +116,8 @@ class PostItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CachedImage(
-              url: data!.image,
-              height: 160,
+            Expanded(
+              child: CachedImage(url: data!.image),
             ),
             Padding(
               padding: const EdgeInsets.all(8),

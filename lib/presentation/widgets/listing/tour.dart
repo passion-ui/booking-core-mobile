@@ -194,33 +194,34 @@ class TourItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                CachedImage(
-                  url: data!.image,
-                  height: 160,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(12),
-                  ),
-                ),
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withAlpha(150),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.favorite_border,
-                      color: Colors.white,
-                      size: 20,
+            Expanded(
+              child: Stack(
+                children: [
+                  CachedImage(
+                    url: data!.image,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(12),
                     ),
                   ),
-                ),
-                featured,
-              ],
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withAlpha(150),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.favorite_border,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                  featured,
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8),

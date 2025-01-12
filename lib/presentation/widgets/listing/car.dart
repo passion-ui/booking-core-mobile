@@ -183,64 +183,67 @@ class CarItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                CachedImage(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(12),
+            Expanded(
+              child: Stack(
+                children: [
+                  CachedImage(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(12),
+                    ),
+                    url: data!.image,
                   ),
-                  url: data!.image,
-                  height: 140,
-                ),
-                featured,
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withAlpha(150),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.favorite_border,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 8,
-                  right: 8,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withAlpha(150),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 14,
-                        ),
-                        SizedBox(width: 4),
-                        Text(
-                          data!.review.score.toString(),
-                          style:
-                              Theme.of(context).textTheme.labelSmall?.copyWith(
-                                    color: Colors.amber,
-                                  ),
-                        ),
-                      ],
+                  featured,
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withAlpha(150),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.favorite_border,
+                        color: Colors.white,
+                        size: 20,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  Positioned(
+                    bottom: 8,
+                    right: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withAlpha(150),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 14,
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            data!.review.score.toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(
+                                  color: Colors.amber,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8),
