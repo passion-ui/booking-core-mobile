@@ -27,16 +27,16 @@ class _WishListState extends State<WishList> {
   ///Handle load more
   void _onScroll() async {
     if (_scrollController.position.extentAfter > 100) return;
-    final wishlist = context.read<WishListBloc>().state;
+    final wishlist = context.read<WishListCubit>().state;
     if (wishlist is WishListSuccess && wishlist.data.allowMore && !_fetching) {
       _fetching = true;
-      context.read<WishListBloc>().add(OnLoadWishList(isLoadMore: true));
+      context.read<WishListCubit>().onLoad(isLoadMore: true);
     }
   }
 
   ///On Refresh
   Future<void> _onRefresh() async {
-    context.read<WishListBloc>().add(OnLoadWishList());
+    await context.read<WishListCubit>().onLoad();
   }
 
   /// Login
@@ -46,7 +46,7 @@ class _WishListState extends State<WishList> {
 
   ///On Listing
   void _onListing(ProductEntity item) {
-    context.go(Routers.detailService);
+    context.go(Routers.productDetail, extra: item);
   }
 
   void _onAction(ProductEntity item) async {
@@ -96,7 +96,7 @@ class _WishListState extends State<WishList> {
             }
           },
         ),
-        BlocListener<WishListBloc, WishListState>(
+        BlocListener<WishListCubit, WishListState>(
           listener: (context, wishlist) {
             if (wishlist is WishListSuccess) {
               _fetching = false;
@@ -130,8 +130,9 @@ class _WishListState extends State<WishList> {
               ),
               actions: actions,
             ),
-            body: BlocBuilder<WishListBloc, WishListState>(
+            body: BlocBuilder<WishListCubit, WishListState>(
               builder: (context, wishlist) {
+                /// Not login
                 if (authentication is AuthenticationFail) {
                   return Empty(
                     message: Translate.of(context).translate(
@@ -142,6 +143,7 @@ class _WishListState extends State<WishList> {
                   );
                 }
 
+                /// Success
                 if (wishlist is WishListSuccess) {
                   /// Empty list
                   if (wishlist.data.items.isEmpty) {
@@ -153,6 +155,7 @@ class _WishListState extends State<WishList> {
                       onAction: _onRefresh,
                     );
                   }
+
                   String currency = '';
                   List list = List.from(wishlist.data.items);
                   if (wishlist.data.allowMore) {
@@ -164,11 +167,12 @@ class _WishListState extends State<WishList> {
                     currency = config.data.currency.symbol;
                   }
 
-                  /// List
+                  /// List data
                   return RefreshIndicator(
                     onRefresh: _onRefresh,
                     child: ListView.separated(
                       controller: _scrollController,
+                      physics: const AlwaysScrollableScrollPhysics(),
                       itemCount: list.length,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,
@@ -194,6 +198,7 @@ class _WishListState extends State<WishList> {
                   );
                 }
 
+                /// Loading
                 return ListView.separated(
                   itemCount: 15,
                   padding: const EdgeInsets.symmetric(

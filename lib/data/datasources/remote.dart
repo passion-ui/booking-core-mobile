@@ -91,7 +91,7 @@ class RemoteDataSource {
         final String type = item['type'];
         switch (type) {
           case 'form_search_all_service':
-            return BlockServiceModel.fromJson(item);
+            return BlockProductModel.fromJson(item);
           case 'offer_block':
             return BlockOfferModel.fromJson(item);
           case 'list_hotel':

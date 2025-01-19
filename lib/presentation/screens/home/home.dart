@@ -10,7 +10,7 @@ import 'header.dart';
 import 'location.dart';
 import 'offer.dart';
 import 'post.dart';
-import 'services.dart';
+import 'products.dart';
 import 'space.dart';
 import 'tour.dart';
 
@@ -24,7 +24,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   ///On Refresh
   Future<void> _onRefresh() async {
-    context.read<HomeBloc>().add(OnLoadHome());
+    await context.read<HomeCubit>().onLoad();
   }
 
   ///On Search
@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
   }
 
   ///On Booking
-  void _onService(BookingEntity item) {
+  void _onListing(BookingEntity item) {
     context.go(Routers.listing);
   }
 
@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
 
   ///On Detail
   void _onDetail(ProductEntity item) {
-    context.go(Routers.detailService, extra: item);
+    context.go(Routers.productDetail, extra: item);
   }
 
   ///On New
@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
 
   ///Build block
   List<Widget> _buildBlock(BlockHomeEntity block) {
-    if (block is BlockServiceEntity) {
+    if (block is BlockProductEntity) {
       return [
         SliverPersistentHeader(
           delegate: Header(
@@ -78,13 +78,13 @@ class _HomeState extends State<Home> {
             builder: (context, state) {
               List<BookingEntity> items = [];
               if (state is ConfigsSuccess) {
-                items = block.services.map((e) {
+                items = block.products.map((e) {
                   return state.data.bookings[e]!;
                 }).toList();
               }
-              return ServicesBlock(
+              return ProductsBlock(
                 items: items,
-                onPressed: _onService,
+                onPressed: _onListing,
               );
             },
           ),
@@ -192,7 +192,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<HomeBloc, HomeState>(
+      body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, home) {
           List<Widget> blocks = [
             SliverPersistentHeader(
@@ -202,7 +202,7 @@ class _HomeState extends State<Home> {
               pinned: true,
             ),
             SliverToBoxAdapter(
-              child: ServicesBlock(),
+              child: ProductsBlock(),
             ),
             SliverToBoxAdapter(
               child: OfferBlock(),
@@ -242,6 +242,7 @@ class _HomeState extends State<Home> {
             edgeOffset: 246,
             onRefresh: _onRefresh,
             child: CustomScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
               slivers: [
                 ...blocks,
                 SliverPadding(

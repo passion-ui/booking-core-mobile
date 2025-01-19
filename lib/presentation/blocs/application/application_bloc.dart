@@ -111,7 +111,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
           ApplicationEntity(
             domain: state.domain,
             language: state.language.languageCode,
-            seedColor: _seedColor.value.toRadixString(16),
+            seedColor: _seedColor.toHex(),
             font: font,
             themeMode: themeMode.toString(),
           ),
@@ -131,7 +131,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
           ApplicationEntity(
             domain: state.domain,
             language: event.language,
-            seedColor: _seedColor.value.toRadixString(16),
+            seedColor: _seedColor.toHex(),
             font: state.lightTheme.textTheme.titleLarge!.fontFamily!,
             themeMode: state.themeMode.toString(),
           ),

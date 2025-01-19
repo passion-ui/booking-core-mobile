@@ -33,24 +33,24 @@ class Application {
   ];
   static final defaultTheme = {
     "title": "blue",
-    "seedColor": 'ff2196F3',
+    "seedColor": '#2196F3',
   };
   static final themeSupport = [
     {
       "title": "blue",
-      "seedColor": 'ff2196F3',
+      "seedColor": '#2196F3',
     },
     {
       "title": "pink",
-      "seedColor": 'ffE91E63',
+      "seedColor": '#E91E63',
     },
     {
       "title": "orange",
-      "seedColor": 'ffFF9800',
+      "seedColor": '#FF9800',
     },
     {
       "title": "green",
-      "seedColor": 'ff4CAF50',
+      "seedColor": '#4CAF50',
     }
   ];
 

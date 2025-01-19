@@ -1,32 +1,32 @@
 import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
-class BlockServiceModel extends BlockHomeModel {
-  final List<String> services;
+class BlockProductModel extends BlockHomeModel {
+  final List<String> products;
   final String image;
 
-  BlockServiceModel({
+  BlockProductModel({
     required super.title,
     required super.description,
-    required this.services,
+    required this.products,
     required this.image,
   });
 
   @override
   BlockHomeEntity toEntity() {
-    return BlockServiceEntity(
+    return BlockProductEntity(
       title: title,
       description: description,
-      services: services,
+      products: products,
       image: image,
     );
   }
 
-  factory BlockServiceModel.fromJson(Map<String, dynamic> json) {
-    return BlockServiceModel(
+  factory BlockProductModel.fromJson(Map<String, dynamic> json) {
+    return BlockProductModel(
       title: json['model']['title'] ?? '',
       description: json['model']['desc'] ?? json['model']['sub_title'] ?? '',
-      services: List<String>.from(json['model']['service_types']),
+      products: List<String>.from(json['model']['service_types']),
       image: json['model']['bg_image_url'] ?? '',
     );
   }

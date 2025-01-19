@@ -23,9 +23,9 @@ class App extends StatelessWidget {
           create: (BuildContext context) => sl(),
         ),
         BlocProvider(
-          create: (BuildContext context) => HomeBloc()..add(OnLoadHome()),
+          create: (BuildContext context) => HomeCubit()..onLoad(),
         ),
-        BlocProvider(create: (BuildContext context) => WishListBloc()),
+        BlocProvider(create: (BuildContext context) => WishListCubit()),
         BlocProvider(
           create: (BuildContext context) => NewsBloc()..add(OnLoadNews()),
         ),

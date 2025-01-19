@@ -18,7 +18,7 @@ class Routers {
   static const String search = '/search';
   static const String scanQR = '/scanQR';
   static const String detailNew = '/detailNew';
-  static const String detailService = '/detailService';
+  static const String productDetail = '/productDetail';
 
   static const String notFound = '/404';
 
@@ -141,12 +141,12 @@ class Routers {
             },
           ),
           GoRoute(
-            path: detailService,
+            path: productDetail,
             builder: (BuildContext context, GoRouterState state) {
               if (state.extra is HotelEntity) {
                 return HotelDetail(item: state.extra as HotelEntity);
               }
-              return ServiceDetail(item: state.extra as ProductEntity);
+              return ProductDetail(item: state.extra as ProductEntity);
             },
           ),
           GoRoute(

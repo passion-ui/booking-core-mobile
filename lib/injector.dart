@@ -17,7 +17,6 @@ Future<void> bindingDependencies() async {
   sl.registerSingleton<LocalDataSource>(
     LocalDataSource(
       results[0] as DefaultStorage,
-      RelationalStorage.init(),
       SecureStorage.init(),
     ),
   );
@@ -46,6 +45,9 @@ Future<void> bindingDependencies() async {
   );
   sl.registerSingleton<NewsRepositoryInterface>(
     NewsRepository(sl()),
+  );
+  sl.registerSingleton<ProductRepositoryInterface>(
+    ProductRepository(sl()),
   );
 
   /**

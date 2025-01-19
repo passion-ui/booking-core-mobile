@@ -178,7 +178,7 @@ class Setting extends StatelessWidget {
               seedColor: ColorUtils.fromHex(e["seedColor"] ?? ""),
             );
             return PickerEntity(
-              id: colorScheme.primary.value.toRadixString(16),
+              id: colorScheme.primary.toHex(),
               title: Translate.of(context).translate(e["title"] as String),
               leading: Container(
                 width: 24,
@@ -194,7 +194,7 @@ class Setting extends StatelessWidget {
           multiples: false,
           selected: [
             PickerEntity(
-              id: Theme.of(context).colorScheme.primary.value.toRadixString(16),
+              id: Theme.of(context).colorScheme.primary.toHex(),
               title: Theme.of(context).colorScheme.primary.toString(),
               leading: Container(
                 width: 24,

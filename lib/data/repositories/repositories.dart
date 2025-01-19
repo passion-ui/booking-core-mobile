@@ -3,4 +3,5 @@ export 'authentication.dart';
 export 'configs.dart';
 export 'home.dart';
 export 'news.dart';
+export 'product.dart';
 export 'wishlist.dart';

@@ -36,7 +36,7 @@ class _MainTabState extends State<MainTab> {
           ),
           NavigationDestination(
             selectedIcon: Badge(child: Icon(Icons.favorite)),
-            icon: BlocBuilder<WishListBloc, WishListState>(
+            icon: BlocBuilder<WishListCubit, WishListState>(
               builder: (context, wishlist) {
                 if (wishlist is WishListSuccess && wishlist.data.total > 0) {
                   return Badge(

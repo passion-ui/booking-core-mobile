@@ -2,11 +2,11 @@ import 'package:booking/core/core.dart';
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
-class ServicesBlock extends StatelessWidget {
+class ProductsBlock extends StatelessWidget {
   final Function(BookingEntity)? onPressed;
   final List<BookingEntity>? items;
 
-  const ServicesBlock({
+  const ProductsBlock({
     super.key,
     this.items,
     this.onPressed,

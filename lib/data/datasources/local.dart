@@ -5,12 +5,10 @@ import 'package:booking/data/data.dart';
 
 class LocalDataSource {
   final DefaultStorage _defaultStorage;
-  final RelationalStorage _relationalStorage;
   final SecureStorage _secureStorage;
 
   LocalDataSource(
     this._defaultStorage,
-    this._relationalStorage,
     this._secureStorage,
   );
 
