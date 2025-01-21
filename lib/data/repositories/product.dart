@@ -8,6 +8,10 @@ class ProductRepository extends ProductRepositoryInterface {
 
   @override
   Future<ProductEntity> getDetail(ProductEntity item) async {
-    return item;
+    final product = await _remoteDataSource.getProductDetail(
+      type: item.type,
+      id: item.id,
+    );
+    return product.toEntity();
   }
 }

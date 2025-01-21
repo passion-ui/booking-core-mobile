@@ -1,6 +1,8 @@
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
+import 'shared.dart';
+
 class HotelDetail extends StatefulWidget {
   final HotelEntity item;
 
@@ -12,15 +14,8 @@ class HotelDetail extends StatefulWidget {
 
 class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
   @override
-  buildBanner(ProductDetailState state) {
-    return Container(
-      height: 200,
-      color: Colors.grey,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return buildContent();
+  void initState() {
+    item = widget.item;
+    super.initState();
   }
 }

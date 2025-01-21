@@ -9,6 +9,7 @@ enum ListingViewStyle {
 class ProductEntity {
   final int id;
   final String title;
+  final String type;
   final String image;
   final String content;
   final bool isFeatured;
@@ -17,9 +18,13 @@ class ProductEntity {
   final String saleOff;
   final CategoryEntity location;
   final ReviewEntity review;
+  final String? banner;
+  final String? video;
+  final GPSEntity? gps;
 
   ProductEntity({
     required this.id,
+    required this.type,
     required this.title,
     required this.image,
     required this.content,
@@ -29,5 +34,8 @@ class ProductEntity {
     required this.saleOff,
     required this.location,
     required this.review,
+    required this.banner,
+    required this.video,
+    required this.gps,
   });
 }

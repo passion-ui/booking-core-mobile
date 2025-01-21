@@ -8,6 +8,7 @@ class SpaceEntity extends ProductEntity {
 
   SpaceEntity({
     required super.id,
+    required super.type,
     required super.title,
     required super.image,
     required super.content,
@@ -17,6 +18,9 @@ class SpaceEntity extends ProductEntity {
     required super.saleOff,
     required super.location,
     required super.review,
+    required super.banner,
+    required super.video,
+    required super.gps,
     required this.guests,
     required this.beds,
     required this.bathrooms,

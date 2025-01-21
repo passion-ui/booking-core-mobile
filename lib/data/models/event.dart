@@ -7,6 +7,7 @@ class EventModel extends ProductModel {
 
   EventModel({
     required super.id,
+    required super.type,
     required super.title,
     required super.image,
     required super.content,
@@ -16,6 +17,9 @@ class EventModel extends ProductModel {
     required super.saleOff,
     required super.location,
     required super.review,
+    required super.banner,
+    required super.video,
+    required super.gps,
     required this.duration,
     required this.startTime,
   });
@@ -24,6 +28,7 @@ class EventModel extends ProductModel {
   ProductEntity toEntity() {
     return EventEntity(
       id: id,
+      type: type,
       title: title,
       image: image,
       content: content,
@@ -33,23 +38,32 @@ class EventModel extends ProductModel {
       saleOff: saleOff,
       location: location.toEntity(),
       review: review.toEntity(),
+      banner: banner,
+      video: video,
+      gps: gps?.toEntity(),
       duration: duration,
       startTime: startTime,
     );
   }
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
+    final shared = ProductModel.shared(json);
+
     return EventModel(
-      id: json['id'] ?? 0,
-      title: json['title'] ?? '',
-      image: json['image'] ?? '',
-      content: json['content'] ?? '',
-      isFeatured: json['is_featured'] == 1,
-      saleOff: json['discount_percent'] ?? '',
-      price: num.tryParse('${json['price']}') ?? 0,
-      salePrice: num.tryParse('${json['sale_price']}') ?? 0,
-      location: CategoryModel.fromJson(json['location']),
-      review: ReviewModel.fromJson(json['review_score']),
+      id: shared.id,
+      type: shared.type,
+      title: shared.title,
+      image: shared.image,
+      content: shared.content,
+      isFeatured: shared.isFeatured,
+      price: shared.price,
+      salePrice: shared.salePrice,
+      saleOff: shared.saleOff,
+      location: shared.location,
+      review: shared.review,
+      banner: shared.banner,
+      video: shared.video,
+      gps: shared.gps,
       duration: json['duration'] ?? '',
       startTime: json['start_time'] ?? '',
     );

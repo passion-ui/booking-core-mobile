@@ -9,6 +9,7 @@ class SpaceModel extends ProductModel {
 
   SpaceModel({
     required super.id,
+    required super.type,
     required super.title,
     required super.image,
     required super.content,
@@ -18,6 +19,9 @@ class SpaceModel extends ProductModel {
     required super.saleOff,
     required super.location,
     required super.review,
+    required super.banner,
+    required super.video,
+    required super.gps,
     required this.guests,
     required this.beds,
     required this.bathrooms,
@@ -28,6 +32,7 @@ class SpaceModel extends ProductModel {
   ProductEntity toEntity() {
     return SpaceEntity(
       id: id,
+      type: type,
       title: title,
       image: image,
       content: content,
@@ -37,6 +42,9 @@ class SpaceModel extends ProductModel {
       saleOff: saleOff,
       location: location.toEntity(),
       review: review.toEntity(),
+      banner: banner,
+      video: video,
+      gps: gps?.toEntity(),
       guests: guests,
       beds: beds,
       bathrooms: bathrooms,
@@ -45,17 +53,23 @@ class SpaceModel extends ProductModel {
   }
 
   factory SpaceModel.fromJson(Map<String, dynamic> json) {
+    final shared = ProductModel.shared(json);
+
     return SpaceModel(
-      id: json['id'] ?? 0,
-      title: json['title'] ?? '',
-      image: json['image'] ?? '',
-      content: json['content'] ?? '',
-      isFeatured: json['is_featured'] == 1,
-      saleOff: json['discount_percent'] ?? '',
-      price: num.tryParse('${json['price']}') ?? 0,
-      salePrice: num.tryParse('${json['sale_price']}') ?? 0,
-      location: CategoryModel.fromJson(json['location']),
-      review: ReviewModel.fromJson(json['review_score']),
+      id: shared.id,
+      type: shared.type,
+      title: shared.title,
+      image: shared.image,
+      content: shared.content,
+      isFeatured: shared.isFeatured,
+      price: shared.price,
+      salePrice: shared.salePrice,
+      saleOff: shared.saleOff,
+      location: shared.location,
+      review: shared.review,
+      banner: shared.banner,
+      video: shared.video,
+      gps: shared.gps,
       guests: json['max_guests'] ?? 0,
       beds: json['bed'] ?? 0,
       bathrooms: json['bathroom'] ?? 0,

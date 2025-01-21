@@ -8,6 +8,7 @@ class BoatEntity extends ProductEntity {
 
   BoatEntity({
     required super.id,
+    required super.type,
     required super.title,
     required super.image,
     required super.content,
@@ -17,6 +18,9 @@ class BoatEntity extends ProductEntity {
     required super.saleOff,
     required super.location,
     required super.review,
+    required super.banner,
+    required super.video,
+    required super.gps,
     required this.guests,
     required this.cabins,
     required this.length,

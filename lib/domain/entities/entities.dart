@@ -19,6 +19,7 @@ export 'category.dart';
 export 'config.dart';
 export 'currency.dart';
 export 'event.dart';
+export 'gps.dart';
 export 'hotel.dart';
 export 'listing.dart';
 export 'picker.dart';

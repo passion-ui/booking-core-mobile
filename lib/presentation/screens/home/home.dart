@@ -22,6 +22,20 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final _homeCubit = HomeCubit();
+
+  @override
+  void initState() {
+    super.initState();
+    _homeCubit.onLoad();
+  }
+
+  @override
+  void dispose() {
+    _homeCubit.close();
+    super.dispose();
+  }
+
   ///On Refresh
   Future<void> _onRefresh() async {
     await context.read<HomeCubit>().onLoad();
@@ -193,6 +207,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<HomeCubit, HomeState>(
+        bloc: _homeCubit,
         builder: (context, home) {
           List<Widget> blocks = [
             SliverPersistentHeader(

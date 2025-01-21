@@ -22,13 +22,7 @@ class App extends StatelessWidget {
         BlocProvider<MessageBloc>(
           create: (BuildContext context) => sl(),
         ),
-        BlocProvider(
-          create: (BuildContext context) => HomeCubit()..onLoad(),
-        ),
         BlocProvider(create: (BuildContext context) => WishListCubit()),
-        BlocProvider(
-          create: (BuildContext context) => NewsBloc()..add(OnLoadNews()),
-        ),
       ],
       child: BlocConsumer<ApplicationBloc, ApplicationState>(
         listener: (context, state) {

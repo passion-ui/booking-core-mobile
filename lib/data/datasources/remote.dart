@@ -152,4 +152,18 @@ class RemoteDataSource {
     }
     throw Exception(response['message'] ?? "unknown_error");
   }
+
+  /// Fetch Product Detail
+  Future<ProductModel> getProductDetail({
+    required String type,
+    required id,
+  }) async {
+    final response = await _httpClient.get(
+      url: "/$type/detail/$id",
+    );
+    if (response['status'] == 1) {
+      return ProductModel.fromJson(response['data']);
+    }
+    throw Exception(response['message'] ?? "unknown_error");
+  }
 }

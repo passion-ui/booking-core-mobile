@@ -8,6 +8,7 @@ class CarEntity extends ProductEntity {
 
   CarEntity({
     required super.id,
+    required super.type,
     required super.title,
     required super.image,
     required super.content,
@@ -17,6 +18,9 @@ class CarEntity extends ProductEntity {
     required super.saleOff,
     required super.location,
     required super.review,
+    required super.banner,
+    required super.video,
+    required super.gps,
     required this.passenger,
     required this.gear,
     required this.baggage,

@@ -5,7 +5,7 @@ import 'package:stream_transform/stream_transform.dart';
 const throttleDuration = Duration(milliseconds: 500);
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
-  final _messageBloc = MessageBloc();
+  final _messageBloc = sl<MessageBloc>();
   final _getNewsUseCase = GetNewsUseCase(sl());
 
   int page = 1;

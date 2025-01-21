@@ -12,11 +12,18 @@ class News extends StatefulWidget {
 }
 
 class _NewsState extends State<News> {
+  final _newsBloc = NewsBloc();
   final _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _newsBloc.add(OnLoadNews());
+  }
 
   ///On Refresh
   Future<void> _onRefresh() async {
-    context.read<NewsBloc>().add(OnLoadNews());
+    _newsBloc.add(OnLoadNews());
   }
 
   ///On New
@@ -46,6 +53,7 @@ class _NewsState extends State<News> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NewsBloc, NewsState>(
+      bloc: _newsBloc,
       builder: (context, news) {
         Widget list = SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -93,7 +101,7 @@ class _NewsState extends State<News> {
                   delegate: Header(
                     controller: _controller,
                     onChanged: (value) {
-                      context.read<NewsBloc>().add(OnLoadNews(keyword: value));
+                      _newsBloc.add(OnLoadNews(keyword: value));
                     },
                     height: 60 + MediaQuery.of(context).padding.top,
                     onSort: () {},

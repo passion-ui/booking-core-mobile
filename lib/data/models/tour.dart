@@ -6,6 +6,7 @@ class TourModel extends ProductModel {
 
   TourModel({
     required super.id,
+    required super.type,
     required super.title,
     required super.image,
     required super.content,
@@ -15,6 +16,9 @@ class TourModel extends ProductModel {
     required super.saleOff,
     required super.location,
     required super.review,
+    required super.banner,
+    required super.video,
+    required super.gps,
     required this.duration,
   });
 
@@ -22,6 +26,7 @@ class TourModel extends ProductModel {
   ProductEntity toEntity() {
     return TourEntity(
       id: id,
+      type: type,
       title: title,
       image: image,
       content: content,
@@ -29,25 +34,34 @@ class TourModel extends ProductModel {
       price: price,
       salePrice: salePrice,
       saleOff: saleOff,
-      duration: duration,
       location: location.toEntity(),
       review: review.toEntity(),
+      banner: banner,
+      video: video,
+      gps: gps?.toEntity(),
+      duration: duration,
     );
   }
 
   factory TourModel.fromJson(Map<String, dynamic> json) {
+    final shared = ProductModel.shared(json);
+
     return TourModel(
-      id: json['id'] ?? 0,
-      title: json['title'] ?? '',
+      id: shared.id,
+      type: shared.type,
+      title: shared.title,
+      image: shared.image,
+      content: shared.content,
+      isFeatured: shared.isFeatured,
+      price: shared.price,
+      salePrice: shared.salePrice,
+      saleOff: shared.saleOff,
+      location: shared.location,
+      review: shared.review,
+      banner: shared.banner,
+      video: shared.video,
+      gps: shared.gps,
       duration: json['duration'] ?? '',
-      saleOff: json['discount_percent'] ?? '',
-      price: num.tryParse(json['price'] ?? "") ?? 0,
-      salePrice: num.tryParse(json['sale_price'] ?? "") ?? 0,
-      image: json['image'] ?? '',
-      content: json['content'] ?? '',
-      isFeatured: json['is_featured'] == 1,
-      location: CategoryModel.fromJson(json['location']),
-      review: ReviewModel.fromJson(json['review_score']),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:booking/domain/domain.dart';
 
 class ProductModel {
   final int id;
+  final String type;
   final String title;
   final String image;
   final String content;
@@ -13,10 +14,14 @@ class ProductModel {
   final String saleOff;
   final CategoryModel location;
   final ReviewModel review;
+  final String? banner;
+  final String? video;
+  final GPSModel? gps;
 
   ProductModel({
     required this.id,
     required this.title,
+    required this.type,
     required this.image,
     required this.content,
     required this.isFeatured,
@@ -25,12 +30,16 @@ class ProductModel {
     required this.saleOff,
     required this.location,
     required this.review,
+    required this.banner,
+    required this.video,
+    required this.gps,
   });
 
   ProductEntity toEntity() {
     return ProductEntity(
       id: id,
       title: title,
+      type: type,
       image: image,
       content: content,
       isFeatured: isFeatured,
@@ -39,6 +48,37 @@ class ProductModel {
       saleOff: saleOff,
       location: location.toEntity(),
       review: review.toEntity(),
+      banner: banner,
+      video: video,
+      gps: gps?.toEntity(),
+    );
+  }
+
+  static ProductModel shared(Map<String, dynamic> json) {
+    GPSModel? gps;
+    if (json['map_lat'] != null && json['map_lng'] != null) {
+      gps = GPSModel(
+        title: json['title'] ?? '',
+        latitude: double.tryParse(json['map_lat']) ?? 0.0,
+        longitude: double.tryParse(json['map_lng']) ?? 0.0,
+        zoom: json['map_zoom'],
+      );
+    }
+    return ProductModel(
+      id: json['id'] ?? 0,
+      type: json['object_model'] ?? '',
+      title: json['title'] ?? '',
+      image: json['image'] ?? '',
+      content: json['content'] ?? '',
+      isFeatured: json['is_featured'] == 1,
+      saleOff: json['discount_percent'] ?? '',
+      price: num.tryParse('${json['price']}') ?? 0,
+      salePrice: num.tryParse('${json['sale_price']}') ?? 0,
+      location: CategoryModel.fromJson(json['location']),
+      review: ReviewModel.fromJson(json['review_score']),
+      banner: json['banner_image'],
+      video: json['video'],
+      gps: gps,
     );
   }
 
@@ -63,18 +103,7 @@ class ProductModel {
         return BoatModel.fromJson(json);
 
       default:
-        return ProductModel(
-          id: json['id'] ?? 0,
-          title: json['title'] ?? '',
-          image: json['image'] ?? '',
-          content: json['content'] ?? '',
-          isFeatured: json['is_featured'] == 1,
-          saleOff: json['discount_percent'] ?? '',
-          price: num.tryParse('${json['price']}') ?? 0,
-          salePrice: num.tryParse('${json['sale_price']}') ?? 0,
-          location: CategoryModel.fromJson(json['location']),
-          review: ReviewModel.fromJson(json['review_score']),
-        );
+        return shared(json);
     }
   }
 }
