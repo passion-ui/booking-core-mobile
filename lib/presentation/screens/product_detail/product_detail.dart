@@ -18,11 +18,4 @@ class _ProductDetailState extends State<ProductDetail> with ProductDetailBase {
     item = widget.item;
     super.initState();
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.amber,
-    );
-  }
 }

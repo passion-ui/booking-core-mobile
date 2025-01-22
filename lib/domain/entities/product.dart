@@ -19,6 +19,7 @@ class ProductEntity {
   final CategoryEntity location;
   final ReviewEntity review;
   final String? banner;
+  final List<String> gallery;
   final String? video;
   final GPSEntity? gps;
 
@@ -35,6 +36,7 @@ class ProductEntity {
     required this.location,
     required this.review,
     required this.banner,
+    required this.gallery,
     required this.video,
     required this.gps,
   });

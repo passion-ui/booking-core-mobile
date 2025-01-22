@@ -15,3 +15,4 @@ export 'rating/rating.dart';
 export 'sheet_action/sheet_action.dart';
 export 'sheet_select/sheet_select.dart';
 export 'skeleton/skeleton.dart';
+export 'video/video.dart';

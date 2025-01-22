@@ -4,13 +4,13 @@ class GPSModel {
   final String title;
   final double latitude;
   final double longitude;
-  final num zoom;
+  final double zoom;
 
   GPSModel({
     required this.title,
     required this.latitude,
     required this.longitude,
-    this.zoom = 12,
+    this.zoom = 12.0,
   });
 
   GPSEntity toEntity() {

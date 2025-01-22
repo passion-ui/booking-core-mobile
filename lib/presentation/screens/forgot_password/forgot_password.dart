@@ -35,7 +35,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 
   /// Forgot
-  void _onForgot(BuildContext context) {
+  void _onForgot() {
     final email = _emailController.text;
 
     _validateEmail(email);
@@ -125,7 +125,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       children: [
                         Expanded(
                           child: FilledButton(
-                            onPressed: error ? null : () => _onForgot(context),
+                            onPressed: error ? null : () => _onForgot(),
                             child: Text(
                               Translate.of(context).translate('register'),
                             ),

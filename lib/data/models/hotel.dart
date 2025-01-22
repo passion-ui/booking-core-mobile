@@ -15,6 +15,7 @@ class HotelModel extends ProductModel {
     required super.location,
     required super.review,
     required super.banner,
+    required super.gallery,
     required super.video,
     required super.gps,
   });
@@ -34,6 +35,7 @@ class HotelModel extends ProductModel {
       location: location.toEntity(),
       review: review.toEntity(),
       banner: banner,
+      gallery: gallery,
       video: video,
       gps: gps?.toEntity(),
     );
@@ -54,6 +56,7 @@ class HotelModel extends ProductModel {
       location: shared.location,
       review: shared.review,
       banner: shared.banner,
+      gallery: shared.gallery,
       video: shared.video,
       gps: shared.gps,
     );

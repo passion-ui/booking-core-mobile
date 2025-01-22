@@ -18,4 +18,18 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
     item = widget.item;
     super.initState();
   }
+
+  @override
+  Widget buildTitle(ProductEntity item) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Rating(value: 5),
+        Text(
+          item.title,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
+      ],
+    );
+  }
 }

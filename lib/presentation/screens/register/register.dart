@@ -91,7 +91,7 @@ class _RegisterState extends State<Register> {
   }
 
   /// Register
-  void _onRegister(BuildContext context) {
+  void _onRegister() {
     final firstName = _firstNameController.text;
     final lastName = _lastNameController.text;
     final email = _emailController.text;
@@ -308,8 +308,7 @@ class _RegisterState extends State<Register> {
                       children: [
                         Expanded(
                           child: FilledButton(
-                            onPressed:
-                                error ? null : () => _onRegister(context),
+                            onPressed: error ? null : () => _onRegister(),
                             child: Text(
                               Translate.of(context).translate('register'),
                             ),

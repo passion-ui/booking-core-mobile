@@ -16,6 +16,7 @@ class TourEntity extends ProductEntity {
     required super.location,
     required super.review,
     required super.banner,
+    required super.gallery,
     required super.video,
     required super.gps,
     required this.duration,

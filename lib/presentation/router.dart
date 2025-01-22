@@ -19,6 +19,8 @@ class Routers {
   static const String scanQR = '/scanQR';
   static const String detailNew = '/detailNew';
   static const String productDetail = '/productDetail';
+  static const String maps = '/maps';
+  static const String gallery = '/gallery';
 
   static const String notFound = '/404';
 
@@ -153,6 +155,18 @@ class Routers {
             path: detailNew,
             builder: (BuildContext context, GoRouterState state) {
               return const DetailNew();
+            },
+          ),
+          GoRoute(
+            path: maps,
+            builder: (BuildContext context, GoRouterState state) {
+              return Maps(item: state.extra as GPSEntity);
+            },
+          ),
+          GoRoute(
+            path: gallery,
+            builder: (BuildContext context, GoRouterState state) {
+              return Gallery(product: state.extra as ProductEntity);
             },
           ),
         ],

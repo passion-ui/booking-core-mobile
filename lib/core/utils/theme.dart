@@ -11,9 +11,28 @@ class ThemeUtils {
       scaffoldBackgroundColor = Colors.black;
     }
 
+    final defaultTheme = ThemeData.fallback(useMaterial3: true);
     return ThemeData(
       fontFamily: font,
       colorScheme: colorScheme,
+      textTheme: TextTheme(
+        titleLarge: defaultTheme.textTheme.titleLarge!.copyWith(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+        titleMedium: defaultTheme.textTheme.titleMedium!.copyWith(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+        titleSmall: defaultTheme.textTheme.titleSmall!.copyWith(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
+        labelMedium: defaultTheme.textTheme.labelMedium!.copyWith(
+          fontSize: 12,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       scaffoldBackgroundColor: scaffoldBackgroundColor,
       bottomSheetTheme: BottomSheetThemeData(
         shape: RoundedRectangleBorder(

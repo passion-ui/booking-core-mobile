@@ -15,6 +15,7 @@ class ProductModel {
   final CategoryModel location;
   final ReviewModel review;
   final String? banner;
+  final List<String> gallery;
   final String? video;
   final GPSModel? gps;
 
@@ -31,6 +32,7 @@ class ProductModel {
     required this.location,
     required this.review,
     required this.banner,
+    required this.gallery,
     required this.video,
     required this.gps,
   });
@@ -41,6 +43,7 @@ class ProductModel {
       title: title,
       type: type,
       image: image,
+      gallery: gallery,
       content: content,
       isFeatured: isFeatured,
       price: price,
@@ -61,7 +64,7 @@ class ProductModel {
         title: json['title'] ?? '',
         latitude: double.tryParse(json['map_lat']) ?? 0.0,
         longitude: double.tryParse(json['map_lng']) ?? 0.0,
-        zoom: json['map_zoom'],
+        zoom: double.tryParse('${json['map_zoom']}') ?? 12.0,
       );
     }
     return ProductModel(
@@ -69,6 +72,7 @@ class ProductModel {
       type: json['object_model'] ?? '',
       title: json['title'] ?? '',
       image: json['image'] ?? '',
+      gallery: List<String>.from(json['gallery'] ?? []),
       content: json['content'] ?? '',
       isFeatured: json['is_featured'] == 1,
       saleOff: json['discount_percent'] ?? '',
