@@ -16,19 +16,19 @@ class ThemeUtils {
       fontFamily: font,
       colorScheme: colorScheme,
       textTheme: TextTheme(
-        titleLarge: defaultTheme.textTheme.titleLarge!.copyWith(
+        titleLarge: TextStyle(
           fontSize: 22,
           fontWeight: FontWeight.bold,
         ),
-        titleMedium: defaultTheme.textTheme.titleMedium!.copyWith(
+        titleMedium: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
         ),
-        titleSmall: defaultTheme.textTheme.titleSmall!.copyWith(
+        titleSmall: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
         ),
-        labelMedium: defaultTheme.textTheme.labelMedium!.copyWith(
+        labelMedium: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
         ),

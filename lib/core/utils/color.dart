@@ -9,6 +9,6 @@ extension ColorUtils on Color {
   }
 
   String toHex() {
-    return this.value.toRadixString(16);
+    return value.toRadixString(16);
   }
 }

@@ -74,8 +74,12 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
             child: Container(height: 16, color: Colors.white),
           );
           Widget feature = Container();
-          Widget rating = Container();
-          Widget location = Container();
+          Widget rating = Skeleton(
+            child: Container(height: 16, width: 150, color: Colors.white),
+          );
+          Widget location = Skeleton(
+            child: Container(height: 12, width: 100, color: Colors.white),
+          );
           Color? iconColor;
           if (_iconBackground == Colors.black26) {
             iconColor = Colors.white;
