@@ -13,6 +13,7 @@ class TourEntity extends ProductEntity {
     required super.price,
     required super.salePrice,
     required super.saleOff,
+    required super.address,
     required super.location,
     required super.review,
     required super.banner,

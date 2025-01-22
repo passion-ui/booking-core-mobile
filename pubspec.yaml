@@ -29,6 +29,7 @@ dependencies:
   flutter_rating_bar: 4.0.1
   card_swiper: 3.0.1
   stream_transform: 2.1.1
+  flutter_widget_from_html: 0.15.3
   flutter_svprogresshud:
     git:
       url: https://github.com/lucianokapluk/flutter_svprogresshud.git

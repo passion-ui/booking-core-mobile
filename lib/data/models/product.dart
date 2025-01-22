@@ -12,6 +12,7 @@ class ProductModel {
   final num price;
   final num salePrice;
   final String saleOff;
+  final String address;
   final CategoryModel location;
   final ReviewModel review;
   final String? banner;
@@ -29,6 +30,7 @@ class ProductModel {
     required this.price,
     required this.salePrice,
     required this.saleOff,
+    required this.address,
     required this.location,
     required this.review,
     required this.banner,
@@ -49,6 +51,7 @@ class ProductModel {
       price: price,
       salePrice: salePrice,
       saleOff: saleOff,
+      address: address,
       location: location.toEntity(),
       review: review.toEntity(),
       banner: banner,
@@ -78,6 +81,7 @@ class ProductModel {
       saleOff: json['discount_percent'] ?? '',
       price: num.tryParse('${json['price']}') ?? 0,
       salePrice: num.tryParse('${json['sale_price']}') ?? 0,
+      address: json['address'] ?? '',
       location: CategoryModel.fromJson(json['location']),
       review: ReviewModel.fromJson(json['review_score']),
       banner: json['banner_image'],

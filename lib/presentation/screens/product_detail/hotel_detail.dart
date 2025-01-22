@@ -21,13 +21,20 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
 
   @override
   Widget buildTitle(ProductEntity item) {
+    final product = item as HotelEntity;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Rating(value: 5),
+        Rating(
+          value: product.point ?? 0.0,
+          size: 16,
+        ),
+        const SizedBox(height: 2),
         Text(
-          item.title,
+          product.title,
           style: Theme.of(context).textTheme.titleMedium,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );

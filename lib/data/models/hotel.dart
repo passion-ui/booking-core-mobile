@@ -2,6 +2,8 @@ import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
 class HotelModel extends ProductModel {
+  final double? point;
+
   HotelModel({
     required super.id,
     required super.type,
@@ -12,12 +14,14 @@ class HotelModel extends ProductModel {
     required super.price,
     required super.salePrice,
     required super.saleOff,
+    required super.address,
     required super.location,
     required super.review,
     required super.banner,
     required super.gallery,
     required super.video,
     required super.gps,
+    this.point,
   });
 
   @override
@@ -32,12 +36,16 @@ class HotelModel extends ProductModel {
       price: price,
       salePrice: salePrice,
       saleOff: saleOff,
+      address: address,
       location: location.toEntity(),
       review: review.toEntity(),
       banner: banner,
       gallery: gallery,
       video: video,
       gps: gps?.toEntity(),
+
+      ///specific
+      point: point,
     );
   }
 
@@ -53,12 +61,16 @@ class HotelModel extends ProductModel {
       saleOff: shared.saleOff,
       price: shared.price,
       salePrice: shared.salePrice,
+      address: shared.address,
       location: shared.location,
       review: shared.review,
       banner: shared.banner,
       gallery: shared.gallery,
       video: shared.video,
       gps: shared.gps,
+
+      ///specific
+      point: double.tryParse('${json['star_rate']}') ?? 0.0,
     );
   }
 }

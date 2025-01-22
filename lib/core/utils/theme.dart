@@ -11,7 +11,6 @@ class ThemeUtils {
       scaffoldBackgroundColor = Colors.black;
     }
 
-    final defaultTheme = ThemeData.fallback(useMaterial3: true);
     return ThemeData(
       fontFamily: font,
       colorScheme: colorScheme,

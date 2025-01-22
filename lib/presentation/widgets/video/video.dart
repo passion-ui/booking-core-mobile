@@ -154,18 +154,15 @@ class _VideoState extends State<Video> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SafeArea(
-                bottom: false,
-                child: AnimatedOpacity(
-                  opacity: _showControls ? 1.0 : 0.0,
-                  duration: Duration(seconds: 1),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      color: Colors.black26,
-                    ),
-                    child: _buildAction(),
+              AnimatedOpacity(
+                opacity: _showControls ? 1.0 : 0.0,
+                duration: Duration(seconds: 1),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+                    color: Colors.black26,
                   ),
+                  child: _buildAction(),
                 ),
               ),
             ],

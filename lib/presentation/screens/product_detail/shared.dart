@@ -1,5 +1,7 @@
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
   late ProductEntity item;
@@ -59,11 +61,14 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
     return Text(
       item.title,
       style: Theme.of(context).textTheme.titleMedium,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = Theme.of(context).colorScheme.surfaceContainerLowest;
     return Scaffold(
       body: BlocBuilder<ProductDetailCubit, ProductDetailState>(
         bloc: _productDetailCubit,
@@ -79,6 +84,23 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
           );
           Widget location = Skeleton(
             child: Container(height: 12, width: 100, color: Colors.white),
+          );
+          Widget description = Skeleton(
+            child: Column(
+              children: [
+                Container(height: 12, color: Colors.white),
+                SizedBox(height: 8),
+                Container(height: 12, color: Colors.white),
+                SizedBox(height: 8),
+                Container(height: 12, color: Colors.white),
+                SizedBox(height: 8),
+                Container(height: 12, color: Colors.white),
+                SizedBox(height: 8),
+                Container(height: 12, color: Colors.white),
+                SizedBox(height: 8),
+                Container(height: 12, color: Colors.white),
+              ],
+            ),
           );
           Color? iconColor;
           if (_iconBackground == Colors.black26) {
@@ -135,34 +157,78 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
                   vertical: 4,
                 ),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.error,
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   Translate.of(context).translate('featured'),
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                 ),
               );
             }
 
             ///Location
-            location = Row(
-              children: [
-                Icon(
-                  Icons.location_on,
-                  size: 12,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  state.product.location.name,
-                  style: Theme.of(context).textTheme.bodySmall,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+            location = Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: cardColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    Translate.of(context).translate('location'),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        size: 16,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        state.product.address,
+                        style: Theme.of(context).textTheme.bodySmall,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    height: 160,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(
+                          state.product.gps?.latitude ?? 40.697403,
+                          state.product.gps?.longitude ?? -74.1201063,
+                        ),
+                        zoom: 12,
+                      ),
+                      markers: {
+                        Marker(
+                          markerId: MarkerId(state.product.title),
+                          position: LatLng(
+                            state.product.gps?.latitude ?? 40.697403,
+                            state.product.gps?.longitude ?? -74.1201063,
+                          ),
+                        ),
+                      },
+                      myLocationButtonEnabled: false,
+                    ),
+                  ),
+                ],
+              ),
             );
 
             ///Rating
@@ -200,6 +266,26 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
                 ),
               ],
             );
+
+            ///Description
+            description = Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: cardColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    Translate.of(context).translate('hotel_information'),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  HtmlWidget(state.product.content)
+                ],
+              ),
+            );
           }
 
           return CustomScrollView(
@@ -225,45 +311,58 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
                   collapseMode: CollapseMode.parallax,
                   background: banner,
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 16,
+                bottom: PreferredSize(
+                  preferredSize: Size(0, 80),
+                  child: Container(
+                    height: 60,
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(top: 12),
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 8,
+                        left: 16,
+                        right: 8,
+                        bottom: 8,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Expanded(child: title),
                           Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                child: title,
-                              ),
-                              SizedBox(width: 12),
+                              SizedBox(width: 8),
                               feature,
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  location,
-                                  const SizedBox(height: 2),
-                                  rating,
-                                ],
-                              ),
                               IconButton(
                                 onPressed: () {},
                                 icon: Icon(Icons.favorite_outline),
                               ),
                             ],
-                          )
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          location,
+                          const SizedBox(height: 12),
+                          description,
+                          Divider(),
                         ],
                       ),
                     ),

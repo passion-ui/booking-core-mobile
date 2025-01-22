@@ -16,6 +16,7 @@ class ProductEntity {
   final num price;
   final num salePrice;
   final String saleOff;
+  final String address;
   final CategoryEntity location;
   final ReviewEntity review;
   final String? banner;
@@ -33,6 +34,7 @@ class ProductEntity {
     required this.price,
     required this.salePrice,
     required this.saleOff,
+    required this.address,
     required this.location,
     required this.review,
     required this.banner,
