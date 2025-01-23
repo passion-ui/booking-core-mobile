@@ -23,6 +23,7 @@ class SpaceEntity extends ProductEntity {
     required super.gallery,
     required super.video,
     required super.gps,
+    required super.properties,
     required this.guests,
     required this.beds,
     required this.bathrooms,

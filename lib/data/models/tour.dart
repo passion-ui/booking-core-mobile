@@ -21,6 +21,7 @@ class TourModel extends ProductModel {
     required super.gallery,
     required super.video,
     required super.gps,
+    required super.properties,
     required this.duration,
   });
 
@@ -43,6 +44,9 @@ class TourModel extends ProductModel {
       gallery: gallery,
       video: video,
       gps: gps?.toEntity(),
+      properties: properties?.map((e) => e.toEntity()).toList(),
+
+      ///Specific
       duration: duration,
     );
   }
@@ -67,6 +71,7 @@ class TourModel extends ProductModel {
       gallery: shared.gallery,
       video: shared.video,
       gps: shared.gps,
+      properties: shared.properties,
       duration: json['duration'] ?? '',
     );
   }

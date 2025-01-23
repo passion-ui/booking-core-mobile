@@ -23,6 +23,7 @@ class ProductEntity {
   final List<String> gallery;
   final String? video;
   final GPSEntity? gps;
+  final List<ProductPropertiesEntity>? properties;
 
   ProductEntity({
     required this.id,
@@ -41,5 +42,6 @@ class ProductEntity {
     required this.gallery,
     required this.video,
     required this.gps,
+    required this.properties,
   });
 }

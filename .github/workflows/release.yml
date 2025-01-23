@@ -19,12 +19,11 @@ jobs:
       - name: Install Dependencies
         run: flutter clean && flutter pub get
 
-      - name: Build iOS
-        working-directory: ios
-        run: pod repo update && flutter build ios && fastlane build
+      - name: Build Android
+        run: flutter build apk && cd android && fastlane build
 
-      - name: Upload artifact iOS
-        working-directory: ios
+      - name: Upload artifact Android
+        working-directory: android
         run: |
           release_notes=$(cat <<EOF
           Branch: ${{ github.event.pull_request.head.ref }}
@@ -34,11 +33,12 @@ jobs:
           )
           fastlane distribute release_notes:"$release_notes" pr_number:${{ github.event.pull_request.number }} github_repository:${{ github.repository }}
 
-      - name: Build Android
-        run: flutter build apk && cd android && fastlane build
+      - name: Build iOS
+        working-directory: ios
+        run: pod repo update && flutter build ios && fastlane build
 
-      - name: Upload artifact Android
-        working-directory: android
+      - name: Upload artifact iOS
+        working-directory: ios
         run: |
           release_notes=$(cat <<EOF
           Branch: ${{ github.event.pull_request.head.ref }}

@@ -1,3 +1,5 @@
+import 'package:booking/domain/domain.dart';
+
 class ChildrenProperties {
   final int id;
   final String title;
@@ -16,6 +18,18 @@ class ChildrenProperties {
     required this.attrId,
     required this.slug,
   });
+
+  ChildrenPropertiesEntity toEntity() {
+    return ChildrenPropertiesEntity(
+      id: id,
+      title: title,
+      content: content,
+      imageId: imageId,
+      icon: icon,
+      attrId: attrId,
+      slug: slug,
+    );
+  }
 
   factory ChildrenProperties.fromJson(Map<String, dynamic> json) {
     return ChildrenProperties(

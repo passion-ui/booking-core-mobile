@@ -1,3 +1,5 @@
+import 'package:booking/domain/domain.dart';
+
 import 'models.dart';
 
 class ProductProperties {
@@ -9,12 +11,21 @@ class ProductProperties {
     required this.children,
   });
 
+  ProductPropertiesEntity toEntity() {
+    return ProductPropertiesEntity(
+      parent: parent.toEntity(),
+      children: children.map((child) {
+        return child.toEntity();
+      }).toList(),
+    );
+  }
+
   factory ProductProperties.fromJson(Map<String, dynamic> json) {
     return ProductProperties(
       parent: ParentProperties.fromJson(json['parent']),
-      children: (json['child'] ?? [])
-          .map((childJson) => ChildrenProperties.fromJson(childJson))
-          .toList(),
+      children: List.from(json['child'] ?? []).map((childJson) {
+        return ChildrenProperties.fromJson(childJson);
+      }).toList(),
     );
   }
 }

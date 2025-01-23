@@ -23,6 +23,7 @@ class CarEntity extends ProductEntity {
     required super.gallery,
     required super.video,
     required super.gps,
+    required super.properties,
     required this.passenger,
     required this.gear,
     required this.baggage,

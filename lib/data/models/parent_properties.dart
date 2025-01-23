@@ -1,3 +1,5 @@
+import 'package:booking/domain/domain.dart';
+
 class ParentProperties {
   final int id;
   final String title;
@@ -14,6 +16,17 @@ class ParentProperties {
     this.displayType,
     this.hideInSingle,
   });
+
+  ParentPropertiesEntity toEntity() {
+    return ParentPropertiesEntity(
+      id: id,
+      title: title,
+      slug: slug,
+      service: service,
+      displayType: displayType,
+      hideInSingle: hideInSingle,
+    );
+  }
 
   factory ParentProperties.fromJson(Map<String, dynamic> json) {
     return ParentProperties(

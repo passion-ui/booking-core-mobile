@@ -19,6 +19,7 @@ class ProductModel {
   final List<String> gallery;
   final String? video;
   final GPSModel? gps;
+  final List<ProductProperties>? properties;
 
   ProductModel({
     required this.id,
@@ -37,6 +38,7 @@ class ProductModel {
     required this.gallery,
     required this.video,
     required this.gps,
+    required this.properties,
   });
 
   ProductEntity toEntity() {
@@ -57,11 +59,14 @@ class ProductModel {
       banner: banner,
       video: video,
       gps: gps?.toEntity(),
+      properties: properties?.map((e) => e.toEntity()).toList(),
     );
   }
 
   static ProductModel shared(Map<String, dynamic> json) {
     GPSModel? gps;
+    List<ProductProperties>? properties;
+
     if (json['map_lat'] != null && json['map_lng'] != null) {
       gps = GPSModel(
         title: json['title'] ?? '',
@@ -70,6 +75,13 @@ class ProductModel {
         zoom: double.tryParse('${json['map_zoom']}') ?? 12.0,
       );
     }
+
+    if (json['terms'] != null) {
+      properties = Map.of(json['terms']).values.map((termJson) {
+        return ProductProperties.fromJson(termJson);
+      }).toList();
+    }
+
     return ProductModel(
       id: json['id'] ?? 0,
       type: json['object_model'] ?? '',
@@ -87,6 +99,7 @@ class ProductModel {
       banner: json['banner_image'],
       video: json['video'],
       gps: gps,
+      properties: properties,
     );
   }
 
