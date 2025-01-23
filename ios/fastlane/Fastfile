@@ -17,8 +17,7 @@ platform :ios do
     github_repository = options[:github_repository]
     upload_to_testflight(
       notify_external_testers: true,
-      skip_submission: true,
-      skip_waiting_for_build_processing: true,
+      wait_processing_interval: 300,
       changelog: release_notes
     )
 
