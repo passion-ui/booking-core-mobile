@@ -28,7 +28,7 @@ class SpaceItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               width: 1,
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: Theme.of(context).cardColor,
             ),
           ),
           clipBehavior: Clip.hardEdge,
@@ -183,11 +183,11 @@ class SpaceItem extends StatelessWidget {
         width: 240,
         height: 300,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerLowest,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             width: 1,
-            color: Theme.of(context).colorScheme.surfaceContainer,
+            color: Theme.of(context).cardColor,
           ),
         ),
         clipBehavior: Clip.hardEdge,

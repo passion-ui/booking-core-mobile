@@ -58,7 +58,7 @@ class PickerItem extends StatelessWidget {
         constraints: BoxConstraints(minHeight: 40.0),
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).cardColor,
           border: Border.all(
             color: Colors.transparent,
             width: 0.5,

@@ -19,7 +19,8 @@ class ProductModel {
   final List<String> gallery;
   final String? video;
   final GPSModel? gps;
-  final List<ProductProperties>? properties;
+  final List<ProductPropertiesModel>? properties;
+  final List<FeedbackModel>? feedbacks;
 
   ProductModel({
     required this.id,
@@ -39,6 +40,7 @@ class ProductModel {
     required this.video,
     required this.gps,
     required this.properties,
+    required this.feedbacks,
   });
 
   ProductEntity toEntity() {
@@ -60,12 +62,14 @@ class ProductModel {
       video: video,
       gps: gps?.toEntity(),
       properties: properties?.map((e) => e.toEntity()).toList(),
+      feedbacks: feedbacks?.map((e) => e.toEntity()).toList(),
     );
   }
 
   static ProductModel shared(Map<String, dynamic> json) {
     GPSModel? gps;
-    List<ProductProperties>? properties;
+    List<ProductPropertiesModel>? properties;
+    List<FeedbackModel>? feedbacks;
 
     if (json['map_lat'] != null && json['map_lng'] != null) {
       gps = GPSModel(
@@ -77,11 +81,16 @@ class ProductModel {
     }
 
     if (json['terms'] != null) {
-      properties = Map.of(json['terms']).values.map((termJson) {
-        return ProductProperties.fromJson(termJson);
+      properties = Map.of(json['terms']).values.map((item) {
+        return ProductPropertiesModel.fromJson(item);
       }).toList();
     }
 
+    if (json['review_lists'] != null && json['review_lists']['data'] != null) {
+      feedbacks = List.from(json['review_lists']['data']).map((item) {
+        return FeedbackModel.fromJson(item);
+      }).toList();
+    }
     return ProductModel(
       id: json['id'] ?? 0,
       type: json['object_model'] ?? '',
@@ -100,6 +109,7 @@ class ProductModel {
       video: json['video'],
       gps: gps,
       properties: properties,
+      feedbacks: feedbacks,
     );
   }
 

@@ -25,6 +25,7 @@ class BoatModel extends ProductModel {
     required super.video,
     required super.gps,
     required super.properties,
+    required super.feedbacks,
     required this.guests,
     required this.cabins,
     required this.length,
@@ -51,6 +52,7 @@ class BoatModel extends ProductModel {
       video: video,
       gps: gps?.toEntity(),
       properties: properties?.map((e) => e.toEntity()).toList(),
+      feedbacks: feedbacks?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       guests: guests,
@@ -80,6 +82,7 @@ class BoatModel extends ProductModel {
       video: shared.video,
       gps: shared.gps,
       properties: shared.properties,
+      feedbacks: shared.feedbacks,
       guests: json['max_guest'] ?? 0,
       cabins: json['cabin'] ?? 0,
       length: json['length'] ?? '',

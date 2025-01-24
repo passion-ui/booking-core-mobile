@@ -293,7 +293,7 @@ class _RegisterState extends State<Register> {
                     vertical: 8,
                   ),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Theme.of(context).cardColor,
                     boxShadow: [
                       BoxShadow(
                         color: Theme.of(context).shadowColor.withAlpha(25),

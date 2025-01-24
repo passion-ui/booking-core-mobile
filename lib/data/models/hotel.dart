@@ -22,6 +22,7 @@ class HotelModel extends ProductModel {
     required super.video,
     required super.gps,
     required super.properties,
+    required super.feedbacks,
     this.point,
   });
 
@@ -45,6 +46,7 @@ class HotelModel extends ProductModel {
       video: video,
       gps: gps?.toEntity(),
       properties: properties?.map((e) => e.toEntity()).toList(),
+      feedbacks: feedbacks?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       point: point,
@@ -71,6 +73,7 @@ class HotelModel extends ProductModel {
       video: shared.video,
       gps: shared.gps,
       properties: shared.properties,
+      feedbacks: shared.feedbacks,
 
       ///specific
       point: double.tryParse('${json['star_rate']}') ?? 0.0,

@@ -2,11 +2,11 @@ import 'package:booking/domain/domain.dart';
 
 import 'models.dart';
 
-class ProductProperties {
+class ProductPropertiesModel {
   final ParentProperties parent;
   final List<ChildrenProperties> children;
 
-  ProductProperties({
+  ProductPropertiesModel({
     required this.parent,
     required this.children,
   });
@@ -20,8 +20,8 @@ class ProductProperties {
     );
   }
 
-  factory ProductProperties.fromJson(Map<String, dynamic> json) {
-    return ProductProperties(
+  factory ProductPropertiesModel.fromJson(Map<String, dynamic> json) {
+    return ProductPropertiesModel(
       parent: ParentProperties.fromJson(json['parent']),
       children: List.from(json['child'] ?? []).map((childJson) {
         return ChildrenProperties.fromJson(childJson);

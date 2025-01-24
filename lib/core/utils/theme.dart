@@ -6,9 +6,11 @@ class ThemeUtils {
     required ColorScheme colorScheme,
   }) {
     Color? scaffoldBackgroundColor;
+    Color cardColor = colorScheme.surfaceContainerLowest;
 
     if (colorScheme.brightness == Brightness.dark) {
       scaffoldBackgroundColor = Colors.black;
+      cardColor = colorScheme.surfaceContainer;
     }
 
     return ThemeData(
@@ -17,7 +19,7 @@ class ThemeUtils {
       textTheme: TextTheme(
         titleLarge: TextStyle(
           fontSize: 22,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w500,
         ),
         titleMedium: TextStyle(
           fontSize: 16,
@@ -33,6 +35,7 @@ class ThemeUtils {
         ),
       ),
       scaffoldBackgroundColor: scaffoldBackgroundColor,
+      cardColor: cardColor,
       bottomSheetTheme: BottomSheetThemeData(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(

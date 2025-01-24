@@ -25,7 +25,7 @@ class _MainTabState extends State<MainTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavigationBar(
-        backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+        backgroundColor: Theme.of(context).cardColor,
         onDestinationSelected: _onDestinationSelected,
         selectedIndex: currentPageIndex,
         destinations: <Widget>[

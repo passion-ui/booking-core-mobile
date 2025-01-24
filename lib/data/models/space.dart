@@ -25,6 +25,7 @@ class SpaceModel extends ProductModel {
     required super.video,
     required super.gps,
     required super.properties,
+    required super.feedbacks,
     required this.guests,
     required this.beds,
     required this.bathrooms,
@@ -51,6 +52,7 @@ class SpaceModel extends ProductModel {
       video: video,
       gps: gps?.toEntity(),
       properties: properties?.map((e) => e.toEntity()).toList(),
+      feedbacks: feedbacks?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       guests: guests,
@@ -81,6 +83,7 @@ class SpaceModel extends ProductModel {
       video: shared.video,
       gps: shared.gps,
       properties: shared.properties,
+      feedbacks: shared.feedbacks,
       guests: json['max_guests'] ?? 0,
       beds: json['bed'] ?? 0,
       bathrooms: json['bathroom'] ?? 0,

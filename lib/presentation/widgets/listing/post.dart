@@ -28,7 +28,7 @@ class PostItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               width: 1,
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: Theme.of(context).cardColor,
             ),
           ),
           clipBehavior: Clip.hardEdge,
@@ -105,11 +105,11 @@ class PostItem extends StatelessWidget {
         width: 280,
         height: 330,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerLowest,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             width: 1,
-            color: Theme.of(context).colorScheme.surfaceContainer,
+            color: Theme.of(context).cardColor,
           ),
         ),
         clipBehavior: Clip.hardEdge,
@@ -222,7 +222,7 @@ class PostItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               width: 1,
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: Theme.of(context).cardColor,
             ),
           ),
           clipBehavior: Clip.hardEdge,
@@ -297,11 +297,11 @@ class PostItem extends StatelessWidget {
       onTap: () => onPressed!(data!),
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerLowest,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             width: 1,
-            color: Theme.of(context).colorScheme.surfaceContainer,
+            color: Theme.of(context).cardColor,
           ),
         ),
         clipBehavior: Clip.hardEdge,

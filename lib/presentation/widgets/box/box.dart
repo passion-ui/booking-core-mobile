@@ -14,7 +14,7 @@ class Box extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).cardColor,
         boxShadow: [
           BoxShadow(
             color: Theme.of(context).shadowColor.withAlpha(25),

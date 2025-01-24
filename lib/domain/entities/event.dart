@@ -22,6 +22,7 @@ class EventEntity extends ProductEntity {
     required super.video,
     required super.gps,
     required super.properties,
+    required super.feedbacks,
     required this.duration,
     required this.startTime,
   });

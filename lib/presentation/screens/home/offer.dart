@@ -66,7 +66,7 @@ class OfferBlock extends StatelessWidget {
                 height: 120,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).cardColor,
                 ),
               ),
             )

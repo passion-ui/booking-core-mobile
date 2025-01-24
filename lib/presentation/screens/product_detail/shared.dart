@@ -151,7 +151,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
         margin: const EdgeInsets.only(top: 12),
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerLowest,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(12),
             topRight: Radius.circular(12),
@@ -188,7 +188,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
       margin: const EdgeInsets.only(top: 12),
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerLowest,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(12),
           topRight: Radius.circular(12),
@@ -225,7 +225,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
       return Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerLowest,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -287,7 +287,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerLowest,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Skeleton(
@@ -317,7 +317,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
       return Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerLowest,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -336,7 +336,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerLowest,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Skeleton(
@@ -377,7 +377,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
           return Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surfaceContainerLowest,
+              color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Column(
@@ -437,7 +437,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerLowest,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Skeleton(
@@ -466,163 +466,104 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
       return Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerLowest,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              flex: 3,
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+            Text(
+              Translate.of(context).translate('reviews'),
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Column(
                     children: [
-                      Icon(
-                        Icons.star,
-                        color: Colors.amber,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            '${state.product.review.score}',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            ' /5',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 4),
+                      const SizedBox(height: 4),
                       Text(
-                        '${state.product.review.score}',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      Text(
-                        ' /5',
+                        '(${state.product.review.total} ${Translate.of(context).translate('reviews')})',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '(${state.product.review.total} ${Translate.of(context).translate('reviews')})',
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 7,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Text(
-                          Translate.of(context).translate('excellent'),
-                          style: Theme.of(context).textTheme.bodySmall,
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        flex: 7,
-                        child: Container(
-                          height: 6,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).disabledColor,
-                            borderRadius: BorderRadius.circular(6),
+                ),
+                SizedBox(
+                  height: 80,
+                  child: VerticalDivider(),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: ListView.separated(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: state.product.review.rateScore?.length ?? 0,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(height: 4);
+                    },
+                    itemBuilder: (context, index) {
+                      final item = state.product.review.rateScore![index];
+                      return Row(
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: Text(
+                              Translate.of(context).translate(
+                                item.title,
+                              ),
+                              style: Theme.of(context).textTheme.bodySmall,
+                              textAlign: TextAlign.end,
+                            ),
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Text(
-                          Translate.of(context).translate('good'),
-                          style: Theme.of(context).textTheme.bodySmall,
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        flex: 7,
-                        child: Container(
-                          height: 6,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).disabledColor,
-                            borderRadius: BorderRadius.circular(6),
+                          SizedBox(width: 8),
+                          Expanded(
+                            flex: 7,
+                            child: Container(
+                              height: 6,
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).splashColor,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: FractionallySizedBox(
+                                widthFactor: item.percent * 0.01,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.amber,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ],
+                        ],
+                      );
+                    },
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Text(
-                          Translate.of(context).translate('average'),
-                          style: Theme.of(context).textTheme.bodySmall,
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        flex: 7,
-                        child: Container(
-                          height: 6,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).disabledColor,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Text(
-                          Translate.of(context).translate('poor'),
-                          style: Theme.of(context).textTheme.bodySmall,
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        flex: 7,
-                        child: Container(
-                          height: 6,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).disabledColor,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Text(
-                          Translate.of(context).translate('terrible'),
-                          style: Theme.of(context).textTheme.bodySmall,
-                          textAlign: TextAlign.end,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        flex: 7,
-                        child: Container(
-                          height: 6,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).disabledColor,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),
@@ -632,13 +573,15 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerLowest,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Skeleton(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Container(height: 12, color: Colors.white),
+            SizedBox(height: 8),
             Container(height: 12, color: Colors.white),
             SizedBox(height: 8),
             Container(height: 12, color: Colors.white),

@@ -24,6 +24,7 @@ class ProductEntity {
   final String? video;
   final GPSEntity? gps;
   final List<ProductPropertiesEntity>? properties;
+  final List<FeedbackEntity>? feedbacks;
 
   ProductEntity({
     required this.id,
@@ -43,5 +44,6 @@ class ProductEntity {
     required this.video,
     required this.gps,
     required this.properties,
+    required this.feedbacks,
   });
 }

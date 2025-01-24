@@ -110,7 +110,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     vertical: 8,
                   ),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Theme.of(context).cardColor,
                     boxShadow: [
                       BoxShadow(
                         color: Theme.of(context).shadowColor.withAlpha(25),

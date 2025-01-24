@@ -32,10 +32,10 @@ class Header extends SliverPersistentHeaderDelegate {
                 controller: controller,
                 focusNode: _focusNode,
                 shadowColor: WidgetStateProperty.resolveWith((states) {
-                  return Theme.of(context).colorScheme.surfaceContainerLowest;
+                  return Theme.of(context).cardColor;
                 }),
                 backgroundColor: WidgetStateProperty.resolveWith((states) {
-                  return Theme.of(context).colorScheme.surfaceContainerLowest;
+                  return Theme.of(context).cardColor;
                 }),
                 onTapOutside: (value) {
                   _focusNode.unfocus();

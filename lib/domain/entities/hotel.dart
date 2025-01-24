@@ -21,6 +21,7 @@ class HotelEntity extends ProductEntity {
     required super.video,
     required super.gps,
     required super.properties,
+    required super.feedbacks,
     this.point,
   });
 }
