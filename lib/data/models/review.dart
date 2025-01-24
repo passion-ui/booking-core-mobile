@@ -23,7 +23,7 @@ class ReviewModel {
     return ReviewModel(
       score: double.tryParse('${json['score_total']}') ?? 0.0,
       total: json['total_review'] ?? 0,
-      text: json['review_text'] ?? '',
+      text: json['review_text'] ?? json['score_text'] ?? '',
     );
   }
 }

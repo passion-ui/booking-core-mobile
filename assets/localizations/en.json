@@ -80,5 +80,14 @@
   "search_news": "Search news...",
   "refresh": "Refresh",
   "location": "Location",
-  "hotel_information": "Hotel Information"
+  "hotel_information": "Hotel Information",
+  "excellent": "Excellent",
+  "very_good": "Very Good",
+  "good": "Good",
+  "fair": "Fair",
+  "poor": "Poor",
+  "terrible": "Terrible",
+  "average": "Average",
+  "no_rating": "No Rating",
+  "rating": "Rating"
 }

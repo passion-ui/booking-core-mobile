@@ -363,78 +363,73 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
   Widget _buildProperties(ProductDetailState state) {
     if (state is ProductDetailSuccess) {
       final properties = state.product.properties;
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 12),
-          ListView.separated(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: properties?.length ?? 0,
-            separatorBuilder: (context, index) {
-              return const SizedBox(height: 12);
-            },
-            itemBuilder: (context, index) {
-              final property = properties![index];
-              return Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceContainerLowest,
-                  borderRadius: BorderRadius.circular(12),
+      return ListView.separated(
+        padding: EdgeInsets.zero,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: properties?.length ?? 0,
+        separatorBuilder: (context, index) {
+          return const SizedBox(height: 12);
+        },
+        itemBuilder: (context, index) {
+          final property = properties![index];
+          final ratio = (MediaQuery.of(context).size.width / 2) / 20;
+          return Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  Translate.of(context).translate(
+                    property.parent.title,
+                  ),
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      Translate.of(context).translate(
-                        property.parent.title,
-                      ),
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 8),
-                    GridView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 8,
-                        crossAxisSpacing: 4,
-                        mainAxisSpacing: 4,
-                      ),
-                      itemCount: property.children.length,
-                      itemBuilder: (context, index) {
-                        final child = property.children[index];
-                        return Row(
-                          children: [
-                            Icon(
-                              IconFactory.get(
-                                child.slug,
-                                defaultIcon: Icons.check_circle_outline,
-                              ),
-                              size: 16,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            const SizedBox(width: 4),
-                            Expanded(
-                              child: Text(
-                                Translate.of(context).translate(child.title),
-                                style: Theme.of(context).textTheme.bodySmall,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ],
+                const SizedBox(height: 8),
+                GridView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: ratio,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 8,
+                  ),
+                  itemCount: property.children.length,
+                  itemBuilder: (context, index) {
+                    final child = property.children[index];
+                    return Row(
+                      children: [
+                        Icon(
+                          IconFactory.get(
+                            child.slug,
+                            defaultIcon: Icons.check_circle_outline,
+                          ),
+                          size: 16,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            Translate.of(context).translate(child.title),
+                            style: Theme.of(context).textTheme.bodySmall,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        ],
+              ],
+            ),
+          );
+        },
       );
     }
 
@@ -456,6 +451,194 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
             SizedBox(height: 8),
             Container(height: 12, color: Colors.white),
             SizedBox(height: 8),
+            Container(height: 12, color: Colors.white),
+            SizedBox(height: 8),
+            Container(height: 12, color: Colors.white),
+          ],
+        ),
+      ),
+    );
+  }
+
+  ///Build review
+  Widget _buildReview(ProductDetailState state) {
+    if (state is ProductDetailSuccess) {
+      return Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceContainerLowest,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 3,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        '${state.product.review.score}',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        ' /5',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '(${state.product.review.total} ${Translate.of(context).translate('reviews')})',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 7,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          Translate.of(context).translate('excellent'),
+                          style: Theme.of(context).textTheme.bodySmall,
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        flex: 7,
+                        child: Container(
+                          height: 6,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).disabledColor,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          Translate.of(context).translate('good'),
+                          style: Theme.of(context).textTheme.bodySmall,
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        flex: 7,
+                        child: Container(
+                          height: 6,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).disabledColor,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          Translate.of(context).translate('average'),
+                          style: Theme.of(context).textTheme.bodySmall,
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        flex: 7,
+                        child: Container(
+                          height: 6,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).disabledColor,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          Translate.of(context).translate('poor'),
+                          style: Theme.of(context).textTheme.bodySmall,
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        flex: 7,
+                        child: Container(
+                          height: 6,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).disabledColor,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          Translate.of(context).translate('terrible'),
+                          style: Theme.of(context).textTheme.bodySmall,
+                          textAlign: TextAlign.end,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        flex: 7,
+                        child: Container(
+                          height: 6,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).disabledColor,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainerLowest,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Skeleton(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Container(height: 12, color: Colors.white),
             SizedBox(height: 8),
             Container(height: 12, color: Colors.white),
@@ -553,7 +736,13 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
                           _buildLocation(state),
                           const SizedBox(height: 12),
                           _buildDescription(state),
+                          const SizedBox(height: 12),
                           _buildProperties(state),
+                          const SizedBox(height: 12),
+                          _buildReview(state),
+                          Container(
+                            height: 1000,
+                          )
                         ],
                       ),
                     ),
