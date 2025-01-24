@@ -16,7 +16,7 @@ platform :ios do
     pr_number = options[:pr_number]
     github_repository = options[:github_repository]
     upload_to_testflight(
-      skip_waiting_for_build_processing: true,
+      notify_external_testers: true,
       changelog: release_notes
     )
 
