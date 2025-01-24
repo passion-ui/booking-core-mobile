@@ -20,6 +20,7 @@ export 'children_properties.dart';
 export 'config.dart';
 export 'currency.dart';
 export 'event.dart';
+export 'faq.dart';
 export 'feedback.dart';
 export 'gps.dart';
 export 'hotel.dart';

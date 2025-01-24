@@ -9,6 +9,7 @@ export 'storages/relational.dart';
 export 'storages/secure.dart';
 export 'utils/asset.dart';
 export 'utils/color.dart';
+export 'utils/datetime.dart';
 export 'utils/icons.dart';
 export 'utils/theme.dart';
 export 'utils/validator.dart';

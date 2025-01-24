@@ -22,6 +22,7 @@ class TourEntity extends ProductEntity {
     required super.gps,
     required super.properties,
     required super.feedbacks,
+    required super.faqs,
     required this.duration,
   });
 }

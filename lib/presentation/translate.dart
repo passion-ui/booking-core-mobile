@@ -1,6 +1,7 @@
 import 'package:booking/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class Translate {
   final Locale locale;
@@ -20,6 +21,12 @@ class Translate {
   }
 
   Future<bool> load() async {
+    if (locale.languageCode == "en") {
+      timeago.setLocaleMessages(locale.languageCode, timeago.EnMessages());
+    } else if (locale.languageCode == "vi") {
+      timeago.setLocaleMessages(locale.languageCode, timeago.ViMessages());
+    }
+
     final jsonMap = await AssetUtils.loadJson(
       "assets/localizations/${locale.languageCode}.json",
     );

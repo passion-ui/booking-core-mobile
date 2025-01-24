@@ -565,6 +565,86 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
                 ),
               ],
             ),
+            SizedBox(height: 12),
+            ListView.separated(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                final item = state.product.feedbacks![index];
+                return Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Theme.of(context).splashColor,
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                width: 32,
+                                height: 32,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Theme.of(context).splashColor,
+                                ),
+                                child: Icon(
+                                  Icons.person,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Paul",
+                                    style:
+                                        Theme.of(context).textTheme.labelMedium,
+                                  ),
+                                  Rating(
+                                    value: item.rateNumber.toDouble(),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Text(
+                            item.createdAt.viewTime(),
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        item.title,
+                        style: Theme.of(context).textTheme.labelLarge,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        item.content,
+                        style: Theme.of(context).textTheme.bodySmall,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(height: 12);
+              },
+              itemCount: state.product.feedbacks?.length ?? 0,
+            )
           ],
         ),
       );
@@ -589,6 +669,77 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
         ),
       ),
     );
+  }
+
+  ///Build FAQ
+  Widget _buildFaq(ProductDetailState state) {
+    if (state is ProductDetailSuccess) {
+      if (state.product.faqs?.isNotEmpty == true) {
+        return Column(
+          children: [
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    Translate.of(context).translate('faqs'),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  ListView.separated(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      final item = state.product.faqs![index];
+                      return ExpansionTile(
+                        tilePadding: EdgeInsets.symmetric(horizontal: 12),
+                        childrenPadding: EdgeInsets.zero,
+                        collapsedShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: BorderSide(
+                            color: Theme.of(context).splashColor,
+                          ),
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: BorderSide.none,
+                        ),
+                        title: Text(
+                          item.title,
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              item.content,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox(height: 8);
+                    },
+                    itemCount: state.product.faqs?.length ?? 0,
+                  )
+                ],
+              ),
+            ),
+          ],
+        );
+      }
+    }
+
+    return Container();
   }
 
   @override
@@ -683,9 +834,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
                           _buildProperties(state),
                           const SizedBox(height: 12),
                           _buildReview(state),
-                          Container(
-                            height: 1000,
-                          )
+                          _buildFaq(state),
                         ],
                       ),
                     ),

@@ -25,6 +25,7 @@ class ProductEntity {
   final GPSEntity? gps;
   final List<ProductPropertiesEntity>? properties;
   final List<FeedbackEntity>? feedbacks;
+  final List<FAQEntity>? faqs;
 
   ProductEntity({
     required this.id,
@@ -45,5 +46,6 @@ class ProductEntity {
     required this.gps,
     required this.properties,
     required this.feedbacks,
+    required this.faqs,
   });
 }

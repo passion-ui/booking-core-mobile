@@ -21,6 +21,7 @@ class ProductModel {
   final GPSModel? gps;
   final List<ProductPropertiesModel>? properties;
   final List<FeedbackModel>? feedbacks;
+  final List<FAQModel>? faqs;
 
   ProductModel({
     required this.id,
@@ -41,6 +42,7 @@ class ProductModel {
     required this.gps,
     required this.properties,
     required this.feedbacks,
+    required this.faqs,
   });
 
   ProductEntity toEntity() {
@@ -63,6 +65,7 @@ class ProductModel {
       gps: gps?.toEntity(),
       properties: properties?.map((e) => e.toEntity()).toList(),
       feedbacks: feedbacks?.map((e) => e.toEntity()).toList(),
+      faqs: faqs?.map((e) => e.toEntity()).toList(),
     );
   }
 
@@ -70,6 +73,7 @@ class ProductModel {
     GPSModel? gps;
     List<ProductPropertiesModel>? properties;
     List<FeedbackModel>? feedbacks;
+    List<FAQModel>? faqs;
 
     if (json['map_lat'] != null && json['map_lng'] != null) {
       gps = GPSModel(
@@ -91,6 +95,13 @@ class ProductModel {
         return FeedbackModel.fromJson(item);
       }).toList();
     }
+
+    if (json['faqs'] != null) {
+      faqs = List.from(json['faqs']).map((item) {
+        return FAQModel.fromJson(item);
+      }).toList();
+    }
+
     return ProductModel(
       id: json['id'] ?? 0,
       type: json['object_model'] ?? '',
@@ -110,6 +121,7 @@ class ProductModel {
       gps: gps,
       properties: properties,
       feedbacks: feedbacks,
+      faqs: faqs,
     );
   }
 

@@ -26,6 +26,7 @@ class CarModel extends ProductModel {
     required super.gps,
     required super.properties,
     required super.feedbacks,
+    required super.faqs,
     required this.passenger,
     required this.gear,
     required this.baggage,
@@ -53,6 +54,7 @@ class CarModel extends ProductModel {
       gps: gps?.toEntity(),
       properties: properties?.map((e) => e.toEntity()).toList(),
       feedbacks: feedbacks?.map((e) => e.toEntity()).toList(),
+      faqs: faqs?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       passenger: passenger,
@@ -83,6 +85,7 @@ class CarModel extends ProductModel {
       gps: shared.gps,
       properties: shared.properties,
       feedbacks: shared.feedbacks,
+      faqs: shared.faqs,
       passenger: json['max_guest'] ?? 0,
       gear: json['gear'] ?? '',
       baggage: json['baggage'] ?? 0,
