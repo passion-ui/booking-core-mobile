@@ -26,6 +26,7 @@ class BoatEntity extends ProductEntity {
     required super.properties,
     required super.feedbacks,
     required super.faqs,
+    required super.related,
     required this.guests,
     required this.cabins,
     required this.length,

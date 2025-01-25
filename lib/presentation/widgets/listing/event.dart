@@ -183,7 +183,7 @@ class EventItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             width: 1,
-            color: Theme.of(context).cardColor,
+            color: Theme.of(context).hoverColor,
           ),
         ),
         clipBehavior: Clip.hardEdge,

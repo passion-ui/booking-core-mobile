@@ -27,6 +27,7 @@ class BoatModel extends ProductModel {
     required super.properties,
     required super.feedbacks,
     required super.faqs,
+    required super.related,
     required this.guests,
     required this.cabins,
     required this.length,
@@ -55,6 +56,7 @@ class BoatModel extends ProductModel {
       properties: properties?.map((e) => e.toEntity()).toList(),
       feedbacks: feedbacks?.map((e) => e.toEntity()).toList(),
       faqs: faqs?.map((e) => e.toEntity()).toList(),
+      related: related?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       guests: guests,
@@ -86,6 +88,7 @@ class BoatModel extends ProductModel {
       properties: shared.properties,
       feedbacks: shared.feedbacks,
       faqs: shared.faqs,
+      related: shared.related,
       guests: json['max_guest'] ?? 0,
       cabins: json['cabin'] ?? 0,
       length: json['length'] ?? '',

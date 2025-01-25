@@ -26,6 +26,7 @@ class ProductEntity {
   final List<ProductPropertiesEntity>? properties;
   final List<FeedbackEntity>? feedbacks;
   final List<FAQEntity>? faqs;
+  final List<ProductEntity>? related;
 
   ProductEntity({
     required this.id,
@@ -47,5 +48,6 @@ class ProductEntity {
     required this.properties,
     required this.feedbacks,
     required this.faqs,
+    required this.related,
   });
 }

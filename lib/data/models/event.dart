@@ -25,6 +25,7 @@ class EventModel extends ProductModel {
     required super.properties,
     required super.feedbacks,
     required super.faqs,
+    required super.related,
     required this.duration,
     required this.startTime,
   });
@@ -51,6 +52,7 @@ class EventModel extends ProductModel {
       properties: properties?.map((e) => e.toEntity()).toList(),
       feedbacks: feedbacks?.map((e) => e.toEntity()).toList(),
       faqs: faqs?.map((e) => e.toEntity()).toList(),
+      related: related?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       duration: duration,
@@ -81,6 +83,7 @@ class EventModel extends ProductModel {
       properties: shared.properties,
       feedbacks: shared.feedbacks,
       faqs: shared.faqs,
+      related: shared.related,
       duration: json['duration'] ?? '',
       startTime: json['start_time'] ?? '',
     );

@@ -26,6 +26,7 @@ class SpaceEntity extends ProductEntity {
     required super.properties,
     required super.feedbacks,
     required super.faqs,
+    required super.related,
     required this.guests,
     required this.beds,
     required this.bathrooms,

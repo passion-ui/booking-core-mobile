@@ -60,6 +60,11 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
     });
   }
 
+  ///On Detail
+  void onDetail(ProductEntity item) {
+    context.push(Routers.productDetail, extra: item);
+  }
+
   ///Build shared title
   Widget buildTitle(ProductDetailState state) {
     if (state is ProductDetailSuccess) {
@@ -756,6 +761,64 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
     return Container();
   }
 
+  ///Build related
+  Widget _buildRelated(ProductDetailState state) {
+    if (state is ProductDetailSuccess) {
+      String currency = '';
+
+      final config = context.read<ConfigsBloc>().state;
+      if (config is ConfigsSuccess) {
+        currency = config.data.currency.symbol;
+      }
+      if (state.product.related?.isNotEmpty == true) {
+        return Column(
+          children: [
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    Translate.of(context).translate('related'),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    height: 260,
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        final item = state.product.related![index];
+                        return ListingItem(
+                          data: item,
+                          onPressed: onDetail,
+                          style: ListingViewStyle.card,
+                          currency: currency,
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(width: 8);
+                      },
+                      itemCount: state.product.related!.length,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        );
+      }
+    }
+
+    return Container();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -765,44 +828,6 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
           Color? iconColor;
           if (_iconBackground == Colors.black26) {
             iconColor = Colors.white;
-          }
-
-          if (state is ProductDetailSuccess) {
-            ///Rating
-            // rating = Row(
-            //   children: [
-            //     Container(
-            //       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-            //       decoration: BoxDecoration(
-            //         color: Theme.of(context).colorScheme.primary,
-            //         borderRadius: BorderRadius.only(
-            //           topLeft: Radius.circular(6),
-            //           bottomLeft: Radius.circular(6),
-            //           bottomRight: Radius.circular(6),
-            //         ),
-            //       ),
-            //       child: Text(
-            //         '${state.product.review.score}',
-            //         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-            //               fontWeight: FontWeight.bold,
-            //               color: Colors.white,
-            //             ),
-            //       ),
-            //     ),
-            //     const SizedBox(width: 4),
-            //     Text(
-            //       state.product.review.text,
-            //       style: Theme.of(context).textTheme.labelMedium?.copyWith(
-            //             color: Theme.of(context).colorScheme.primary,
-            //           ),
-            //     ),
-            //     const SizedBox(width: 4),
-            //     Text(
-            //       '(${state.product.review.total} ${Translate.of(context).translate('reviews')})',
-            //       style: Theme.of(context).textTheme.bodySmall,
-            //     ),
-            //   ],
-            // );
           }
 
           return CustomScrollView(
@@ -850,6 +875,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
                           const SizedBox(height: 12),
                           _buildReview(state),
                           _buildFaq(state),
+                          _buildRelated(state),
                         ],
                       ),
                     ),
