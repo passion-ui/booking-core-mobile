@@ -21,13 +21,10 @@ class Routers {
   static const String productDetail = '/productDetail';
   static const String maps = '/maps';
   static const String gallery = '/gallery';
-
+  static const String review = '/review';
   static const String notFound = '/404';
 
-  final List<String> authRoutes = [
-    changePassword,
-    profile,
-  ];
+  final List<String> _authRoutes = [review];
 
   final config = GoRouter(
     routes: <RouteBase>[
@@ -169,11 +166,17 @@ class Routers {
               return Gallery(product: state.extra as ProductEntity);
             },
           ),
+          GoRoute(
+            path: review,
+            builder: (BuildContext context, GoRouterState state) {
+              return Review();
+            },
+          ),
         ],
         redirect: (context, state) {
           final auth = context.read<AuthenticationBloc>();
           final fail = auth.state is AuthenticationFail;
-          if (_instance.authRoutes.contains(state.uri.path) && fail) {
+          if (_instance._authRoutes.contains(state.uri.path) && fail) {
             return '/login?redirect=${state.uri.path}';
           }
 
@@ -182,6 +185,22 @@ class Routers {
       ),
     ],
   );
+
+  Future<void> ensureAuthentication(
+    BuildContext context, {
+    required Function action,
+  }) async {
+    final auth = context.read<AuthenticationBloc>();
+    final success = auth.state is AuthenticationSuccess;
+    if (success) {
+      action();
+    } else {
+      final result = await context.push(Routers.login);
+      if (result != null) {
+        action();
+      }
+    }
+  }
 
   static final _instance = Routers._internal();
 

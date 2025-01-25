@@ -96,7 +96,7 @@ class _MapsState extends State<Maps> {
     List<Widget>? actions;
     bool editable = widget.item == null || widget.item?.editable == true;
 
-    if (editable || true) {
+    if (editable) {
       actions = [
         Row(
           children: [

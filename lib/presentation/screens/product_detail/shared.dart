@@ -55,17 +55,30 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
 
   ///Handle favorite action
   void onFavorite() {
-    context.read<MessageBloc>().add(OnMessage(title: "TODO Action favorite"));
+    Routers().ensureAuthentication(context, action: () {
+      context.read<WishListCubit>().onUpdateItem(item);
+    });
   }
 
   ///Build shared title
-  Widget buildTitle(ProductEntity item) {
-    return Text(
-      item.title,
-      style: Theme.of(context).textTheme.titleMedium,
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
+  Widget buildTitle(ProductDetailState state) {
+    if (state is ProductDetailSuccess) {
+      return Text(
+        item.title,
+        style: Theme.of(context).textTheme.titleMedium,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      );
+    }
+
+    return Skeleton(
+      child: Container(height: 16, width: 250, color: Colors.white),
     );
+  }
+
+  ///Build shared content
+  Widget buildContent(ProductDetailState state) {
+    return SizedBox.shrink();
   }
 
   ///Build action
@@ -128,21 +141,26 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
     if (state is ProductDetailSuccess) {
       Widget feature = Container();
       if (state.product.isFeatured) {
-        feature = Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 8,
-            vertical: 4,
-          ),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Text(
-            Translate.of(context).translate('featured'),
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-          ),
+        feature = Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 4,
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                Translate.of(context).translate('featured'),
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+              ),
+            ),
+            SizedBox(width: 8),
+          ],
         );
       }
       return Container(
@@ -167,13 +185,17 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(child: buildTitle(state.product)),
+            Expanded(child: buildTitle(state)),
             SizedBox(width: 12),
             Row(children: [
               feature,
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.favorite_outline),
+              SizedBox(
+                width: 40,
+                height: 40,
+                child: IconButton(
+                  onPressed: onFavorite,
+                  icon: Icon(Icons.favorite_outline),
+                ),
               ),
             ]),
           ],
@@ -197,22 +219,14 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Skeleton(
-                child: Container(height: 12, width: 100, color: Colors.white),
-              ),
-              SizedBox(height: 8),
-              Skeleton(
-                child: Container(height: 16, width: 150, color: Colors.white),
-              ),
-            ],
-          ),
+          buildTitle(state),
           SizedBox(width: 12),
           Skeleton(
-            child: Container(height: 24, width: 24, color: Colors.white),
+            child: Container(
+              height: 32,
+              width: 32,
+              color: Colors.white,
+            ),
           ),
         ],
       ),
@@ -830,6 +844,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
                           _buildLocation(state),
                           const SizedBox(height: 12),
                           _buildDescription(state),
+                          buildContent(state),
                           const SizedBox(height: 12),
                           _buildProperties(state),
                           const SizedBox(height: 12),

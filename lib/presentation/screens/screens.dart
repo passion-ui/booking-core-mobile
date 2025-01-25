@@ -12,6 +12,7 @@ export 'product_detail/hotel_detail.dart';
 export 'product_detail/product_detail.dart';
 export 'profile/profile.dart';
 export 'register/register.dart';
+export 'review/review.dart';
 export 'scan/scan.dart';
 export 'search/search.dart';
 export 'setting/setting.dart';

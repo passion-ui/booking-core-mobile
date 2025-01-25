@@ -11,12 +11,12 @@ class Account extends StatefulWidget {
 class _AccountState extends State<Account> {
   ///On Setting
   void _onSetting() {
-    context.go(Routers.settings);
+    context.push(Routers.settings);
   }
 
   /// Login
   void _onLogin() {
-    context.go(Routers.login);
+    context.push(Routers.login);
   }
 
   /// Logout
@@ -157,7 +157,7 @@ class _AccountState extends State<Account> {
                 ),
                 title: user.displayName,
                 description: user.email,
-                onPress: _onSetting,
+                onPress: () {},
               ),
             ],
           ),
@@ -180,7 +180,7 @@ class _AccountState extends State<Account> {
                   ),
                 ),
                 title: Translate.of(context).translate('booking_history'),
-                onPress: _onSetting,
+                onPress: () {},
               ),
               SizedBox(height: 12),
               ListTitle(
@@ -197,7 +197,7 @@ class _AccountState extends State<Account> {
                   ),
                 ),
                 title: Translate.of(context).translate('edit_profile'),
-                onPress: _onSetting,
+                onPress: () {},
               ),
               SizedBox(height: 12),
               ListTitle(
@@ -214,7 +214,7 @@ class _AccountState extends State<Account> {
                   ),
                 ),
                 title: Translate.of(context).translate('change_password'),
-                onPress: _onSetting,
+                onPress: () {},
               ),
             ],
           ),

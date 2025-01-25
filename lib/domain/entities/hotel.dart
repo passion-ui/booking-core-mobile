@@ -2,6 +2,9 @@ import 'package:booking/domain/domain.dart';
 
 class HotelEntity extends ProductEntity {
   final double? point;
+  final List<FAQEntity>? policies;
+  final String? checkInTime;
+  final String? checkOutTime;
 
   HotelEntity({
     required super.id,
@@ -24,5 +27,8 @@ class HotelEntity extends ProductEntity {
     required super.feedbacks,
     required super.faqs,
     this.point,
+    this.policies,
+    this.checkInTime,
+    this.checkOutTime,
   });
 }

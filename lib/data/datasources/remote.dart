@@ -166,4 +166,20 @@ class RemoteDataSource {
     }
     throw Exception(response['message'] ?? "unknown_error");
   }
+
+  /// Add/Remove to Wishlist
+  Future<bool> updateWishList({
+    required id,
+    required type,
+  }) async {
+    final response = await _httpClient.post(
+      url: _wishlist,
+      data: {"object_id": id, 'object_model': type},
+      loading: true,
+    );
+    if (response['status'] == 1) {
+      return true;
+    }
+    throw Exception(response['message'] ?? "unknown_error");
+  }
 }

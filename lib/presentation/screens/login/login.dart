@@ -83,7 +83,7 @@ class _LoginState extends State<Login> {
 
   ///On forgot password
   void _onForgotPassword() {
-    context.go(Routers.forgotPassword);
+    context.push(Routers.forgotPassword);
   }
 
   ///On register
@@ -106,9 +106,9 @@ class _LoginState extends State<Login> {
         if (state is AuthenticationSuccess) {
           final from = widget.from;
           if (from != null) {
-            context.go(from);
+            context.replace(from);
           } else {
-            context.go(Routers.main);
+            context.pop(true);
           }
         }
       },

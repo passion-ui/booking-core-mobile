@@ -43,17 +43,17 @@ class _HomeState extends State<Home> {
 
   ///On Search
   void _onSearch() {
-    context.go(Routers.search);
+    context.push(Routers.search);
   }
 
   ///On Scan
   void _onScan() {
-    context.go(Routers.scanQR);
+    context.push(Routers.scanQR);
   }
 
   ///On Booking
   void _onListing(BookingEntity item) {
-    context.go(Routers.listing);
+    context.push(Routers.listing);
   }
 
   ///On Offer
@@ -61,17 +61,17 @@ class _HomeState extends State<Home> {
 
   ///On Detail
   void _onDetail(ProductEntity item) {
-    context.go(Routers.productDetail, extra: item);
+    context.push(Routers.productDetail, extra: item);
   }
 
   ///On New
   void _onNew(PostEntity item) {
-    context.go(Routers.detailNew);
+    context.push(Routers.detailNew);
   }
 
   ///On Location
   void _onLocation(CategoryEntity item) {
-    context.go(Routers.listing);
+    context.push(Routers.listing);
   }
 
   ///Build block

@@ -41,12 +41,12 @@ class _WishListState extends State<WishList> {
 
   /// Login
   void _onLogin() {
-    context.go(Routers.login);
+    context.push(Routers.login);
   }
 
   ///On Listing
   void _onListing(ProductEntity item) {
-    context.go(Routers.productDetail, extra: item);
+    context.push(Routers.productDetail, extra: item);
   }
 
   void _onAction(ProductEntity item) async {
@@ -73,13 +73,14 @@ class _WishListState extends State<WishList> {
     );
 
     if (data != null && mounted) {
-      context
-          .read<MessageBloc>()
-          .add(OnMessage(title: "TODO Action ${data.id}"));
       switch (data.id) {
         case 'delete':
+          context.read<WishListCubit>().onUpdateItem(item);
           break;
         case 'share':
+          context
+              .read<MessageBloc>()
+              .add(OnMessage(title: "TODO Action ${data.id}"));
           break;
       }
     }

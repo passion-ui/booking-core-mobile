@@ -3,6 +3,9 @@ import 'package:booking/domain/domain.dart';
 
 class HotelModel extends ProductModel {
   final double? point;
+  final List<FAQModel>? policies;
+  final String? checkInTime;
+  final String? checkOutTime;
 
   HotelModel({
     required super.id,
@@ -24,7 +27,12 @@ class HotelModel extends ProductModel {
     required super.properties,
     required super.feedbacks,
     required super.faqs,
+
+    ///Specific
     this.point,
+    this.policies,
+    this.checkInTime,
+    this.checkOutTime,
   });
 
   @override
@@ -52,11 +60,23 @@ class HotelModel extends ProductModel {
 
       ///Specific
       point: point,
+      policies: policies?.map((e) => e.toEntity()).toList(),
+      checkInTime: checkInTime,
+      checkOutTime: checkOutTime,
     );
   }
 
   factory HotelModel.fromJson(Map<String, dynamic> json) {
     final shared = ProductModel.shared(json);
+    List<FAQModel>? policies;
+    if (json['policy'] != null) {
+      policies = List<FAQModel>.from(
+        json['policy'].map(
+          (item) => FAQModel.fromJson(item),
+        ),
+      );
+    }
+
     return HotelModel(
       id: shared.id,
       type: shared.type,
@@ -80,6 +100,9 @@ class HotelModel extends ProductModel {
 
       ///specific
       point: double.tryParse('${json['star_rate']}') ?? 0.0,
+      policies: policies,
+      checkInTime: json['check_in_time'] ?? '',
+      checkOutTime: json['check_out_time'] ?? '',
     );
   }
 }

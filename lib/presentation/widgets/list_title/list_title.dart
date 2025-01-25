@@ -48,7 +48,7 @@ class ListTitle extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                   buildDescription(context, DescriptionPosition.bottom),
                 ],

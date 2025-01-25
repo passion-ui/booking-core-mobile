@@ -28,7 +28,7 @@ class _NewsState extends State<News> {
 
   ///On New
   void _onNew(PostEntity item) {
-    context.go(Routers.detailNew);
+    context.push(Routers.detailNew);
   }
 
   ///On share
@@ -41,7 +41,7 @@ class _NewsState extends State<News> {
 
   ///On Author
   void _onAuthor(UserEntity item) {
-    context.go(Routers.author);
+    context.push(Routers.author);
   }
 
   @override
