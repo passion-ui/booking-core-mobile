@@ -25,6 +25,7 @@ export 'faq.dart';
 export 'feedback.dart';
 export 'gps.dart';
 export 'hotel.dart';
+export 'itinerary.dart';
 export 'listing.dart';
 export 'parent_properties.dart';
 export 'picker.dart';

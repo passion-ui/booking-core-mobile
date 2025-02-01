@@ -3,16 +3,16 @@ import 'package:booking/presentation/presentation.dart';
 
 import 'shared.dart';
 
-class HotelDetail extends StatefulWidget {
-  final HotelEntity item;
+class CarDetail extends StatefulWidget {
+  final CarEntity item;
 
-  const HotelDetail({super.key, required this.item});
+  const CarDetail({super.key, required this.item});
 
   @override
-  State<HotelDetail> createState() => _HotelDetailState();
+  State<CarDetail> createState() => _CarDetailState();
 }
 
-class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
+class _CarDetailState extends State<CarDetail> with ProductDetailBase {
   @override
   void initState() {
     item = widget.item;
@@ -20,97 +20,12 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
   }
 
   @override
-  Widget buildTitle(ProductDetailState state) {
-    if (state is ProductDetailSuccess) {
-      final product = state.product as HotelEntity;
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Rating(
-            value: product.point ?? 0.0,
-            size: 16,
-          ),
-          const SizedBox(height: 2),
-          Text(
-            product.title,
-            style: Theme.of(context).textTheme.titleMedium,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
-      );
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Skeleton(
-          child: Container(height: 12, width: 100, color: Colors.white),
-        ),
-        SizedBox(height: 8),
-        Skeleton(
-          child: Container(height: 16, width: 250, color: Colors.white),
-        ),
-      ],
-    );
-  }
-
-  @override
   Widget buildContent(ProductDetailState state) {
     if (state is ProductDetailSuccess) {
-      final product = state.product as HotelEntity;
-      Widget policies = SizedBox.shrink();
-      if (product.policies?.isNotEmpty == true) {
-        policies = Column(
-          children: [
-            const SizedBox(height: 8),
-            ListView.separated(
-              padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                final item = product.policies![index];
-                return ExpansionTile(
-                  tilePadding: EdgeInsets.symmetric(horizontal: 12),
-                  childrenPadding: EdgeInsets.zero,
-                  collapsedShape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(
-                      color: Theme.of(context).splashColor,
-                    ),
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: BorderSide.none,
-                  ),
-                  title: Text(
-                    item.title,
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(
-                        item.content,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                  ],
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(height: 8);
-              },
-              itemCount: product.policies?.length ?? 0,
-            ),
-          ],
-        );
-      }
-
+      final product = state.product as CarEntity;
       return Column(
         children: [
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -125,20 +40,20 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
                     Row(
                       children: [
                         Icon(
-                          Icons.access_time,
+                          Icons.person_outline,
                           size: 18,
                           color: Theme.of(context).colorScheme.primary,
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          Translate.of(context).translate('check_in_time'),
+                          Translate.of(context).translate('passenger'),
                           style: Theme.of(context).textTheme.labelSmall,
                         ),
                       ],
                     ),
                     Text(
-                      product.checkInTime ?? '',
-                      style: Theme.of(context).textTheme.labelMedium,
+                      '${product.passenger} ${Translate.of(context).translate('slot')}',
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
                 ),
@@ -149,41 +64,71 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
                     Row(
                       children: [
                         Icon(
-                          Icons.access_time,
+                          Icons.luggage_outlined,
                           size: 18,
                           color: Theme.of(context).colorScheme.primary,
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          Translate.of(context).translate('check_out_time'),
+                          Translate.of(context).translate('baggage'),
                           style: Theme.of(context).textTheme.labelSmall,
                         ),
                       ],
                     ),
                     Text(
-                      product.checkOutTime ?? '',
-                      style: Theme.of(context).textTheme.labelMedium,
+                      '${product.baggage} ${Translate.of(context).translate('bag')}',
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  Translate.of(context).translate('hotel_policies'),
-                  style: Theme.of(context).textTheme.titleMedium,
+                Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.window_outlined,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          Translate.of(context).translate('window'),
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      '${product.door} ${Translate.of(context).translate('door')}',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
                 ),
-                policies,
+                Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.settings_outlined,
+                          size: 18,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          Translate.of(context).translate('gear'),
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      product.gear,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -202,7 +147,7 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
       if (config is ConfigsSuccess) {
         currency = config.data.currency.symbol;
       }
-      final product = state.product as HotelEntity;
+      final product = state.product as CarEntity;
       Widget info = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -222,7 +167,7 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
               Padding(
                 padding: const EdgeInsets.only(top: 2),
                 child: Text(
-                  '/${Translate.of(context).translate('night')}',
+                  '/${Translate.of(context).translate('day')}',
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ),
@@ -285,7 +230,7 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
                 Padding(
                   padding: const EdgeInsets.only(top: 2),
                   child: Text(
-                    '/${Translate.of(context).translate('night')}',
+                    '/${Translate.of(context).translate('day')}',
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ),
@@ -294,13 +239,14 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
           ],
         );
       }
+
       return [
         Row(
           children: [
             Expanded(child: info),
             FilledButton(
               child: Text(
-                Translate.of(context).translate('choose_room'),
+                Translate.of(context).translate('book_now'),
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {},

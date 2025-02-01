@@ -1,7 +1,13 @@
 import 'package:booking/domain/domain.dart';
 
 class TourEntity extends ProductEntity {
-  final String duration;
+  final String? duration;
+  final CategoryEntity? category;
+  final int? minPeople;
+  final int? maxPeople;
+  final List<String>? include;
+  final List<String>? exclude;
+  final List<ItineraryEntity>? itineraries;
 
   TourEntity({
     required super.id,
@@ -27,5 +33,11 @@ class TourEntity extends ProductEntity {
     required super.enableExtraPrice,
     required super.extraServices,
     required this.duration,
+    required this.category,
+    required this.minPeople,
+    required this.maxPeople,
+    required this.include,
+    required this.exclude,
+    required this.itineraries,
   });
 }

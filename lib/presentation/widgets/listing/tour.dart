@@ -284,7 +284,7 @@ class TourItem extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            data!.duration,
+                            data!.duration ?? '',
                             style: Theme.of(context).textTheme.bodySmall,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,

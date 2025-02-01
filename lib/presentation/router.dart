@@ -146,6 +146,14 @@ class Routers {
                 return HotelDetail(item: state.extra as HotelEntity);
               } else if (state.extra is TourEntity) {
                 return TourDetail(item: state.extra as TourEntity);
+              } else if (state.extra is SpaceEntity) {
+                return SpaceDetail(item: state.extra as SpaceEntity);
+              } else if (state.extra is CarEntity) {
+                return CarDetail(item: state.extra as CarEntity);
+              } else if (state.extra is EventEntity) {
+                return EventDetail(item: state.extra as EventEntity);
+              } else if (state.extra is BoatEntity) {
+                return BoatDetail(item: state.extra as BoatEntity);
               } else {
                 return ProductDetail(item: state.extra as ProductEntity);
               }

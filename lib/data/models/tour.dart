@@ -2,7 +2,13 @@ import 'package:booking/data/data.dart';
 import 'package:booking/domain/domain.dart';
 
 class TourModel extends ProductModel {
-  final String duration;
+  final String? duration;
+  final CategoryModel? category;
+  final int? minPeople;
+  final int? maxPeople;
+  final List<String>? include;
+  final List<String>? exclude;
+  final List<ItineraryModel>? itineraries;
 
   TourModel({
     required super.id,
@@ -28,6 +34,12 @@ class TourModel extends ProductModel {
     required super.enableExtraPrice,
     required super.extraServices,
     required this.duration,
+    required this.category,
+    required this.minPeople,
+    required this.maxPeople,
+    required this.include,
+    required this.exclude,
+    required this.itineraries,
   });
 
   @override
@@ -58,11 +70,36 @@ class TourModel extends ProductModel {
 
       ///Specific
       duration: duration,
+      category: category?.toEntity(),
+      minPeople: minPeople,
+      maxPeople: maxPeople,
+      include: include,
+      exclude: exclude,
+      itineraries: itineraries?.map((e) => e.toEntity()).toList(),
     );
   }
 
   factory TourModel.fromJson(Map<String, dynamic> json) {
     final shared = ProductModel.shared(json);
+    CategoryModel? category;
+    List<String>? include;
+    List<String>? exclude;
+    List<ItineraryModel>? itineraries;
+
+    if (json['category'] != null) {
+      category = CategoryModel.fromJson(json['category']);
+    }
+    if (json['include'] != null) {
+      include = List<String>.from(json['include'].map((item) => item['title']));
+    }
+    if (json['exclude'] != null) {
+      exclude = List<String>.from(json['exclude'].map((item) => item['title']));
+    }
+    if (json['itinerary'] != null) {
+      itineraries = List<ItineraryModel>.from(
+        json['itinerary'].map((item) => ItineraryModel.fromJson(item)),
+      );
+    }
 
     return TourModel(
       id: shared.id,
@@ -87,7 +124,15 @@ class TourModel extends ProductModel {
       related: shared.related,
       enableExtraPrice: shared.enableExtraPrice,
       extraServices: shared.extraServices,
-      duration: json['duration'] ?? '',
+
+      ///Specific
+      duration: json['duration'],
+      category: category,
+      minPeople: json['min_people'],
+      maxPeople: json['max_people'],
+      include: include,
+      exclude: exclude,
+      itineraries: itineraries,
     );
   }
 }

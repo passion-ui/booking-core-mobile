@@ -95,7 +95,7 @@ class CarModel extends ProductModel {
       related: shared.related,
       enableExtraPrice: shared.enableExtraPrice,
       extraServices: shared.extraServices,
-      passenger: json['max_guest'] ?? 0,
+      passenger: json['passenger'] ?? 0,
       gear: json['gear'] ?? '',
       baggage: json['baggage'] ?? 0,
       door: json['door'] ?? 0,

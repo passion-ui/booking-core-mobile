@@ -108,10 +108,10 @@ class HotelModel extends ProductModel {
       extraServices: shared.extraServices,
 
       ///specific
-      point: double.tryParse('${json['star_rate']}') ?? 0.0,
+      point: double.tryParse('${json['star_rate']}'),
       policies: policies,
-      checkInTime: json['check_in_time'] ?? '',
-      checkOutTime: json['check_out_time'] ?? '',
+      checkInTime: json['check_in_time'],
+      checkOutTime: json['check_out_time'],
     );
   }
 }

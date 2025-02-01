@@ -13,6 +13,8 @@ class TourDetail extends StatefulWidget {
 }
 
 class _TourDetailState extends State<TourDetail> with ProductDetailBase {
+  final _controller = CarouselController(initialItem: 1);
+
   @override
   void initState() {
     item = widget.item;
@@ -52,7 +54,7 @@ class _TourDetailState extends State<TourDetail> with ProductDetailBase {
                       ],
                     ),
                     Text(
-                      product.duration,
+                      product.duration ?? '',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
@@ -76,7 +78,7 @@ class _TourDetailState extends State<TourDetail> with ProductDetailBase {
                       ],
                     ),
                     Text(
-                      product.duration,
+                      product.category?.name ?? '',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
@@ -100,10 +102,177 @@ class _TourDetailState extends State<TourDetail> with ProductDetailBase {
                       ],
                     ),
                     Text(
-                      product.duration,
+                      '${product.minPeople ?? 0} - ${product.maxPeople ?? 0} ${Translate.of(context).translate('people')}',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  Translate.of(context).translate('include_exclude'),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Theme.of(context).splashColor,
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      ListView.separated(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: product.include!.length,
+                        itemBuilder: (context, index) {
+                          return Row(
+                            children: [
+                              Icon(
+                                Icons.check,
+                                size: 18,
+                                color: Colors.green,
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  product.include![index],
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) => Divider(),
+                      ),
+                      Divider(),
+                      ListView.separated(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: product.exclude!.length,
+                        itemBuilder: (context, index) {
+                          return Row(
+                            children: [
+                              Icon(
+                                Icons.close,
+                                size: 18,
+                                color: Theme.of(context).colorScheme.error,
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  product.exclude![index],
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) => Divider(),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  Translate.of(context).translate('itinerary'),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 8),
+                Container(
+                  height: 200,
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Theme.of(context).splashColor,
+                    ),
+                  ),
+                  child: CarouselView.weighted(
+                    controller: _controller,
+                    itemSnapping: true,
+                    flexWeights: const <int>[8, 2],
+                    padding: const EdgeInsets.all(6),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    children: product.itineraries!.map((item) {
+                      final width = MediaQuery.sizeOf(context).width;
+                      return Stack(
+                          alignment: AlignmentDirectional.bottomStart,
+                          children: <Widget>[
+                            ClipRect(
+                              child: OverflowBox(
+                                maxWidth: width * 7 / 8,
+                                minWidth: width * 7 / 8,
+                                child: CachedImage(
+                                  url: item.image,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Text(
+                                    item.title,
+                                    overflow: TextOverflow.clip,
+                                    softWrap: false,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(color: Colors.white),
+                                  ),
+                                  Text(
+                                    item.description,
+                                    overflow: TextOverflow.clip,
+                                    softWrap: false,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(color: Colors.white),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ]);
+                    }).toList(),
+                  ),
                 ),
               ],
             ),
@@ -131,23 +300,11 @@ class _TourDetailState extends State<TourDetail> with ProductDetailBase {
             Translate.of(context).translate('from'),
             style: Theme.of(context).textTheme.labelSmall,
           ),
-          Row(
-            children: [
-              Text(
-                '$currency${product.price.toStringAsFixed(0)}',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-              ),
-              const SizedBox(width: 4),
-              Padding(
-                padding: const EdgeInsets.only(top: 2),
-                child: Text(
-                  '/${Translate.of(context).translate('night')}',
-                  style: Theme.of(context).textTheme.labelSmall,
+          Text(
+            '$currency${product.price.toStringAsFixed(0)}',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
                 ),
-              ),
-            ],
           )
         ],
       );
@@ -202,26 +359,19 @@ class _TourDetailState extends State<TourDetail> with ProductDetailBase {
                         color: Theme.of(context).colorScheme.primary,
                       ),
                 ),
-                const SizedBox(width: 4),
-                Padding(
-                  padding: const EdgeInsets.only(top: 2),
-                  child: Text(
-                    '/${Translate.of(context).translate('night')}',
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
-                ),
               ],
             )
           ],
         );
       }
+
       return [
         Row(
           children: [
             Expanded(child: info),
             FilledButton(
               child: Text(
-                Translate.of(context).translate('choose_room'),
+                Translate.of(context).translate('book_now'),
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {},
