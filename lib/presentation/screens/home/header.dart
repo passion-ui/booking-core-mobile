@@ -6,12 +6,16 @@ class Header extends SliverPersistentHeaderDelegate {
   final String? placeholder;
   final VoidCallback? onScan;
   final VoidCallback? onSearch;
+  final double minHeight;
+  final double maxHeight;
 
   Header({
     this.banner,
     this.placeholder,
     this.onScan,
     this.onSearch,
+    required this.minHeight,
+    required this.maxHeight,
   });
 
   @override
@@ -90,10 +94,10 @@ class Header extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 246;
+  double get maxExtent => maxHeight;
 
   @override
-  double get minExtent => 120;
+  double get minExtent => minHeight;
 
   @override
   bool shouldRebuild(covariant Header oldDelegate) {

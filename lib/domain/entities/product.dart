@@ -27,6 +27,8 @@ class ProductEntity {
   final List<FeedbackEntity>? feedbacks;
   final List<FAQEntity>? faqs;
   final List<ProductEntity>? related;
+  final bool? enableExtraPrice;
+  final List<ExtraServiceEntity>? extraServices;
 
   ProductEntity({
     required this.id,
@@ -49,5 +51,7 @@ class ProductEntity {
     required this.feedbacks,
     required this.faqs,
     required this.related,
+    required this.enableExtraPrice,
+    required this.extraServices,
   });
 }

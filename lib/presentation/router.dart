@@ -144,8 +144,11 @@ class Routers {
             builder: (BuildContext context, GoRouterState state) {
               if (state.extra is HotelEntity) {
                 return HotelDetail(item: state.extra as HotelEntity);
+              } else if (state.extra is TourEntity) {
+                return TourDetail(item: state.extra as TourEntity);
+              } else {
+                return ProductDetail(item: state.extra as ProductEntity);
               }
-              return ProductDetail(item: state.extra as ProductEntity);
             },
           ),
           GoRoute(

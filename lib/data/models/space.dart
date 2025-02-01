@@ -28,6 +28,8 @@ class SpaceModel extends ProductModel {
     required super.feedbacks,
     required super.faqs,
     required super.related,
+    required super.enableExtraPrice,
+    required super.extraServices,
     required this.guests,
     required this.beds,
     required this.bathrooms,
@@ -57,6 +59,8 @@ class SpaceModel extends ProductModel {
       feedbacks: feedbacks?.map((e) => e.toEntity()).toList(),
       faqs: faqs?.map((e) => e.toEntity()).toList(),
       related: related?.map((e) => e.toEntity()).toList(),
+      enableExtraPrice: enableExtraPrice,
+      extraServices: extraServices?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       guests: guests,
@@ -90,6 +94,8 @@ class SpaceModel extends ProductModel {
       feedbacks: shared.feedbacks,
       faqs: shared.faqs,
       related: shared.related,
+      enableExtraPrice: shared.enableExtraPrice,
+      extraServices: shared.extraServices,
       guests: json['max_guests'] ?? 0,
       beds: json['bed'] ?? 0,
       bathrooms: json['bathroom'] ?? 0,

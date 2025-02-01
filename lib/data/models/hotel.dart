@@ -28,6 +28,8 @@ class HotelModel extends ProductModel {
     required super.feedbacks,
     required super.faqs,
     required super.related,
+    required super.enableExtraPrice,
+    required super.extraServices,
 
     ///Specific
     this.point,
@@ -59,6 +61,8 @@ class HotelModel extends ProductModel {
       feedbacks: feedbacks?.map((e) => e.toEntity()).toList(),
       faqs: faqs?.map((e) => e.toEntity()).toList(),
       related: related?.map((e) => e.toEntity()).toList(),
+      enableExtraPrice: enableExtraPrice,
+      extraServices: extraServices?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       point: point,
@@ -100,6 +104,8 @@ class HotelModel extends ProductModel {
       feedbacks: shared.feedbacks,
       faqs: shared.faqs,
       related: shared.related,
+      enableExtraPrice: shared.enableExtraPrice,
+      extraServices: shared.extraServices,
 
       ///specific
       point: double.tryParse('${json['star_rate']}') ?? 0.0,

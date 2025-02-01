@@ -24,6 +24,8 @@ class TourEntity extends ProductEntity {
     required super.feedbacks,
     required super.faqs,
     required super.related,
+    required super.enableExtraPrice,
+    required super.extraServices,
     required this.duration,
   });
 }

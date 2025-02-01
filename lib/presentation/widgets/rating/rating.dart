@@ -19,7 +19,7 @@ class Rating extends StatelessWidget {
       initialRating: value,
       minRating: 1,
       allowHalfRating: true,
-      unratedColor: Colors.amber.withAlpha(100),
+      unratedColor: Colors.amber.withAlpha(50),
       itemCount: 5,
       itemSize: size,
       itemBuilder: (context, _) => const Icon(

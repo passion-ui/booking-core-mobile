@@ -65,6 +65,11 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
     context.push(Routers.productDetail, extra: item);
   }
 
+  ///Handle review list
+  void onReview() {
+    context.push(Routers.review, extra: item);
+  }
+
   ///Build shared title
   Widget buildTitle(ProductDetailState state) {
     if (state is ProductDetailSuccess) {
@@ -84,6 +89,10 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
   ///Build shared content
   Widget buildContent(ProductDetailState state) {
     return SizedBox.shrink();
+  }
+
+  List<Widget>? buildFooterActions(ProductDetailState state) {
+    return null;
   }
 
   ///Build action
@@ -343,7 +352,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              Translate.of(context).translate('hotel_information'),
+              Translate.of(context).translate('information'),
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 8),
@@ -491,9 +500,23 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              Translate.of(context).translate('reviews'),
-              style: Theme.of(context).textTheme.titleMedium,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  Translate.of(context).translate('reviews'),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                InkWell(
+                  onTap: onReview,
+                  child: Text(
+                    Translate.of(context).translate('see_more'),
+                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 8),
             Row(
@@ -821,16 +844,15 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<ProductDetailCubit, ProductDetailState>(
-        bloc: _productDetailCubit,
-        builder: (context, state) {
-          Color? iconColor;
-          if (_iconBackground == Colors.black26) {
-            iconColor = Colors.white;
-          }
-
-          return CustomScrollView(
+    return BlocBuilder<ProductDetailCubit, ProductDetailState>(
+      bloc: _productDetailCubit,
+      builder: (context, state) {
+        Color? iconColor;
+        if (_iconBackground == Colors.black26) {
+          iconColor = Colors.white;
+        }
+        return Scaffold(
+          body: CustomScrollView(
             physics: const BouncingScrollPhysics(
               parent: AlwaysScrollableScrollPhysics(),
             ),
@@ -883,9 +905,10 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
                 ),
               )
             ],
-          );
-        },
-      ),
+          ),
+          persistentFooterButtons: buildFooterActions(state),
+        );
+      },
     );
   }
 }

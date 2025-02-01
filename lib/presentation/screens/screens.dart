@@ -10,6 +10,7 @@ export 'maps/maps.dart';
 export 'news/news.dart';
 export 'product_detail/hotel_detail.dart';
 export 'product_detail/product_detail.dart';
+export 'product_detail/tour_detail.dart';
 export 'profile/profile.dart';
 export 'register/register.dart';
 export 'review/review.dart';

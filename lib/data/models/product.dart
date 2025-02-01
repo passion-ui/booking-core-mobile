@@ -23,6 +23,8 @@ class ProductModel {
   final List<FeedbackModel>? feedbacks;
   final List<FAQModel>? faqs;
   final List<ProductModel>? related;
+  final bool? enableExtraPrice;
+  final List<ExtraServiceModel>? extraServices;
 
   ProductModel({
     required this.id,
@@ -45,6 +47,8 @@ class ProductModel {
     required this.feedbacks,
     required this.faqs,
     required this.related,
+    required this.enableExtraPrice,
+    required this.extraServices,
   });
 
   ProductEntity toEntity() {
@@ -69,6 +73,8 @@ class ProductModel {
       feedbacks: feedbacks?.map((e) => e.toEntity()).toList(),
       faqs: faqs?.map((e) => e.toEntity()).toList(),
       related: related?.map((e) => e.toEntity()).toList(),
+      enableExtraPrice: enableExtraPrice,
+      extraServices: extraServices?.map((e) => e.toEntity()).toList(),
     );
   }
 
@@ -78,6 +84,7 @@ class ProductModel {
     List<FeedbackModel>? feedbacks;
     List<FAQModel>? faqs;
     List<ProductModel>? related;
+    List<ExtraServiceModel>? extraServices;
 
     if (json['map_lat'] != null && json['map_lng'] != null) {
       gps = GPSModel(
@@ -112,6 +119,12 @@ class ProductModel {
       }).toList();
     }
 
+    if (json['extra_services'] != null) {
+      extraServices = List.from(json['extra_services']).map((item) {
+        return ExtraServiceModel.fromJson(item);
+      }).toList();
+    }
+
     return ProductModel(
       id: json['id'] ?? 0,
       type: json['object_model'] ?? '',
@@ -133,6 +146,8 @@ class ProductModel {
       feedbacks: feedbacks,
       faqs: faqs,
       related: related,
+      enableExtraPrice: json['enable_extra_price'] == 1,
+      extraServices: extraServices,
     );
   }
 
