@@ -5,7 +5,6 @@ export 'firebase/firebase.dart';
 export 'http/http.dart';
 export 'logger/logger.dart';
 export 'storages/default.dart';
-export 'storages/relational.dart';
 export 'storages/secure.dart';
 export 'utils/asset.dart';
 export 'utils/color.dart';

@@ -19,6 +19,7 @@ export 'news/news_bloc.dart';
 export 'news/news_event.dart';
 export 'news/news_state.dart';
 export 'observer.dart';
+export 'product_detail/hotel_detail_cubit.dart';
 export 'product_detail/product_detail_cubit.dart';
 export 'product_detail/product_detail_state.dart';
 export 'register/register_bloc.dart';

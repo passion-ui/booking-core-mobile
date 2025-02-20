@@ -99,6 +99,9 @@
   "check_in_check_out": "Check-In/Check-Out",
   "please_select_date": "Please select date",
   "guest": "Guest",
+  "guests": "Guests",
+  "select_guest": "Select Guest",
+  "select_date": "Select Date",
   "please_select_guests": "Please select guests",
   "see_available": "See Available",
   "choose_room": "Choose Room",
@@ -121,5 +124,7 @@
   "end_time": "End Time",
   "cabin": "Cabin",
   "length": "Length",
-  "speed": "Speed"
+  "speed": "Speed",
+  "adult": "Adult",
+  "child": "Child"
 }

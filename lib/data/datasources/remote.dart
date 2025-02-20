@@ -167,6 +167,33 @@ class RemoteDataSource {
     throw Exception(response['message'] ?? "unknown_error");
   }
 
+  /// Get Availability
+  Future<List<RoomModel>?> getAvailability({
+    required String type,
+    required id,
+    required String startDate,
+    required String endDate,
+    required int adults,
+    required int children,
+  }) async {
+    final response = await _httpClient.get(
+      url: "/$type/availability/$id",
+      params: {
+        "start_date": startDate,
+        "end_date": endDate,
+        "adults": adults,
+        "firstLoad": false,
+        "children": children
+      },
+    );
+    if (response['status'] == 1) {
+      return List.from(response['rooms']).map((item) {
+        return RoomModel.fromJson(item);
+      }).toList();
+    }
+    throw Exception(response['message'] ?? "unknown_error");
+  }
+
   /// Add/Remove to Wishlist
   Future<bool> updateWishList({
     required id,

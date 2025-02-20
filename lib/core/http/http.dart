@@ -65,7 +65,7 @@ class HTTPClient {
   /// Post method
   Future<dynamic> post({
     required String url,
-    Map<String, dynamic>? data,
+    Object? data,
     Options? options,
     bool loading = false,
   }) async {

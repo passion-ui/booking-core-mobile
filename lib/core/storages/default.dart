@@ -7,6 +7,7 @@ class DefaultStorage {
 
   DefaultStorage(this.prefs);
 
+  /// initialize shared preferences
   static Future<DefaultStorage> init() async {
     final prefs = await SharedPreferences.getInstance();
     return DefaultStorage(prefs);
@@ -17,18 +18,22 @@ class DefaultStorage {
     return prefs.get(key);
   }
 
+  /// get value from shared preferences
   bool? getBool(String key) {
     return prefs.getBool(key);
   }
 
+  /// get value from shared preferences
   int? getInt(String key) {
     return prefs.getInt(key);
   }
 
+  /// get value from shared preferences
   double? getDouble(String key) {
     return prefs.getDouble(key);
   }
 
+  /// get value from shared preferences
   String? getString(String key) {
     return prefs.getString(key);
   }

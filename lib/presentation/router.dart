@@ -72,6 +72,8 @@ class Routers {
                         SystemUiOverlayStyle(
                           systemNavigationBarColor: color,
                           systemNavigationBarIconBrightness: brightness,
+                          statusBarColor: Colors.transparent,
+                          statusBarIconBrightness: brightness,
                         ),
                       );
                     },

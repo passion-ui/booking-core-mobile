@@ -84,7 +84,7 @@ class _HomeState extends State<Home> {
             placeholder: block.description,
             onScan: _onScan,
             onSearch: _onSearch,
-            minHeight: MediaQuery.of(context).padding.top + 62,
+            minHeight: MediaQuery.of(context).padding.top + 72,
             maxHeight: MediaQuery.of(context).size.height * 0.3,
           ),
           pinned: true,
@@ -215,7 +215,7 @@ class _HomeState extends State<Home> {
             SliverPersistentHeader(
               delegate: Header(
                 onSearch: _onSearch,
-                minHeight: MediaQuery.of(context).padding.top + 62,
+                minHeight: MediaQuery.of(context).padding.top + 72,
                 maxHeight: MediaQuery.of(context).size.height * 0.3,
               ),
               pinned: true,

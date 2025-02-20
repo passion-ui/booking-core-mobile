@@ -6,22 +6,23 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
   late ProductEntity item;
+  ProductDetailCubit? productDetailCubit;
   final _scrollController = ScrollController();
-  final _productDetailCubit = ProductDetailCubit();
 
   Color? _iconBackground = Colors.black26;
 
   @override
   void initState() {
     super.initState();
+    productDetailCubit ??= ProductDetailCubit();
     _scrollController.addListener(_onScroll);
-    _productDetailCubit.onLoadDetail(item);
+    productDetailCubit?.onLoadDetail(item);
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
-    _productDetailCubit.close();
+    productDetailCubit?.close();
     super.dispose();
   }
 
@@ -70,20 +71,9 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
     context.push(Routers.review, extra: item);
   }
 
-  ///Build shared title
-  Widget buildTitle(ProductDetailState state) {
-    if (state is ProductDetailSuccess) {
-      return Text(
-        item.title,
-        style: Theme.of(context).textTheme.titleMedium,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      );
-    }
-
-    return Skeleton(
-      child: Container(height: 16, width: 250, color: Colors.white),
-    );
+  ///Get header height
+  double getHeaderHeight() {
+    return MediaQuery.of(context).size.height * 0.26;
   }
 
   ///Build shared content
@@ -91,12 +81,13 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
     return SizedBox.shrink();
   }
 
-  List<Widget>? buildFooterActions(ProductDetailState state) {
+  ///Build footer actions
+  Widget? buildFooterActions(ProductDetailState state) {
     return null;
   }
 
   ///Build action
-  List<Widget> _buildActions(ProductDetailState state) {
+  List<Widget> buildActions(ProductDetailState state) {
     if (state is ProductDetailSuccess) {
       Color? iconColor;
       if (_iconBackground == Colors.black26) {
@@ -135,7 +126,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
   }
 
   ///Build banner
-  Widget _buildBanner(ProductDetailState state) {
+  Widget buildBanner(ProductDetailState state) {
     if (state is ProductDetailSuccess) {
       Widget banner = CachedImage(url: state.product.banner!);
       if (state.product.video != null) {
@@ -151,7 +142,36 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
   }
 
   ///Build header
-  Widget _buildHeader(ProductDetailState state) {
+  PreferredSizeWidget buildHeader(ProductDetailState state) {
+    Widget content = Container(
+      height: 60,
+      alignment: Alignment.center,
+      margin: const EdgeInsets.only(top: 12),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(12),
+          topRight: Radius.circular(12),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Skeleton(
+            child: Container(height: 16, width: 250, color: Colors.white),
+          ),
+          SizedBox(width: 12),
+          Skeleton(
+            child: Container(
+              height: 32,
+              width: 32,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
     if (state is ProductDetailSuccess) {
       Widget feature = Container();
       if (state.product.isFeatured) {
@@ -177,11 +197,12 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
           ],
         );
       }
-      return Container(
-        height: 68,
+
+      content = Container(
+        height: 60,
         alignment: Alignment.center,
         margin: const EdgeInsets.only(top: 12),
-        padding: EdgeInsets.all(12),
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.only(
@@ -199,7 +220,14 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(child: buildTitle(state)),
+            Expanded(
+              child: Text(
+                item.title,
+                style: Theme.of(context).textTheme.titleMedium,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
             SizedBox(width: 12),
             Row(children: [
               feature,
@@ -217,33 +245,9 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
       );
     }
 
-    ///Return skeleton
-    return Container(
-      height: 68,
-      alignment: Alignment.center,
-      margin: const EdgeInsets.only(top: 12),
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(12),
-          topRight: Radius.circular(12),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          buildTitle(state),
-          SizedBox(width: 12),
-          Skeleton(
-            child: Container(
-              height: 32,
-              width: 32,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
+    return PreferredSize(
+      preferredSize: Size(0, 72),
+      child: content,
     );
   }
 
@@ -845,7 +849,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductDetailCubit, ProductDetailState>(
-      bloc: _productDetailCubit,
+      bloc: productDetailCubit,
       builder: (context, state) {
         Color? iconColor;
         if (_iconBackground == Colors.black26) {
@@ -868,17 +872,14 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
                     Navigator.pop(context);
                   },
                 ),
-                expandedHeight: MediaQuery.of(context).size.height * 0.25,
+                expandedHeight: getHeaderHeight(),
                 pinned: true,
-                actions: _buildActions(state),
+                actions: buildActions(state),
                 flexibleSpace: FlexibleSpaceBar(
                   collapseMode: CollapseMode.parallax,
-                  background: _buildBanner(state),
+                  background: buildBanner(state),
                 ),
-                bottom: PreferredSize(
-                  preferredSize: Size(0, 80),
-                  child: _buildHeader(state),
-                ),
+                bottom: buildHeader(state),
               ),
               SliverToBoxAdapter(
                 child: Column(
@@ -906,7 +907,26 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
               )
             ],
           ),
-          persistentFooterButtons: buildFooterActions(state),
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Theme.of(context).shadowColor.withAlpha(20),
+                  offset: Offset(0, -2),
+                  blurRadius: 12,
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [buildFooterActions(state) ?? Container()],
+            ),
+          ),
         );
       },
     );

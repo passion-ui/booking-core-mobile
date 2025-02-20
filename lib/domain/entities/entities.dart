@@ -34,6 +34,7 @@ export 'product.dart';
 export 'product_properties.dart';
 export 'rate_score.dart';
 export 'review.dart';
+export 'room.dart';
 export 'space.dart';
 export 'tour.dart';
 export 'user.dart';

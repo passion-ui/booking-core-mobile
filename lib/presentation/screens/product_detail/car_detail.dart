@@ -140,7 +140,7 @@ class _CarDetailState extends State<CarDetail> with ProductDetailBase {
   }
 
   @override
-  List<Widget>? buildFooterActions(ProductDetailState state) {
+  Widget? buildFooterActions(ProductDetailState state) {
     if (state is ProductDetailSuccess) {
       String currency = '';
       final config = context.read<ConfigsBloc>().state;
@@ -240,20 +240,23 @@ class _CarDetailState extends State<CarDetail> with ProductDetailBase {
         );
       }
 
-      return [
-        Row(
-          children: [
-            Expanded(child: info),
-            FilledButton(
-              child: Text(
-                Translate.of(context).translate('book_now'),
-                style: TextStyle(color: Colors.white),
+      return SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          child: Row(
+            children: [
+              Expanded(child: info),
+              FilledButton(
+                child: Text(
+                  Translate.of(context).translate('book_now'),
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {},
               ),
-              onPressed: () {},
-            ),
-          ],
-        )
-      ];
+            ],
+          ),
+        ),
+      );
     }
     return null;
   }

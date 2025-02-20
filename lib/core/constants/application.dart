@@ -24,17 +24,25 @@ class Application {
 
   /// Theme App Settings
   static const defaultFontSize = 14.0;
+
+  /// Font Family
   static const defaultFontFamily = 'San Francisco';
+
+  /// Font Weight
   static final fontFamilySupport = [
     "San Francisco",
     "OpenSans",
     "ProximaNova",
     "Raleway",
   ];
+
+  /// Theme Color
   static final defaultTheme = {
     "title": "blue",
     "seedColor": '#2196F3',
   };
+
+  /// Theme Support
   static final themeSupport = [
     {
       "title": "blue",
@@ -56,6 +64,8 @@ class Application {
 
   /// Language Settings
   static const defaultLocale = Locale('en', 'US');
+
+  /// Supported Locales
   static const supportedLocales = [
     Locale('en', 'US'),
     Locale('vi', 'VN'),

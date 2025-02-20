@@ -33,13 +33,13 @@ class ChildrenProperties {
 
   factory ChildrenProperties.fromJson(Map<String, dynamic> json) {
     return ChildrenProperties(
-      id: json['id'],
+      id: json['id'] ?? 0,
       title: json['title'],
       content: json['content'],
       imageId: json['image_id'],
       icon: json['icon'],
-      attrId: json['attr_id'],
-      slug: json['slug'],
+      attrId: json['attr_id'] ?? 0,
+      slug: json['slug'] ?? '',
     );
   }
 }

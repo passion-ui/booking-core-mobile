@@ -9,3 +9,20 @@ class ProductDetailSuccess extends ProductDetailState {
 
   ProductDetailSuccess({required this.product});
 }
+
+class HotelDetailSuccess extends ProductDetailSuccess {
+  final List<RoomEntity>? rooms;
+  final DateTime startDate;
+  final DateTime endDate;
+  final int adults;
+  final int children;
+
+  HotelDetailSuccess({
+    required super.product,
+    this.rooms,
+    required this.startDate,
+    required this.endDate,
+    required this.adults,
+    required this.children,
+  });
+}

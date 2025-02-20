@@ -14,4 +14,23 @@ class ProductRepository extends ProductRepositoryInterface {
     );
     return product.toEntity();
   }
+
+  @override
+  Future<List<RoomEntity>?> getAvailability({
+    required ProductEntity item,
+    required String startDate,
+    required String endDate,
+    required int adults,
+    required int children,
+  }) async {
+    final product = await _remoteDataSource.getAvailability(
+      type: item.type,
+      id: item.id,
+      startDate: startDate,
+      endDate: endDate,
+      adults: adults,
+      children: children,
+    );
+    return product?.map((e) => e.toEntity()).toList();
+  }
 }
