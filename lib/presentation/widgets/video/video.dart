@@ -139,7 +139,7 @@ class _VideoState extends State<Video> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: _toggleControls,
       child: Stack(
         alignment: Alignment.center,

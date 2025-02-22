@@ -52,7 +52,6 @@ class _WishListState extends State<WishList> {
   void _onAction(ProductEntity item) async {
     final data = await showModalBottomSheet<PickerEntity>(
       context: context,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (BuildContext context) {
         return BottomSheetAction(
           title: Translate.of(context).translate('wishlist'),

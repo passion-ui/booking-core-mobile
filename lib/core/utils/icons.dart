@@ -64,6 +64,11 @@ extension IconFactory on Icons {
     'power-windows': Icons.window_outlined,
     'sensor-lock': Icons.lock_outlined,
     'speed-km': Icons.speed_outlined,
+    'icofont-wall-clock': Icons.watch_later_outlined,
+    'icofont-imac': Icons.desktop_windows_outlined,
+    'icofont-recycle-alt': Icons.recycling_outlined,
+    'icofont-wifi-alt': Icons.wifi_outlined,
+    'icofont-tea': Icons.free_breakfast_outlined,
   };
 
   static IconData get(

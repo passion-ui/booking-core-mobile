@@ -9,6 +9,7 @@ class RoomModel {
   final String bed;
   final String adults;
   final String children;
+  final int quantity;
   final String image;
   final List<String> gallery;
   final String priceText;
@@ -22,6 +23,7 @@ class RoomModel {
     required this.bed,
     required this.adults,
     required this.children,
+    required this.quantity,
     required this.image,
     required this.gallery,
     required this.priceText,
@@ -37,6 +39,7 @@ class RoomModel {
       bed: bed,
       adults: adults,
       children: children,
+      quantity: quantity,
       image: image,
       gallery: gallery,
       priceText: priceText,
@@ -53,6 +56,7 @@ class RoomModel {
       bed: json['beds_html'] ?? '',
       adults: json['adults_html'] ?? '',
       children: json['children_html'] ?? '',
+      quantity: json['number'] ?? 0,
       image: json['image'] ?? '',
       gallery: List.from(json['gallery'] ?? []).map((item) {
         return item['large'] as String;

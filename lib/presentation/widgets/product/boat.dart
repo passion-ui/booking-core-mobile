@@ -1,14 +1,14 @@
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
-class CarItem extends StatelessWidget {
-  final CarEntity? data;
+class BoatItem extends StatelessWidget {
+  final BoatEntity? data;
   final ListingViewStyle style;
-  final Function(CarEntity)? onPressed;
-  final Function(CarEntity)? onAction;
+  final Function(BoatEntity)? onPressed;
+  final Function(BoatEntity)? onAction;
   final String? currency;
 
-  const CarItem({
+  const BoatItem({
     super.key,
     this.data,
     required this.style,
@@ -17,7 +17,7 @@ class CarItem extends StatelessWidget {
     this.currency,
   });
 
-  /// Build the card view of the car.
+  /// Build the card view of the boat.
   Widget _buildCard(BuildContext context) {
     if (data == null) {
       return Skeleton(
@@ -87,14 +87,6 @@ class CarItem extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
         ),
-        const SizedBox(width: 4),
-        Padding(
-          padding: const EdgeInsets.only(top: 2),
-          child: Text(
-            '/${Translate.of(context).translate('day')}',
-            style: Theme.of(context).textTheme.labelSmall,
-          ),
-        ),
       ],
     );
 
@@ -151,9 +143,12 @@ class CarItem extends StatelessWidget {
                 ),
           ),
           const SizedBox(width: 4),
-          Text(
-            Translate.of(context).translate('from'),
-            style: Theme.of(context).textTheme.labelSmall,
+          Padding(
+            padding: const EdgeInsets.only(top: 2),
+            child: Text(
+              Translate.of(context).translate('from'),
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
           ),
           const SizedBox(width: 4),
           Text(
@@ -166,7 +161,7 @@ class CarItem extends StatelessWidget {
       );
     }
 
-    return GestureDetector(
+    return InkWell(
       onTap: () => onPressed!(data!),
       child: Container(
         width: 240,
@@ -301,13 +296,13 @@ class CarItem extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              Icons.people_outline,
+                              Icons.groups_outlined,
                               size: 18,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '${data!.passenger}',
+                              '${data!.guests}',
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
@@ -315,13 +310,13 @@ class CarItem extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              Icons.auto_mode_outlined,
+                              Icons.cabin_outlined,
                               size: 18,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              data!.gear,
+                              '${data!.cabins}',
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
@@ -329,13 +324,13 @@ class CarItem extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              Icons.shopping_bag_outlined,
+                              Icons.straighten_outlined,
                               size: 18,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '${data!.baggage}',
+                              data!.length,
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
@@ -343,13 +338,13 @@ class CarItem extends StatelessWidget {
                         Row(
                           children: [
                             Icon(
-                              Icons.window_outlined,
+                              Icons.speed_outlined,
                               size: 18,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '${data!.door}',
+                              data!.speed,
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
@@ -366,7 +361,7 @@ class CarItem extends StatelessWidget {
     );
   }
 
-  /// Build the list view of the car.
+  /// Build the list view of the boat.
   Widget _buildList(BuildContext context) {
     if (data == null) {
       return Skeleton(
@@ -421,9 +416,12 @@ class CarItem extends StatelessWidget {
     Widget featured = const SizedBox.shrink();
     Widget sale = Row(
       children: [
-        Text(
-          Translate.of(context).translate('from'),
-          style: Theme.of(context).textTheme.labelSmall,
+        Padding(
+          padding: const EdgeInsets.only(top: 2),
+          child: Text(
+            Translate.of(context).translate('from'),
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
         ),
         const SizedBox(width: 4),
         Text(
@@ -497,9 +495,12 @@ class CarItem extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                Translate.of(context).translate('from'),
-                style: Theme.of(context).textTheme.labelSmall,
+              Padding(
+                padding: const EdgeInsets.only(top: 2),
+                child: Text(
+                  Translate.of(context).translate('from'),
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
               ),
               const SizedBox(width: 4),
               Text(
@@ -510,7 +511,7 @@ class CarItem extends StatelessWidget {
               ),
               const SizedBox(width: 4),
               Text(
-                '/${Translate.of(context).translate('day')}',
+                '/${Translate.of(context).translate('night')}',
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             ],
@@ -519,7 +520,7 @@ class CarItem extends StatelessWidget {
       );
     }
 
-    return GestureDetector(
+    return InkWell(
       onTap: () => onPressed!(data!),
       child: Row(
         children: [

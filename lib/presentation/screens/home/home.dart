@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
 
   ///On New
   void _onNew(PostEntity item) {
-    context.push(Routers.detailNew);
+    context.push(Routers.newDetail);
   }
 
   ///On Location

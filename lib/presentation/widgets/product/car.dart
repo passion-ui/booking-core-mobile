@@ -1,14 +1,14 @@
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
-class EventItem extends StatelessWidget {
-  final EventEntity? data;
+class CarItem extends StatelessWidget {
+  final CarEntity? data;
   final ListingViewStyle style;
-  final Function(EventEntity)? onPressed;
-  final Function(EventEntity)? onAction;
+  final Function(CarEntity)? onPressed;
+  final Function(CarEntity)? onAction;
   final String? currency;
 
-  const EventItem({
+  const CarItem({
     super.key,
     this.data,
     required this.style,
@@ -17,12 +17,21 @@ class EventItem extends StatelessWidget {
     this.currency,
   });
 
-  /// Build the card view of the event.
+  /// Build the card view of the car.
   Widget _buildCard(BuildContext context) {
     if (data == null) {
       return Skeleton(
-        child: SizedBox(
-          width: 280,
+        child: Container(
+          width: 240,
+          height: 260,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              width: 1,
+              color: Theme.of(context).cardColor,
+            ),
+          ),
+          clipBehavior: Clip.hardEdge,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -52,18 +61,6 @@ class EventItem extends StatelessWidget {
                       width: 150,
                       color: Colors.white,
                     ),
-                    const SizedBox(height: 8),
-                    Container(
-                      height: 14,
-                      width: 220,
-                      color: Colors.white,
-                    ),
-                    const SizedBox(height: 8),
-                    Container(
-                      height: 14,
-                      width: 120,
-                      color: Colors.white,
-                    ),
                   ],
                 ),
               ),
@@ -75,7 +72,6 @@ class EventItem extends StatelessWidget {
 
     Widget featured = const SizedBox.shrink();
     Widget sale = Row(
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 2),
@@ -90,6 +86,14 @@ class EventItem extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: Theme.of(context).colorScheme.primary,
               ),
+        ),
+        const SizedBox(width: 4),
+        Padding(
+          padding: const EdgeInsets.only(top: 2),
+          child: Text(
+            '/${Translate.of(context).translate('day')}',
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
         ),
       ],
     );
@@ -119,65 +123,54 @@ class EventItem extends StatelessWidget {
 
     if (data!.saleOff.isNotEmpty) {
       sale = Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 4,
-                  vertical: 2,
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.error,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  '-${data!.saleOff}',
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium
-                      ?.copyWith(color: Colors.white),
-                ),
-              ),
-              const SizedBox(width: 4),
-              Text(
-                '${currency ?? ''}${data!.price.toStringAsFixed(0)}',
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.error,
-                      decoration: TextDecoration.lineThrough,
-                      decorationColor: Theme.of(context).colorScheme.error,
-                    ),
-              ),
-            ],
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 4,
+              vertical: 2,
+            ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.error,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              '-${data!.saleOff}',
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium
+                  ?.copyWith(color: Colors.white),
+            ),
           ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 2),
-                child: Text(
-                  Translate.of(context).translate('from'),
-                  style: Theme.of(context).textTheme.labelSmall,
+          const SizedBox(width: 4),
+          Text(
+            '${currency ?? ''}${data!.price.toStringAsFixed(0)}',
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.error,
+                  decoration: TextDecoration.lineThrough,
+                  decorationColor: Theme.of(context).colorScheme.error,
                 ),
-              ),
-              const SizedBox(width: 4),
-              Text(
-                '$currency${data!.salePrice.toStringAsFixed(0)}',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-              ),
-            ],
+          ),
+          const SizedBox(width: 4),
+          Text(
+            Translate.of(context).translate('from'),
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
+          const SizedBox(width: 4),
+          Text(
+            '$currency${data!.salePrice.toStringAsFixed(0)}',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
           ),
         ],
       );
     }
 
-    return GestureDetector(
+    return InkWell(
       onTap: () => onPressed!(data!),
       child: Container(
-        width: 280,
-        height: 320,
+        width: 240,
+        height: 300,
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12),
@@ -194,11 +187,12 @@ class EventItem extends StatelessWidget {
               child: Stack(
                 children: [
                   CachedImage(
-                    url: data!.image,
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(12),
                     ),
+                    url: data!.image,
                   ),
+                  featured,
                   Positioned(
                     top: 8,
                     right: 8,
@@ -215,7 +209,39 @@ class EventItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  featured,
+                  Positioned(
+                    bottom: 8,
+                    right: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withAlpha(150),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 14,
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            data!.review.score.toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(
+                                  color: Colors.amber,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -224,6 +250,13 @@ class EventItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    data!.title,
+                    style: Theme.of(context).textTheme.titleSmall,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
                   Row(
                     children: [
                       Icon(
@@ -241,17 +274,8 @@ class EventItem extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    data!.title,
-                    style: Theme.of(context).textTheme.titleSmall,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 4),
                   Row(
                     children: [
-                      Rating(value: data!.review.score),
-                      const SizedBox(width: 4),
                       Text(
                         data!.review.text,
                         style:
@@ -267,38 +291,72 @@ class EventItem extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.access_time,
-                        size: 18,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        data!.startTime,
-                        style: Theme.of(context).textTheme.bodySmall,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        "/",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        data!.duration,
-                        style: Theme.of(context).textTheme.bodySmall,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  Divider(),
-                  const SizedBox(height: 4),
                   sale,
+                  Divider(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.people_outline,
+                              size: 18,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${data!.passenger}',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.auto_mode_outlined,
+                              size: 18,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              data!.gear,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.shopping_bag_outlined,
+                              size: 18,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${data!.baggage}',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.window_outlined,
+                              size: 18,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${data!.door}',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -308,7 +366,7 @@ class EventItem extends StatelessWidget {
     );
   }
 
-  /// Build the list view of the event.
+  /// Build the list view of the car.
   Widget _buildList(BuildContext context) {
     if (data == null) {
       return Skeleton(
@@ -363,12 +421,9 @@ class EventItem extends StatelessWidget {
     Widget featured = const SizedBox.shrink();
     Widget sale = Row(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 2),
-          child: Text(
-            Translate.of(context).translate('from'),
-            style: Theme.of(context).textTheme.labelSmall,
-          ),
+        Text(
+          Translate.of(context).translate('from'),
+          style: Theme.of(context).textTheme.labelSmall,
         ),
         const SizedBox(width: 4),
         Text(
@@ -442,12 +497,9 @@ class EventItem extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 2),
-                child: Text(
-                  Translate.of(context).translate('from'),
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
+              Text(
+                Translate.of(context).translate('from'),
+                style: Theme.of(context).textTheme.labelSmall,
               ),
               const SizedBox(width: 4),
               Text(
@@ -456,13 +508,18 @@ class EventItem extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                     ),
               ),
+              const SizedBox(width: 4),
+              Text(
+                '/${Translate.of(context).translate('day')}',
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
             ],
           )
         ],
       );
     }
 
-    return GestureDetector(
+    return InkWell(
       onTap: () => onPressed!(data!),
       child: Row(
         children: [

@@ -17,7 +17,9 @@ class Routers {
   static const String listing = '/listing';
   static const String search = '/search';
   static const String scanQR = '/scanQR';
-  static const String detailNew = '/detailNew';
+  static const String newDetail = '/newDetail';
+  static const String roomList = '/roomList';
+  static const String checkout = '/checkout';
   static const String productDetail = '/productDetail';
   static const String maps = '/maps';
   static const String gallery = '/gallery';
@@ -88,9 +90,12 @@ class Routers {
         routes: <RouteBase>[
           GoRoute(
             path: login,
-            builder: (context, state) {
+            pageBuilder: (BuildContext context, GoRouterState state) {
               final from = state.uri.queryParameters['redirect'];
-              return Login(from: from);
+              return MaterialPage(
+                child: Login(from: from),
+                fullscreenDialog: true,
+              );
             },
           ),
           GoRoute(
@@ -162,9 +167,17 @@ class Routers {
             },
           ),
           GoRoute(
-            path: detailNew,
+            path: newDetail,
             builder: (BuildContext context, GoRouterState state) {
               return const DetailNew();
+            },
+          ),
+          GoRoute(
+            path: roomList,
+            builder: (BuildContext context, GoRouterState state) {
+              return Rooms(
+                productDetailCubit: state.extra as HotelDetailCubit,
+              );
             },
           ),
           GoRoute(
@@ -176,7 +189,31 @@ class Routers {
           GoRoute(
             path: gallery,
             builder: (BuildContext context, GoRouterState state) {
-              return Gallery(product: state.extra as ProductEntity);
+              if (state.extra is List<String>) {
+                return Gallery(
+                  title: '',
+                  images: state.extra as List<String>,
+                );
+              } else if (state.extra is ProductEntity) {
+                final item = state.extra as ProductEntity;
+                return Gallery(
+                  title: item.title,
+                  images: item.gallery,
+                );
+              } else if (state.extra is RoomEntity) {
+                final item = state.extra as RoomEntity;
+                return Gallery(
+                  title: item.title,
+                  images: item.gallery,
+                );
+              }
+              return const Gallery(title: '', images: []);
+            },
+          ),
+          GoRoute(
+            path: checkout,
+            builder: (BuildContext context, GoRouterState state) {
+              return CheckOut();
             },
           ),
           GoRoute(

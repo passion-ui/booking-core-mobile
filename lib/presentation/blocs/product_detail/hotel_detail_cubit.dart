@@ -11,6 +11,9 @@ class HotelDetailCubit extends ProductDetailCubit {
   DateTime endDate = DateTime.now().add(Duration(days: 1));
   int adults = 1;
   int children = 0;
+  List<RoomEntity>? rooms = [];
+  bool vip = false;
+  bool breakfast = false;
 
   @override
   Future<void> onLoadDetail(ProductEntity item) async {
@@ -27,14 +30,17 @@ class HotelDetailCubit extends ProductDetailCubit {
       ]);
 
       product = results[0] as HotelEntity;
+      rooms = results[1] as List<RoomEntity>?;
 
       emit(HotelDetailSuccess(
         product: product!,
-        rooms: results[1] as List<RoomEntity>?,
+        rooms: rooms,
         startDate: startDate,
         endDate: endDate,
         adults: adults,
         children: children,
+        vip: vip,
+        breakfast: breakfast,
       ));
     } catch (error) {
       messageBloc.add(
@@ -48,15 +54,18 @@ class HotelDetailCubit extends ProductDetailCubit {
   ///Load availability room of hotel
   void checkAvailabilityRoom() async {
     try {
+      rooms = null;
       emit(HotelDetailSuccess(
         product: product!,
-        rooms: null,
+        rooms: rooms,
         startDate: startDate,
         endDate: endDate,
         adults: adults,
         children: children,
+        vip: vip,
+        breakfast: breakfast,
       ));
-      final results = await _getAvailabilityUseCase.call(
+      rooms = await _getAvailabilityUseCase.call(
         item: product!,
         startDate: DateFormat("yyyy-MM-dd").format(startDate),
         endDate: DateFormat("yyyy-MM-dd").format(endDate),
@@ -66,11 +75,13 @@ class HotelDetailCubit extends ProductDetailCubit {
 
       emit(HotelDetailSuccess(
         product: product!,
-        rooms: results,
+        rooms: rooms,
         startDate: startDate,
         endDate: endDate,
         adults: adults,
         children: children,
+        vip: vip,
+        breakfast: breakfast,
       ));
     } catch (error) {
       messageBloc.add(
@@ -79,5 +90,18 @@ class HotelDetailCubit extends ProductDetailCubit {
         ),
       );
     }
+  }
+
+  void updateCart(RoomEntity room) {
+    emit(HotelDetailSuccess(
+      product: product!,
+      rooms: rooms,
+      startDate: startDate,
+      endDate: endDate,
+      adults: adults,
+      children: children,
+      vip: vip,
+      breakfast: breakfast,
+    ));
   }
 }

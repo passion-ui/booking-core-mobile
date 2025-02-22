@@ -69,7 +69,7 @@ class Header extends SliverPersistentHeaderDelegate {
               _focusNode.unfocus();
               onSearch?.call();
             },
-            leading: GestureDetector(
+            leading: InkWell(
               onTap: () {},
               child: Padding(
                 padding: const EdgeInsets.only(left: 8),

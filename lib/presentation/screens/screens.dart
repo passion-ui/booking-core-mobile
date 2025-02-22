@@ -1,5 +1,6 @@
 export 'account/account.dart';
 export 'author/author.dart';
+export 'checkout/checkout.dart';
 export 'detail_new/detail_new.dart';
 export 'forgot_password/forgot_password.dart';
 export 'gallery/gallery.dart';
@@ -18,6 +19,7 @@ export 'product_detail/tour_detail.dart';
 export 'profile/profile.dart';
 export 'register/register.dart';
 export 'review/review.dart';
+export 'rooms/rooms.dart';
 export 'scan/scan.dart';
 export 'search/search.dart';
 export 'setting/setting.dart';

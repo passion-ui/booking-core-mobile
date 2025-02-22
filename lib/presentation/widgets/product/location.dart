@@ -26,7 +26,7 @@ class LocationItem extends StatelessWidget {
       );
     }
 
-    return GestureDetector(
+    return InkWell(
       onTap: () => onPressed!(data!),
       child: Container(
         width: 140,

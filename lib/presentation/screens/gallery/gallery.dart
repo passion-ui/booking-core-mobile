@@ -1,12 +1,12 @@
-import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
 class Gallery extends StatefulWidget {
-  final ProductEntity product;
-  const Gallery({super.key, required this.product});
+  final String title;
+  final List<String> images;
+  const Gallery({super.key, required this.title, required this.images});
 
   @override
   State<Gallery> createState() {
@@ -49,7 +49,7 @@ class _GalleryState extends State<Gallery> {
           },
           scrollPhysics: const BouncingScrollPhysics(),
           builder: _buildItem,
-          itemCount: widget.product.gallery.length,
+          itemCount: widget.images.length,
           pageController: _pageController,
           scrollDirection: Axis.horizontal,
         );
@@ -90,7 +90,7 @@ class _GalleryState extends State<Gallery> {
 
   ///Build Item
   PhotoViewGalleryPageOptions _buildItem(BuildContext context, int index) {
-    final String item = widget.product.gallery[index];
+    final String item = widget.images[index];
     return PhotoViewGalleryPageOptions(
       imageProvider: NetworkImage(item),
       initialScale: PhotoViewComputedScale.contained,
@@ -115,17 +115,17 @@ class _GalleryState extends State<Gallery> {
                 controller: _controller,
                 onIndexChanged: _onChange,
                 itemBuilder: (context, index) {
-                  return GestureDetector(
+                  return InkWell(
                     onTap: () {
                       _onPreviewPhoto(index);
                     },
                     child: CachedImage(
-                      url: widget.product.gallery[index],
+                      url: widget.images[index],
                       fit: BoxFit.contain,
                     ),
                   );
                 },
-                itemCount: widget.product.gallery.length,
+                itemCount: widget.images.length,
                 pagination: const SwiperPagination(
                   alignment: Alignment(0.0, 0.9),
                   builder: DotSwiperPaginationBuilder(
@@ -140,14 +140,14 @@ class _GalleryState extends State<Gallery> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    widget.product.title,
+                    widget.title,
                     style: Theme.of(context)
                         .textTheme
                         .titleSmall!
                         .copyWith(color: Colors.white),
                   ),
                   Text(
-                    "${_index + 1}/${widget.product.gallery.length}",
+                    "${_index + 1}/${widget.images.length}",
                     style: Theme.of(context)
                         .textTheme
                         .titleSmall!
@@ -163,15 +163,15 @@ class _GalleryState extends State<Gallery> {
                 controller: _listController,
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 scrollDirection: Axis.horizontal,
-                itemCount: widget.product.gallery.length,
+                itemCount: widget.images.length,
                 itemBuilder: (context, index) {
                   Color color = Colors.transparent;
-                  final item = widget.product.gallery[index];
+                  final item = widget.images[index];
                   if (index == _index) {
                     color = Theme.of(context).colorScheme.primary;
                   }
 
-                  return GestureDetector(
+                  return InkWell(
                     onTap: () {
                       _onSelectImage(index);
                     },

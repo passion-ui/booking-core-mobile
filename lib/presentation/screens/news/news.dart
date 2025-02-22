@@ -28,7 +28,7 @@ class _NewsState extends State<News> {
 
   ///On New
   void _onNew(PostEntity item) {
-    context.push(Routers.detailNew);
+    context.push(Routers.newDetail);
   }
 
   ///On share

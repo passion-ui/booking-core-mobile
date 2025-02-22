@@ -28,7 +28,7 @@ class ProductsBlock extends StatelessWidget {
               children: items!.map((item) {
                 return SizedBox(
                   width: itemWidth,
-                  child: GestureDetector(
+                  child: InkWell(
                     onTap: () => onPressed!(item),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,

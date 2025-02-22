@@ -1,6 +1,5 @@
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
-import 'package:intl/intl.dart';
 
 import 'shared.dart';
 
@@ -21,29 +20,8 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
     super.initState();
   }
 
-  void _showDatePicker() async {
-    final cubit = productDetailCubit as HotelDetailCubit;
-
-    final picked = await showDateRangePicker(
-      context: context,
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(Duration(days: 365)),
-      initialDateRange: DateTimeRange(
-        start: cubit.startDate,
-        end: cubit.endDate,
-      ),
-    );
-
-    if (picked != null) {
-      cubit.startDate = picked.start;
-      cubit.endDate = picked.end;
-      cubit.checkAvailabilityRoom();
-    }
-  }
-
-  @override
-  double getHeaderHeight() {
-    return MediaQuery.of(context).size.height * 0.3;
+  void _onRoomList() {
+    context.push(Routers.roomList, extra: productDetailCubit);
   }
 
   @override
@@ -58,97 +36,44 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
           topLeft: Radius.circular(12),
           topRight: Radius.circular(12),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Theme.of(context).shadowColor.withAlpha(20),
+            offset: Offset(0, 2),
+            blurRadius: 12,
+          ),
+        ],
       ),
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Skeleton(
-                    child: Container(
-                      height: 12,
-                      width: 100,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Skeleton(
-                    child: Container(
-                      height: 16,
-                      width: 250,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(width: 12),
               Skeleton(
                 child: Container(
-                  height: 32,
-                  width: 32,
+                  height: 12,
+                  width: 100,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 8),
+              Skeleton(
+                child: Container(
+                  height: 16,
+                  width: 250,
                   color: Colors.white,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 12),
-          Box(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Skeleton(
-                        child: Container(
-                          height: 12,
-                          width: 100,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Skeleton(
-                        child: Container(
-                          height: 12,
-                          width: 150,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 36,
-                  width: 24,
-                  child: VerticalDivider(),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Skeleton(
-                        child: Container(
-                          height: 12,
-                          width: 100,
-                          color: Colors.white,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Skeleton(
-                        child: Container(
-                          height: 12,
-                          width: 150,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
+          SizedBox(width: 12),
+          Skeleton(
+            child: Container(
+              height: 32,
+              width: 32,
+              color: Colors.white,
             ),
           ),
         ],
@@ -157,8 +82,6 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
 
     if (state is HotelDetailSuccess) {
       final product = state.product as HotelEntity;
-      final startDate = DateFormat('yyyy/MM/dd').format(state.startDate);
-      final endDate = DateFormat('yyyy/MM/dd').format(state.endDate);
       Widget feature = Container();
       if (product.isFeatured) {
         feature = Row(
@@ -187,118 +110,60 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
       content = Container(
         alignment: Alignment.center,
         margin: const EdgeInsets.only(top: 12),
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(12),
             topRight: Radius.circular(12),
           ),
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Rating(
-                        value: product.point ?? 0.0,
-                        size: 16,
-                      ),
-                      Text(
-                        product.title,
-                        style: Theme.of(context).textTheme.titleMedium,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 12),
-                Row(children: [
-                  feature,
-                  SizedBox(
-                    width: 40,
-                    height: 40,
-                    child: IconButton(
-                      onPressed: onFavorite,
-                      icon: Icon(Icons.favorite_outline),
-                    ),
-                  ),
-                ]),
-              ],
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).shadowColor.withAlpha(20),
+              offset: Offset(0, 2),
+              blurRadius: 12,
             ),
-            SizedBox(height: 8),
-            Box(
-              child: Row(
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: InkWell(
-                      onTap: _showDatePicker,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            Translate.of(context)
-                                .translate('check_in_check_out'),
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
-                          SizedBox(height: 2),
-                          Text(
-                            '$startDate - $endDate',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelMedium
-                                ?.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
+                  Rating(
+                    value: product.point ?? 0.0,
+                    size: 16,
                   ),
-                  SizedBox(
-                    height: 36,
-                    width: 24,
-                    child: VerticalDivider(),
+                  Text(
+                    product.title,
+                    style: Theme.of(context).textTheme.titleMedium,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          Translate.of(context).translate('guests'),
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                        SizedBox(height: 2),
-                        Text(
-                          '${state.adults} ${Translate.of(context).translate('adult')}, ${state.children} ${Translate.of(context).translate('child')}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                        ),
-                      ],
-                    ),
-                  )
                 ],
               ),
             ),
-            SizedBox(height: 4),
+            SizedBox(width: 12),
+            Row(children: [
+              feature,
+              SizedBox(
+                width: 40,
+                height: 40,
+                child: IconButton(
+                  onPressed: onFavorite,
+                  icon: Icon(Icons.favorite_outline),
+                ),
+              ),
+            ]),
           ],
         ),
       );
     }
 
     return PreferredSize(
-      preferredSize: Size(0, 140),
+      preferredSize: Size(0, 80),
       child: content,
     );
   }
@@ -549,7 +414,7 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
             children: [
               Expanded(child: info),
               FilledButton(
-                onPressed: state.rooms == null ? null : () {},
+                onPressed: _onRoomList,
                 child: Text(
                   Translate.of(context).translate('choose_room'),
                   style: TextStyle(color: Colors.white),

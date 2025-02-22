@@ -116,6 +116,7 @@
   "square": "Square",
   "feet": "Feet",
   "rooms": "Rooms",
+  "room": "Room",
   "passenger": "Passenger",
   "baggage": "Baggage",
   "window": "Window",
@@ -126,5 +127,13 @@
   "length": "Length",
   "speed": "Speed",
   "adult": "Adult",
-  "child": "Child"
+  "child": "Child",
+  "room_list": "Room List",
+  "size": "Size",
+  "total_room": "Total room",
+  "service_fee": "Service ree",
+  "extra_price": "Extra price",
+  "service_vip": "Service VIP",
+  "breakfast": "Breakfast",
+  "total_price": "Total price"
 }

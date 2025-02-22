@@ -1,15 +1,14 @@
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
-class HotelItem extends StatelessWidget {
-  final HotelEntity? data;
+class SpaceItem extends StatelessWidget {
+  final SpaceEntity? data;
   final ListingViewStyle style;
-  final Function(HotelEntity)? onPressed;
-  final Function(HotelEntity)? onAction;
-
+  final Function(SpaceEntity)? onPressed;
+  final Function(SpaceEntity)? onAction;
   final String? currency;
 
-  const HotelItem({
+  const SpaceItem({
     super.key,
     this.data,
     required this.style,
@@ -18,7 +17,7 @@ class HotelItem extends StatelessWidget {
     this.currency,
   });
 
-  /// Build the card view of the hotel.
+  /// Build the card view of the space.
   Widget _buildCard(BuildContext context) {
     if (data == null) {
       return Skeleton(
@@ -92,7 +91,7 @@ class HotelItem extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 2),
           child: Text(
-            '/${Translate.of(context).translate('night')}',
+            '/${Translate.of(context).translate('day')}',
             style: Theme.of(context).textTheme.labelSmall,
           ),
         ),
@@ -170,7 +169,7 @@ class HotelItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 2),
             child: Text(
-              '/${Translate.of(context).translate('night')}',
+              '/${Translate.of(context).translate('day')}',
               style: Theme.of(context).textTheme.labelSmall,
             ),
           ),
@@ -178,11 +177,11 @@ class HotelItem extends StatelessWidget {
       );
     }
 
-    return GestureDetector(
+    return InkWell(
       onTap: () => onPressed!(data!),
       child: Container(
         width: 240,
-        height: 260,
+        height: 300,
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12),
@@ -304,6 +303,71 @@ class HotelItem extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   sale,
+                  Divider(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.groups_outlined,
+                              size: 18,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${data!.guests}',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.bed_outlined,
+                              size: 18,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${data!.beds}',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.bathtub_outlined,
+                              size: 18,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${data!.bathrooms}',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.square_foot_outlined,
+                              size: 18,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${data!.squares}m²',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -313,7 +377,7 @@ class HotelItem extends StatelessWidget {
     );
   }
 
-  /// Build the list view of the hotel.
+  /// Build the list view of the space.
   Widget _buildList(BuildContext context) {
     if (data == null) {
       return Skeleton(
@@ -386,7 +450,7 @@ class HotelItem extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 2),
           child: Text(
-            '/${Translate.of(context).translate('night')}',
+            '/${Translate.of(context).translate('day')}',
             style: Theme.of(context).textTheme.labelSmall,
           ),
         ),
@@ -473,7 +537,7 @@ class HotelItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 2),
                 child: Text(
-                  '/${Translate.of(context).translate('night')}',
+                  '/${Translate.of(context).translate('day')}',
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
               ),
@@ -483,7 +547,7 @@ class HotelItem extends StatelessWidget {
       );
     }
 
-    return GestureDetector(
+    return InkWell(
       onTap: () => onPressed!(data!),
       child: Row(
         children: [
@@ -531,7 +595,6 @@ class HotelItem extends StatelessWidget {
                   sale,
                   const SizedBox(height: 4),
                   Rating(value: data!.review.score),
-                  const SizedBox(height: 2),
                   Row(
                     children: [
                       Text(

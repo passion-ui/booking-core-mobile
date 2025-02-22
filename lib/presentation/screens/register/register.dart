@@ -263,7 +263,7 @@ class _RegisterState extends State<Register> {
                                       Translate.of(context)
                                           .translate('read_and_accept'),
                                     ),
-                                    GestureDetector(
+                                    InkWell(
                                       onTap: () {},
                                       child: Text(
                                         Translate.of(context).translate(

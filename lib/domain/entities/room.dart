@@ -8,6 +8,8 @@ class RoomEntity {
   final String bed;
   final String adults;
   final String children;
+  final int quantity;
+  int selected;
   final String image;
   final List<String> gallery;
   final String priceText;
@@ -21,6 +23,8 @@ class RoomEntity {
     required this.bed,
     required this.adults,
     required this.children,
+    required this.quantity,
+    this.selected = 0,
     required this.image,
     required this.gallery,
     required this.priceText,

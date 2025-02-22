@@ -52,7 +52,7 @@ class ActionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onPress,
       child: Container(
         constraints: BoxConstraints(minHeight: 40.0),

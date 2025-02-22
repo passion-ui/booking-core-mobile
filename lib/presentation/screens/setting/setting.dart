@@ -9,7 +9,6 @@ class Setting extends StatelessWidget {
   void _onLanguage(BuildContext context) async {
     final data = await showModalBottomSheet<List?>(
       context: context,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (BuildContext context) {
         Locale locale = Localizations.localeOf(context);
         return BottomSheetSelect(
@@ -61,7 +60,6 @@ class Setting extends StatelessWidget {
   void _onFont(BuildContext context) async {
     final data = await showModalBottomSheet<List?>(
       context: context,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (BuildContext context) {
         String font = Theme.of(context).textTheme.titleLarge!.fontFamily!;
         return BottomSheetSelect(
@@ -169,7 +167,6 @@ class Setting extends StatelessWidget {
   void _onTheme(BuildContext context) async {
     final data = await showModalBottomSheet<List?>(
       context: context,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (BuildContext context) {
         return BottomSheetSelect(
           title: Translate.of(context).translate('theme'),

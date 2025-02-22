@@ -99,7 +99,7 @@ class PostItem extends StatelessWidget {
       );
     }
 
-    return GestureDetector(
+    return InkWell(
       onTap: () => onPressed!(data!),
       child: Container(
         width: 280,
@@ -293,7 +293,7 @@ class PostItem extends StatelessWidget {
       );
     }
 
-    return GestureDetector(
+    return InkWell(
       onTap: () => onPressed!(data!),
       child: Container(
         decoration: BoxDecoration(
