@@ -66,3 +66,24 @@ class TourDetailSuccess extends ProductDetailSuccess {
     required this.clean,
   });
 }
+
+class CarDetailSuccess extends ProductDetailSuccess {
+  final DateTime startDate;
+  final DateTime endDate;
+  final int adults;
+  final int children;
+  bool garden;
+  bool clean;
+  bool breakfast;
+
+  CarDetailSuccess({
+    required super.product,
+    required this.startDate,
+    required this.endDate,
+    required this.adults,
+    required this.children,
+    required this.garden,
+    required this.clean,
+    required this.breakfast,
+  });
+}

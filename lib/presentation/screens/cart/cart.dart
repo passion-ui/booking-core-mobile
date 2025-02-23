@@ -1,5 +1,6 @@
 import 'package:booking/presentation/presentation.dart';
 
+import 'car.dart';
 import 'hotel.dart';
 import 'space.dart';
 import 'tour.dart';
@@ -17,6 +18,8 @@ class Cart extends StatelessWidget {
       return TourCart(cubit: productDetailCubit as TourDetailCubit);
     } else if (productDetailCubit is SpaceDetailCubit) {
       return SpaceCart(cubit: productDetailCubit as SpaceDetailCubit);
+    } else if (productDetailCubit is CarDetailCubit) {
+      return CarCart(cubit: productDetailCubit as CarDetailCubit);
     }
 
     return const Placeholder();

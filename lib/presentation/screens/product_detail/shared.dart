@@ -71,6 +71,10 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
     context.push(Routers.review, extra: item);
   }
 
+  void onCart() {
+    context.push(Routers.cart, extra: productDetailCubit);
+  }
+
   ///Get header height
   double getHeaderHeight() {
     return MediaQuery.of(context).size.height * 0.26;

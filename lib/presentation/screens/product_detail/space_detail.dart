@@ -20,11 +20,6 @@ class _SpaceDetailState extends State<SpaceDetail> with ProductDetailBase {
     super.initState();
   }
 
-  /// On booking
-  void _onBooking() {
-    context.push(Routers.cart, extra: productDetailCubit);
-  }
-
   @override
   Widget buildContent(ProductDetailState state) {
     if (state is ProductDetailSuccess) {
@@ -253,7 +248,7 @@ class _SpaceDetailState extends State<SpaceDetail> with ProductDetailBase {
             children: [
               Expanded(child: info),
               FilledButton(
-                onPressed: _onBooking,
+                onPressed: onCart,
                 child: Text(
                   Translate.of(context).translate('book_now'),
                   style: TextStyle(color: Colors.white),

@@ -20,10 +20,6 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
     super.initState();
   }
 
-  void _onCart() {
-    context.push(Routers.cart, extra: productDetailCubit);
-  }
-
   @override
   PreferredSizeWidget buildHeader(ProductDetailState state) {
     Widget content = Container(
@@ -414,7 +410,7 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
             children: [
               Expanded(child: info),
               FilledButton(
-                onPressed: _onCart,
+                onPressed: onCart,
                 child: Text(
                   Translate.of(context).translate('book_now'),
                   style: TextStyle(color: Colors.white),

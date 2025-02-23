@@ -1,16 +1,16 @@
 import 'package:booking/presentation/presentation.dart';
 import 'package:intl/intl.dart';
 
-class SpaceCart extends StatefulWidget {
-  final SpaceDetailCubit cubit;
+class CarCart extends StatefulWidget {
+  final CarDetailCubit cubit;
 
-  const SpaceCart({super.key, required this.cubit});
+  const CarCart({super.key, required this.cubit});
 
   @override
-  State<SpaceCart> createState() => _SpaceCartState();
+  State<CarCart> createState() => _CarCartState();
 }
 
-class _SpaceCartState extends State<SpaceCart> {
+class _CarCartState extends State<CarCart> {
   String currency = '';
 
   @override
@@ -41,11 +41,7 @@ class _SpaceCartState extends State<SpaceCart> {
       ),
     );
 
-    if (picked != null) {
-      cubit.startDate = picked.start;
-      cubit.endDate = picked.end;
-      cubit.updateCart();
-    }
+    if (picked != null) {}
   }
 
   /// Show select guests
@@ -111,11 +107,7 @@ class _SpaceCartState extends State<SpaceCart> {
       },
     );
 
-    if (adult != cubit.adults || child != cubit.children) {
-      cubit.adults = adult;
-      cubit.children = child;
-      cubit.updateCart();
-    }
+    if (adult != cubit.adults || child != cubit.children) {}
   }
 
   Widget _buildFooter(ProductDetailState state) {
@@ -223,7 +215,7 @@ class _SpaceCartState extends State<SpaceCart> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SpaceDetailCubit, ProductDetailState>(
+    return BlocBuilder<CarDetailCubit, ProductDetailState>(
       bloc: widget.cubit,
       builder: (context, state) {
         Widget content = Container();

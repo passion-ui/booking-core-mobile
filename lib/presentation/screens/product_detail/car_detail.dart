@@ -247,11 +247,11 @@ class _CarDetailState extends State<CarDetail> with ProductDetailBase {
             children: [
               Expanded(child: info),
               FilledButton(
+                onPressed: onCart,
                 child: Text(
                   Translate.of(context).translate('book_now'),
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () {},
               ),
             ],
           ),
