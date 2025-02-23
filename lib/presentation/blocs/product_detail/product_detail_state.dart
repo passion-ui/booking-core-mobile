@@ -36,7 +36,8 @@ class SpaceDetailSuccess extends ProductDetailSuccess {
   final DateTime endDate;
   final int adults;
   final int children;
-  bool vip;
+  bool garden;
+  bool clean;
   bool breakfast;
 
   SpaceDetailSuccess({
@@ -45,7 +46,8 @@ class SpaceDetailSuccess extends ProductDetailSuccess {
     required this.endDate,
     required this.adults,
     required this.children,
-    required this.vip,
+    required this.garden,
+    required this.clean,
     required this.breakfast,
   });
 }

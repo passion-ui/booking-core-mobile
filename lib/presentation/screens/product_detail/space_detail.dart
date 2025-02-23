@@ -26,6 +26,11 @@ class _SpaceDetailState extends State<SpaceDetail> with ProductDetailBase {
     return MediaQuery.of(context).size.height * 0.32;
   }
 
+  /// On booking
+  void _onBooking() {
+    context.push(Routers.checkout, extra: productDetailCubit);
+  }
+
   /// Show date picker
   void _showDatePicker() async {
     final cubit = productDetailCubit as SpaceDetailCubit;
@@ -407,7 +412,7 @@ class _SpaceDetailState extends State<SpaceDetail> with ProductDetailBase {
 
   @override
   Widget? buildFooterActions(ProductDetailState state) {
-    if (state is ProductDetailSuccess) {
+    if (state is SpaceDetailSuccess) {
       String currency = '';
       final config = context.read<ConfigsBloc>().state;
       if (config is ConfigsSuccess) {
@@ -509,15 +514,103 @@ class _SpaceDetailState extends State<SpaceDetail> with ProductDetailBase {
       return SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: Row(
+          child: Column(
             children: [
-              Expanded(child: info),
-              FilledButton(
-                child: Text(
-                  Translate.of(context).translate('book_now'),
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {},
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        Translate.of(context).translate(
+                          'garden',
+                        ),
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: Checkbox(
+                      value: state.garden,
+                      onChanged: (value) {
+                        setState(() {
+                          state.garden = value!;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        Translate.of(context).translate(
+                          'cleaning',
+                        ),
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: Checkbox(
+                      value: state.clean,
+                      onChanged: (value) {
+                        setState(() {
+                          state.clean = value!;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        Translate.of(context).translate(
+                          'breakfast',
+                        ),
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: Checkbox(
+                      value: state.breakfast,
+                      onChanged: (value) {
+                        setState(() {
+                          state.breakfast = value!;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Divider(),
+              Row(
+                children: [
+                  Expanded(child: info),
+                  FilledButton(
+                    onPressed: _onBooking,
+                    child: Text(
+                      Translate.of(context).translate('book_now'),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

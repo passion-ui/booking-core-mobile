@@ -9,7 +9,8 @@ class SpaceDetailCubit extends ProductDetailCubit {
   DateTime endDate = DateTime.now().add(Duration(days: 1));
   int adults = 1;
   int children = 0;
-  bool vip = false;
+  bool garden = false;
+  bool clean = false;
   bool breakfast = false;
 
   @override
@@ -23,7 +24,8 @@ class SpaceDetailCubit extends ProductDetailCubit {
           endDate: endDate,
           adults: adults,
           children: children,
-          vip: vip,
+          garden: garden,
+          clean: clean,
           breakfast: breakfast,
         ),
       );
@@ -43,7 +45,8 @@ class SpaceDetailCubit extends ProductDetailCubit {
       endDate: endDate,
       adults: adults,
       children: children,
-      vip: vip,
+      garden: garden,
+      clean: clean,
       breakfast: breakfast,
     ));
   }

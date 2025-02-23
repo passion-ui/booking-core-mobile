@@ -135,5 +135,8 @@
   "extra_price": "Extra price",
   "service_vip": "Service VIP",
   "breakfast": "Breakfast",
-  "total_price": "Total price"
+  "total_price": "Total price",
+  "garden": "Garden",
+  "cleaning": "Cleaning",
+  "pool": "Pool"
 }

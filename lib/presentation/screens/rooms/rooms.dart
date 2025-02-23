@@ -234,7 +234,8 @@ class _RoomsState extends State<Rooms> with TickerProviderStateMixin {
                                   Translate.of(context).translate(
                                     'service_vip',
                                   ),
-                                  style: Theme.of(context).textTheme.labelLarge,
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
                                 ),
                               ],
                             ),
@@ -260,7 +261,8 @@ class _RoomsState extends State<Rooms> with TickerProviderStateMixin {
                               children: [
                                 Text(
                                   Translate.of(context).translate('breakfast'),
-                                  style: Theme.of(context).textTheme.labelLarge,
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
                                 ),
                               ],
                             ),
@@ -448,6 +450,7 @@ class _RoomsState extends State<Rooms> with TickerProviderStateMixin {
                     return Container(
                       decoration: BoxDecoration(
                         border: Border.all(
+                          width: 2,
                           color: selected
                               ? Theme.of(context).colorScheme.primary
                               : Colors.transparent,
