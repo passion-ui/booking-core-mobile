@@ -15,6 +15,7 @@ class _RoomsState extends State<Rooms> with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _offsetAnimation;
 
+  bool _visible = false;
   String currency = '';
 
   @override
@@ -50,6 +51,7 @@ class _RoomsState extends State<Rooms> with TickerProviderStateMixin {
     context.push(Routers.gallery, extra: item);
   }
 
+  /// On booking
   void _onBooking() {
     context.push(Routers.checkout, extra: widget.productDetailCubit);
   }
@@ -225,60 +227,80 @@ class _RoomsState extends State<Rooms> with TickerProviderStateMixin {
                     ),
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  Translate.of(context).translate(
-                                    'service_vip',
-                                  ),
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: Checkbox(
-                                value: state.vip,
-                                onChanged: (value) {
-                                  setState(() {
-                                    state.vip = value!;
-                                  });
-                                },
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              _visible = !_visible;
+                            });
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                Translate.of(context).translate('extra_price'),
+                                style: Theme.of(context).textTheme.labelMedium,
                               ),
-                            ),
-                          ],
+                              Icon(Icons.keyboard_arrow_down),
+                            ],
+                          ),
                         ),
-                        SizedBox(height: 4),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  Translate.of(context).translate('breakfast'),
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: Checkbox(
-                                value: state.breakfast,
-                                onChanged: (value) {
-                                  setState(() {
-                                    state.breakfast = value!;
-                                  });
-                                },
+                        Visibility(
+                          visible: _visible,
+                          child: Column(
+                            children: [
+                              SizedBox(height: 4),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    Translate.of(context).translate(
+                                      'service_vip',
+                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.labelMedium,
+                                  ),
+                                  SizedBox(
+                                    width: 24,
+                                    height: 24,
+                                    child: Checkbox(
+                                      value: state.vip,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          state.vip = value!;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
+                              SizedBox(height: 4),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    Translate.of(context)
+                                        .translate('breakfast'),
+                                    style:
+                                        Theme.of(context).textTheme.labelMedium,
+                                  ),
+                                  SizedBox(
+                                    width: 24,
+                                    height: 24,
+                                    child: Checkbox(
+                                      value: state.breakfast,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          state.breakfast = value!;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                         Divider(),
                         Row(

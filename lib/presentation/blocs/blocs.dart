@@ -23,6 +23,7 @@ export 'product_detail/hotel_detail_cubit.dart';
 export 'product_detail/product_detail_cubit.dart';
 export 'product_detail/product_detail_state.dart';
 export 'product_detail/space_detail_cubit.dart';
+export 'product_detail/tour_detail_cubit.dart';
 export 'register/register_bloc.dart';
 export 'register/register_event.dart';
 export 'register/register_state.dart';

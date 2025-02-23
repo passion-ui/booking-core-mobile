@@ -51,3 +51,18 @@ class SpaceDetailSuccess extends ProductDetailSuccess {
     required this.breakfast,
   });
 }
+
+class TourDetailSuccess extends ProductDetailSuccess {
+  final DateTime startDate;
+  final int adults;
+  final int children;
+  bool clean;
+
+  TourDetailSuccess({
+    required super.product,
+    required this.startDate,
+    required this.adults,
+    required this.children,
+    required this.clean,
+  });
+}

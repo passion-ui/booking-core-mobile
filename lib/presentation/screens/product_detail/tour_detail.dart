@@ -1,5 +1,6 @@
 import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
+import 'package:intl/intl.dart';
 
 import 'shared.dart';
 
@@ -15,10 +16,343 @@ class TourDetail extends StatefulWidget {
 class _TourDetailState extends State<TourDetail> with ProductDetailBase {
   final _controller = CarouselController(initialItem: 1);
 
+  bool _visible = false;
+
   @override
   void initState() {
+    productDetailCubit = TourDetailCubit();
     item = widget.item;
     super.initState();
+  }
+
+  /// On booking
+  void _onBooking() {
+    context.push(Routers.checkout, extra: productDetailCubit);
+  }
+
+  /// Show date picker
+  void _showDatePicker() async {
+    final cubit = productDetailCubit as SpaceDetailCubit;
+    final picked = await showDateRangePicker(
+      context: context,
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 365)),
+      initialDateRange: DateTimeRange(
+        start: cubit.startDate,
+        end: cubit.endDate,
+      ),
+    );
+
+    if (picked != null) {}
+  }
+
+  /// Show select guests
+  void _onSelectGuests() async {
+    final cubit = productDetailCubit as SpaceDetailCubit;
+    int adult = cubit.adults;
+    int child = cubit.children;
+    await showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          Translate.of(context).translate('adult'),
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        Steps(
+                          value: adult,
+                          onChanged: (value) {
+                            setState(() {
+                              adult = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          Translate.of(context).translate('child'),
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        Steps(
+                          value: child,
+                          onChanged: (value) {
+                            setState(() {
+                              child = value;
+                            });
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+
+    if (adult != cubit.adults || child != cubit.children) {}
+  }
+
+  @override
+  double getHeaderHeight() {
+    return MediaQuery.of(context).size.height * 0.32;
+  }
+
+  @override
+  PreferredSizeWidget buildHeader(ProductDetailState state) {
+    Widget content = Container(
+      alignment: Alignment.center,
+      margin: const EdgeInsets.only(top: 12),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(12),
+          topRight: Radius.circular(12),
+        ),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Skeleton(
+                child: Container(height: 16, width: 250, color: Colors.white),
+              ),
+              SizedBox(width: 12),
+              Skeleton(
+                child: Container(
+                  height: 32,
+                  width: 32,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Box(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Skeleton(
+                        child: Container(
+                          height: 12,
+                          width: 150,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Skeleton(
+                        child: Container(
+                          height: 12,
+                          width: 200,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 36,
+                  width: 24,
+                  child: VerticalDivider(),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Skeleton(
+                        child: Container(
+                          height: 12,
+                          width: 150,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Skeleton(
+                        child: Container(
+                          height: 12,
+                          width: 200,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (state is TourDetailSuccess) {
+      final startDate = DateFormat('yyyy/MM/dd').format(state.startDate);
+      Widget feature = Container();
+      if (state.product.isFeatured) {
+        feature = Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8,
+                vertical: 4,
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                Translate.of(context).translate('featured'),
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+              ),
+            ),
+            SizedBox(width: 8),
+          ],
+        );
+      }
+
+      content = Container(
+        alignment: Alignment.center,
+        margin: const EdgeInsets.only(top: 12),
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12),
+            topRight: Radius.circular(12),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).shadowColor.withAlpha(20),
+              offset: Offset(0, 2),
+              blurRadius: 12,
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    item.title,
+                    style: Theme.of(context).textTheme.titleMedium,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                SizedBox(width: 12),
+                Row(children: [
+                  feature,
+                  SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: IconButton(
+                      onPressed: onFavorite,
+                      icon: Icon(Icons.favorite_outline),
+                    ),
+                  ),
+                ]),
+              ],
+            ),
+            SizedBox(height: 12),
+            Box(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: _showDatePicker,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            Translate.of(context).translate(
+                              'please_select_date',
+                            ),
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                          SizedBox(height: 2),
+                          Text(
+                            startDate,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 36,
+                    width: 24,
+                    child: VerticalDivider(),
+                  ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: _onSelectGuests,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            Translate.of(context).translate('guests'),
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                          SizedBox(height: 2),
+                          Text(
+                            '${state.adults} ${Translate.of(context).translate('adult')}, ${state.children} ${Translate.of(context).translate('child')}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return PreferredSize(
+      preferredSize: Size(0, 148),
+      child: content,
+    );
   }
 
   @override
@@ -286,7 +620,7 @@ class _TourDetailState extends State<TourDetail> with ProductDetailBase {
 
   @override
   Widget? buildFooterActions(ProductDetailState state) {
-    if (state is ProductDetailSuccess) {
+    if (state is TourDetailSuccess) {
       String currency = '';
       final config = context.read<ConfigsBloc>().state;
       if (config is ConfigsSuccess) {
@@ -368,21 +702,75 @@ class _TourDetailState extends State<TourDetail> with ProductDetailBase {
       return SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: Row(
+          child: Column(
             children: [
-              Expanded(child: info),
-              FilledButton(
-                child: Text(
-                  Translate.of(context).translate('book_now'),
-                  style: TextStyle(color: Colors.white),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    _visible = !_visible;
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      Translate.of(context).translate('extra_price'),
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                    Icon(Icons.keyboard_arrow_down),
+                  ],
                 ),
-                onPressed: () {},
+              ),
+              Visibility(
+                visible: _visible,
+                child: Column(
+                  children: [
+                    SizedBox(height: 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          Translate.of(context).translate(
+                            'cleaning',
+                          ),
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                        SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: Checkbox(
+                            value: state.clean,
+                            onChanged: (value) {
+                              setState(() {
+                                state.clean = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Divider(),
+              Row(
+                children: [
+                  Expanded(child: info),
+                  FilledButton(
+                    onPressed: _onBooking,
+                    child: Text(
+                      Translate.of(context).translate('book_now'),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
         ),
       );
     }
+
     return null;
   }
 }

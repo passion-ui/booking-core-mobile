@@ -14,6 +14,8 @@ class SpaceDetail extends StatefulWidget {
 }
 
 class _SpaceDetailState extends State<SpaceDetail> with ProductDetailBase {
+  bool _visible = false;
+
   @override
   void initState() {
     productDetailCubit = SpaceDetailCubit();
@@ -516,88 +518,101 @@ class _SpaceDetailState extends State<SpaceDetail> with ProductDetailBase {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        Translate.of(context).translate(
-                          'garden',
-                        ),
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: Checkbox(
-                      value: state.garden,
-                      onChanged: (value) {
-                        setState(() {
-                          state.garden = value!;
-                        });
-                      },
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    _visible = !_visible;
+                  });
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      Translate.of(context).translate('extra_price'),
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
-                  ),
-                ],
+                    Icon(Icons.keyboard_arrow_down),
+                  ],
+                ),
               ),
-              SizedBox(height: 4),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        Translate.of(context).translate(
-                          'cleaning',
+              Visibility(
+                visible: _visible,
+                child: Column(
+                  children: [
+                    SizedBox(height: 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          Translate.of(context).translate(
+                            'garden',
+                          ),
+                          style: Theme.of(context).textTheme.labelMedium,
                         ),
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: Checkbox(
-                      value: state.clean,
-                      onChanged: (value) {
-                        setState(() {
-                          state.clean = value!;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 4),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        Translate.of(context).translate(
-                          'breakfast',
+                        SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: Checkbox(
+                            value: state.garden,
+                            onChanged: (value) {
+                              setState(() {
+                                state.garden = value!;
+                              });
+                            },
+                          ),
                         ),
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: Checkbox(
-                      value: state.breakfast,
-                      onChanged: (value) {
-                        setState(() {
-                          state.breakfast = value!;
-                        });
-                      },
+                      ],
                     ),
-                  ),
-                ],
+                    SizedBox(height: 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          Translate.of(context).translate(
+                            'cleaning',
+                          ),
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                        SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: Checkbox(
+                            value: state.clean,
+                            onChanged: (value) {
+                              setState(() {
+                                state.clean = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          Translate.of(context).translate(
+                            'breakfast',
+                          ),
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                        SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: Checkbox(
+                            value: state.breakfast,
+                            onChanged: (value) {
+                              setState(() {
+                                state.breakfast = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               Divider(),
               Row(
