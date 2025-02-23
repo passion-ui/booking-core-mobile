@@ -11,6 +11,11 @@ class CarCart extends StatefulWidget {
 }
 
 class _CarCartState extends State<CarCart> {
+  final _pickupController = TextEditingController();
+  final _dropOffController = TextEditingController();
+  final _pickupFocusNode = FocusNode();
+  final _dropOffFocusNode = FocusNode();
+
   String currency = '';
 
   @override
@@ -41,77 +46,15 @@ class _CarCartState extends State<CarCart> {
       ),
     );
 
-    if (picked != null) {}
-  }
-
-  /// Show select guests
-  void _onSelectGuests() async {
-    final cubit = widget.cubit;
-    int adult = cubit.adults;
-    int child = cubit.children;
-    await showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          Translate.of(context).translate('adult'),
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        Steps(
-                          value: adult,
-                          onChanged: (value) {
-                            setState(() {
-                              adult = value;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          Translate.of(context).translate('child'),
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        Steps(
-                          value: child,
-                          onChanged: (value) {
-                            setState(() {
-                              child = value;
-                            });
-                          },
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
-
-    if (adult != cubit.adults || child != cubit.children) {}
+    if (picked != null) {
+      cubit.startDate = picked.start;
+      cubit.endDate = picked.end;
+      cubit.updateCart();
+    }
   }
 
   Widget _buildFooter(ProductDetailState state) {
-    if (state is SpaceDetailSuccess) {
+    if (state is CarDetailSuccess) {
       return Container(
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -142,7 +85,21 @@ class _CarCartState extends State<CarCart> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          Translate.of(context).translate('service_fee'),
+                          Translate.of(context).translate('equipment_fee'),
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                        Text(
+                          '${currency}0',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          Translate.of(context).translate('facility_fee'),
                           style: Theme.of(context).textTheme.labelSmall,
                         ),
                         Text(
@@ -167,7 +124,7 @@ class _CarCartState extends State<CarCart> {
                               Row(
                                 children: [
                                   Text(
-                                    '$currency${state.product.price.toStringAsFixed(0)}',
+                                    '$currency${widget.cubit.product?.price.toStringAsFixed(0)}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
@@ -219,77 +176,77 @@ class _CarCartState extends State<CarCart> {
       bloc: widget.cubit,
       builder: (context, state) {
         Widget content = Container();
-        if (state is SpaceDetailSuccess) {
-          final startDate = DateFormat('yyyy/MM/dd').format(state.startDate);
+        if (state is CarDetailSuccess) {
+          final startDate = DateFormat('yyyy/MM/dd').format(
+            widget.cubit.startDate,
+          );
+          final endDate = DateFormat('yyyy/MM/dd').format(
+            widget.cubit.endDate,
+          );
           content = SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.all(12),
               child: Column(
                 children: [
                   Box(
-                    child: Row(
+                    child: Column(
                       children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: _showDatePicker,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  Translate.of(context).translate(
-                                    'please_select_date',
+                        InkWell(
+                          onTap: _showDatePicker,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    Translate.of(context).translate(
+                                      'check_in_check_out',
+                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.labelSmall,
                                   ),
-                                  style: Theme.of(context).textTheme.labelSmall,
-                                ),
-                                SizedBox(height: 2),
-                                Text(
-                                  startDate,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
+                                  SizedBox(height: 2),
+                                  Text(
+                                    '$startDate ~ $endDate',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                              Icon(
+                                Icons.calendar_month_outlined,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(
-                          height: 36,
-                          width: 24,
-                          child: VerticalDivider(),
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: _onSelectGuests,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  Translate.of(context).translate('guests'),
-                                  style: Theme.of(context).textTheme.labelSmall,
-                                ),
-                                SizedBox(height: 2),
-                                Text(
-                                  '${state.adults} ${Translate.of(context).translate('adult')}, ${state.children} ${Translate.of(context).translate('child')}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                ),
-                              ],
+                        SizedBox(height: 8),
+                        Divider(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              Translate.of(context).translate('number'),
+                              style: Theme.of(context).textTheme.titleSmall,
                             ),
-                          ),
-                        )
+                            Steps(
+                              value: widget.cubit.number,
+                              onChanged: (value) {
+                                widget.cubit.number = value;
+                                widget.cubit.updateCart();
+                              },
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -303,7 +260,7 @@ class _CarCartState extends State<CarCart> {
                           children: [
                             Text(
                               Translate.of(context).translate(
-                                'garden',
+                                'child_seat',
                               ),
                               style: Theme.of(context).textTheme.labelMedium,
                             ),
@@ -311,11 +268,10 @@ class _CarCartState extends State<CarCart> {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: state.garden,
+                                value: widget.cubit.childSeat,
                                 onChanged: (value) {
-                                  setState(() {
-                                    state.garden = value!;
-                                  });
+                                  widget.cubit.childSeat = value!;
+                                  widget.cubit.updateCart();
                                 },
                               ),
                             ),
@@ -327,7 +283,7 @@ class _CarCartState extends State<CarCart> {
                           children: [
                             Text(
                               Translate.of(context).translate(
-                                'cleaning',
+                                'infant_child_seat',
                               ),
                               style: Theme.of(context).textTheme.labelMedium,
                             ),
@@ -335,11 +291,10 @@ class _CarCartState extends State<CarCart> {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: state.clean,
+                                value: widget.cubit.infantSeat,
                                 onChanged: (value) {
-                                  setState(() {
-                                    state.clean = value!;
-                                  });
+                                  widget.cubit.infantSeat = value!;
+                                  widget.cubit.updateCart();
                                 },
                               ),
                             ),
@@ -351,7 +306,7 @@ class _CarCartState extends State<CarCart> {
                           children: [
                             Text(
                               Translate.of(context).translate(
-                                'breakfast',
+                                'gps_satellite',
                               ),
                               style: Theme.of(context).textTheme.labelMedium,
                             ),
@@ -359,11 +314,10 @@ class _CarCartState extends State<CarCart> {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: state.breakfast,
+                                value: widget.cubit.gpsSatellite,
                                 onChanged: (value) {
-                                  setState(() {
-                                    state.breakfast = value!;
-                                  });
+                                  widget.cubit.gpsSatellite = value!;
+                                  widget.cubit.updateCart();
                                 },
                               ),
                             ),
@@ -372,6 +326,47 @@ class _CarCartState extends State<CarCart> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 12),
+                  Box(
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: _pickupController,
+                          focusNode: _pickupFocusNode,
+                          decoration: InputDecoration(
+                            labelText: Translate.of(context).translate(
+                              'pickup_location',
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(Icons.clear),
+                              onPressed: () {
+                                _pickupController.clear();
+                              },
+                            ),
+                          ),
+                          onSubmitted: (value) {
+                            _dropOffFocusNode.requestFocus();
+                          },
+                        ),
+                        SizedBox(height: 12),
+                        TextField(
+                          controller: _dropOffController,
+                          focusNode: _dropOffFocusNode,
+                          decoration: InputDecoration(
+                            labelText: Translate.of(context).translate(
+                              'drop_off_location',
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(Icons.clear),
+                              onPressed: () {
+                                _dropOffController.clear();
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),

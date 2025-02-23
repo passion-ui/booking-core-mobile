@@ -26,7 +26,7 @@ class Routers {
   static const String review = '/review';
   static const String notFound = '/404';
 
-  final List<String> _authRoutes = [review];
+  final List<String> _authRoutes = [review, checkout];
 
   final config = GoRouter(
     routes: <RouteBase>[

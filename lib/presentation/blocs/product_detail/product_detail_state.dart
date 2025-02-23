@@ -70,20 +70,22 @@ class TourDetailSuccess extends ProductDetailSuccess {
 class CarDetailSuccess extends ProductDetailSuccess {
   final DateTime startDate;
   final DateTime endDate;
-  final int adults;
-  final int children;
-  bool garden;
-  bool clean;
-  bool breakfast;
+  final int number;
+  final bool childSeat;
+  final bool infantSeat;
+  final bool gpsSatellite;
+  final String pickup;
+  final String dropOff;
 
   CarDetailSuccess({
     required super.product,
     required this.startDate,
     required this.endDate,
-    required this.adults,
-    required this.children,
-    required this.garden,
-    required this.clean,
-    required this.breakfast,
+    required this.number,
+    required this.childSeat,
+    required this.infantSeat,
+    required this.gpsSatellite,
+    required this.pickup,
+    required this.dropOff,
   });
 }

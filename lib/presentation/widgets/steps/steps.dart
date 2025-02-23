@@ -30,9 +30,21 @@ class Steps extends StatelessWidget {
           ),
           onPressed: _decrement,
         ),
-        Text(
-          '$value',
-          style: Theme.of(context).textTheme.titleSmall,
+        Container(
+          width: 32,
+          height: 32,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Theme.of(context).dividerColor,
+              width: 0.5,
+            ),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Text(
+            '$value',
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
         ),
         IconButton(
           icon: Icon(

@@ -102,7 +102,7 @@ class _TourCartState extends State<TourCart> {
                               Row(
                                 children: [
                                   Text(
-                                    '$currency${state.product.price.toStringAsFixed(0)}',
+                                    '$currency${widget.cubit.product?.price.toStringAsFixed(0)}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
@@ -155,7 +155,9 @@ class _TourCartState extends State<TourCart> {
       builder: (context, state) {
         Widget content = Container();
         if (state is TourDetailSuccess) {
-          final startDate = DateFormat('yyyy/MM/dd').format(state.startDate);
+          final startDate = DateFormat('yyyy/MM/dd').format(
+            widget.cubit.startDate,
+          );
           content = SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.all(12),
@@ -255,10 +257,10 @@ class _TourCartState extends State<TourCart> {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: state.clean,
+                                value: widget.cubit.clean,
                                 onChanged: (value) {
                                   setState(() {
-                                    state.clean = value!;
+                                    widget.cubit.clean = value!;
                                   });
                                 },
                               ),

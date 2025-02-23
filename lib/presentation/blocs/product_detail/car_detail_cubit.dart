@@ -7,11 +7,12 @@ class CarDetailCubit extends ProductDetailCubit {
   CarEntity? product;
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(Duration(days: 1));
-  int adults = 1;
-  int children = 0;
-  bool garden = false;
-  bool clean = false;
-  bool breakfast = false;
+  int number = 0;
+  bool childSeat = false;
+  bool infantSeat = false;
+  bool gpsSatellite = false;
+  String pickup = "";
+  String dropOff = "";
 
   @override
   void onLoadDetail(ProductEntity item) async {
@@ -22,11 +23,12 @@ class CarDetailCubit extends ProductDetailCubit {
           product: product!,
           startDate: startDate,
           endDate: endDate,
-          adults: adults,
-          children: children,
-          garden: garden,
-          clean: clean,
-          breakfast: breakfast,
+          number: number,
+          childSeat: childSeat,
+          infantSeat: infantSeat,
+          gpsSatellite: gpsSatellite,
+          pickup: pickup,
+          dropOff: dropOff,
         ),
       );
     } catch (error) {
@@ -43,11 +45,12 @@ class CarDetailCubit extends ProductDetailCubit {
       product: product!,
       startDate: startDate,
       endDate: endDate,
-      adults: adults,
-      children: children,
-      garden: garden,
-      clean: clean,
-      breakfast: breakfast,
+      number: number,
+      childSeat: childSeat,
+      infantSeat: infantSeat,
+      gpsSatellite: gpsSatellite,
+      pickup: pickup,
+      dropOff: dropOff,
     ));
   }
 }

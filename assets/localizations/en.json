@@ -138,5 +138,14 @@
   "total_price": "Total price",
   "garden": "Garden",
   "cleaning": "Cleaning",
-  "pool": "Pool"
+  "pool": "Pool",
+  "child_seat": "Child seat",
+  "infant_child_seat": "Infant child seat",
+  "gps_satellite": "GPS Satellite",
+  "number": "Number",
+  "pickup_location": "Pickup Location",
+  "drop_off_location": "Drop Off Location",
+  "type_address": "Type Address",
+  "equipment_fee": "Equipment fee",
+  "facility_fee": "Facility fee"
 }

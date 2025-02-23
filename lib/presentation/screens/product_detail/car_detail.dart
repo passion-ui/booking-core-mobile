@@ -15,6 +15,7 @@ class CarDetail extends StatefulWidget {
 class _CarDetailState extends State<CarDetail> with ProductDetailBase {
   @override
   void initState() {
+    productDetailCubit = CarDetailCubit();
     item = widget.item;
     super.initState();
   }

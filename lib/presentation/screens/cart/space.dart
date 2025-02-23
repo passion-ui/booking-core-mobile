@@ -48,76 +48,6 @@ class _SpaceCartState extends State<SpaceCart> {
     }
   }
 
-  /// Show select guests
-  void _onSelectGuests() async {
-    final cubit = widget.cubit;
-    int adult = cubit.adults;
-    int child = cubit.children;
-    await showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          Translate.of(context).translate('adult'),
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        Steps(
-                          value: adult,
-                          onChanged: (value) {
-                            setState(() {
-                              adult = value;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          Translate.of(context).translate('child'),
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        Steps(
-                          value: child,
-                          onChanged: (value) {
-                            setState(() {
-                              child = value;
-                            });
-                          },
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
-
-    if (adult != cubit.adults || child != cubit.children) {
-      cubit.adults = adult;
-      cubit.children = child;
-      cubit.updateCart();
-    }
-  }
-
   Widget _buildFooter(ProductDetailState state) {
     if (state is SpaceDetailSuccess) {
       return Container(
@@ -175,7 +105,7 @@ class _SpaceCartState extends State<SpaceCart> {
                               Row(
                                 children: [
                                   Text(
-                                    '$currency${state.product.price.toStringAsFixed(0)}',
+                                    '$currency${widget.cubit.product?.price.toStringAsFixed(0)}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
@@ -228,75 +158,91 @@ class _SpaceCartState extends State<SpaceCart> {
       builder: (context, state) {
         Widget content = Container();
         if (state is SpaceDetailSuccess) {
-          final startDate = DateFormat('yyyy/MM/dd').format(state.startDate);
+          final startDate = DateFormat('yyyy/MM/dd').format(
+            widget.cubit.startDate,
+          );
+          final endDate = DateFormat('yyyy/MM/dd').format(
+            widget.cubit.endDate,
+          );
           content = SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.all(12),
               child: Column(
                 children: [
                   Box(
-                    child: Row(
+                    child: Column(
                       children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: _showDatePicker,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  Translate.of(context).translate(
-                                    'please_select_date',
+                        InkWell(
+                          onTap: _showDatePicker,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    Translate.of(context).translate(
+                                      'check_in_check_out',
+                                    ),
+                                    style:
+                                        Theme.of(context).textTheme.labelSmall,
                                   ),
-                                  style: Theme.of(context).textTheme.labelSmall,
-                                ),
-                                SizedBox(height: 2),
-                                Text(
-                                  startDate,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
+                                  SizedBox(height: 2),
+                                  Text(
+                                    '$startDate ~ $endDate',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium
+                                        ?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                              Icon(
+                                Icons.calendar_month_outlined,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(
-                          height: 36,
-                          width: 24,
-                          child: VerticalDivider(),
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: _onSelectGuests,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  Translate.of(context).translate('guests'),
-                                  style: Theme.of(context).textTheme.labelSmall,
-                                ),
-                                SizedBox(height: 2),
-                                Text(
-                                  '${state.adults} ${Translate.of(context).translate('adult')}, ${state.children} ${Translate.of(context).translate('child')}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium
-                                      ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                ),
-                              ],
+                        SizedBox(height: 8),
+                        Divider(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              Translate.of(context).translate('adult'),
+                              style: Theme.of(context).textTheme.titleSmall,
                             ),
-                          ),
+                            Steps(
+                              value: widget.cubit.adults,
+                              onChanged: (value) {
+                                widget.cubit.adults = value;
+                                widget.cubit.updateCart();
+                              },
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              Translate.of(context).translate('child'),
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                            Steps(
+                              value: widget.cubit.children,
+                              onChanged: (value) {
+                                widget.cubit.children = value;
+                                widget.cubit.updateCart();
+                              },
+                            ),
+                          ],
                         )
                       ],
                     ),
@@ -319,11 +265,10 @@ class _SpaceCartState extends State<SpaceCart> {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: state.garden,
+                                value: widget.cubit.garden,
                                 onChanged: (value) {
-                                  setState(() {
-                                    state.garden = value!;
-                                  });
+                                  widget.cubit.garden = value!;
+                                  widget.cubit.updateCart();
                                 },
                               ),
                             ),
@@ -343,11 +288,10 @@ class _SpaceCartState extends State<SpaceCart> {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: state.clean,
+                                value: widget.cubit.clean,
                                 onChanged: (value) {
-                                  setState(() {
-                                    state.clean = value!;
-                                  });
+                                  widget.cubit.clean = value!;
+                                  widget.cubit.updateCart();
                                 },
                               ),
                             ),
@@ -367,11 +311,10 @@ class _SpaceCartState extends State<SpaceCart> {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: state.breakfast,
+                                value: widget.cubit.breakfast,
                                 onChanged: (value) {
-                                  setState(() {
-                                    state.breakfast = value!;
-                                  });
+                                  widget.cubit.breakfast = value!;
+                                  widget.cubit.updateCart();
                                 },
                               ),
                             ),
