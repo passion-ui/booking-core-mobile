@@ -18,7 +18,7 @@ class Routers {
   static const String search = '/search';
   static const String scanQR = '/scanQR';
   static const String newDetail = '/newDetail';
-  static const String roomList = '/roomList';
+  static const String cart = '/cart';
   static const String checkout = '/checkout';
   static const String productDetail = '/productDetail';
   static const String maps = '/maps';
@@ -149,21 +149,7 @@ class Routers {
           GoRoute(
             path: productDetail,
             builder: (BuildContext context, GoRouterState state) {
-              if (state.extra is HotelEntity) {
-                return HotelDetail(item: state.extra as HotelEntity);
-              } else if (state.extra is TourEntity) {
-                return TourDetail(item: state.extra as TourEntity);
-              } else if (state.extra is SpaceEntity) {
-                return SpaceDetail(item: state.extra as SpaceEntity);
-              } else if (state.extra is CarEntity) {
-                return CarDetail(item: state.extra as CarEntity);
-              } else if (state.extra is EventEntity) {
-                return EventDetail(item: state.extra as EventEntity);
-              } else if (state.extra is BoatEntity) {
-                return BoatDetail(item: state.extra as BoatEntity);
-              } else {
-                return ProductDetail(item: state.extra as ProductEntity);
-              }
+              return ProductDetail(item: state.extra as ProductEntity);
             },
           ),
           GoRoute(
@@ -173,10 +159,10 @@ class Routers {
             },
           ),
           GoRoute(
-            path: roomList,
+            path: cart,
             builder: (BuildContext context, GoRouterState state) {
-              return Rooms(
-                productDetailCubit: state.extra as HotelDetailCubit,
+              return Cart(
+                productDetailCubit: state.extra as ProductDetailCubit,
               );
             },
           ),

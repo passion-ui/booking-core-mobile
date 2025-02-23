@@ -20,8 +20,8 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
     super.initState();
   }
 
-  void _onRoomList() {
-    context.push(Routers.roomList, extra: productDetailCubit);
+  void _onCart() {
+    context.push(Routers.cart, extra: productDetailCubit);
   }
 
   @override
@@ -414,9 +414,9 @@ class _HotelDetailState extends State<HotelDetail> with ProductDetailBase {
             children: [
               Expanded(child: info),
               FilledButton(
-                onPressed: _onRoomList,
+                onPressed: _onCart,
                 child: Text(
-                  Translate.of(context).translate('choose_room'),
+                  Translate.of(context).translate('book_now'),
                   style: TextStyle(color: Colors.white),
                 ),
               ),

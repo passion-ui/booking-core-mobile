@@ -16,10 +16,10 @@ class SpaceDetailCubit extends ProductDetailCubit {
   @override
   void onLoadDetail(ProductEntity item) async {
     try {
-      final product = await _getDetailUseCase.call(item);
+      product = (await _getDetailUseCase.call(item)) as SpaceEntity;
       emit(
         SpaceDetailSuccess(
-          product: product,
+          product: product!,
           startDate: startDate,
           endDate: endDate,
           adults: adults,
@@ -38,7 +38,7 @@ class SpaceDetailCubit extends ProductDetailCubit {
     }
   }
 
-  void updateCart(RoomEntity room) {
+  void updateCart() {
     emit(SpaceDetailSuccess(
       product: product!,
       startDate: startDate,

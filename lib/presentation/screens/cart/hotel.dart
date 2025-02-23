@@ -2,16 +2,16 @@ import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 import 'package:intl/intl.dart';
 
-class Rooms extends StatefulWidget {
-  final HotelDetailCubit productDetailCubit;
+class HotelCart extends StatefulWidget {
+  final HotelDetailCubit cubit;
 
-  const Rooms({super.key, required this.productDetailCubit});
+  const HotelCart({super.key, required this.cubit});
 
   @override
-  State<Rooms> createState() => _RoomsState();
+  State<HotelCart> createState() => _HotelCartState();
 }
 
-class _RoomsState extends State<Rooms> with TickerProviderStateMixin {
+class _HotelCartState extends State<HotelCart> with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _offsetAnimation;
 
@@ -53,12 +53,12 @@ class _RoomsState extends State<Rooms> with TickerProviderStateMixin {
 
   /// On booking
   void _onBooking() {
-    context.push(Routers.checkout, extra: widget.productDetailCubit);
+    context.push(Routers.checkout, extra: widget.cubit);
   }
 
   /// Show date picker
   void _showDatePicker() async {
-    final cubit = widget.productDetailCubit;
+    final cubit = widget.cubit;
     final picked = await showDateRangePicker(
       context: context,
       firstDate: DateTime.now(),
@@ -78,7 +78,7 @@ class _RoomsState extends State<Rooms> with TickerProviderStateMixin {
 
   /// Show select guests
   void _onSelectGuests() async {
-    final cubit = widget.productDetailCubit;
+    final cubit = widget.cubit;
     int adult = cubit.adults;
     int child = cubit.children;
     await showModalBottomSheet(
@@ -148,7 +148,7 @@ class _RoomsState extends State<Rooms> with TickerProviderStateMixin {
 
   /// On select room
   void _onSelect(RoomEntity item) async {
-    final cubit = widget.productDetailCubit;
+    final cubit = widget.cubit;
     final data = await showModalBottomSheet<List?>(
       context: context,
       scrollControlDisabledMaxHeightRatio: 0.9,
@@ -184,6 +184,127 @@ class _RoomsState extends State<Rooms> with TickerProviderStateMixin {
     }
   }
 
+  /// Build content
+  Widget _buildContent(ProductDetailState state) {
+    if (state is HotelDetailSuccess) {
+      final startDate = DateFormat('yyyy/MM/dd').format(state.startDate);
+      final endDate = DateFormat('yyyy/MM/dd').format(state.endDate);
+
+      return Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(12),
+            child: Box(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: _showDatePicker,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            Translate.of(context).translate(
+                              'check_in_check_out',
+                            ),
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                          SizedBox(height: 2),
+                          Text(
+                            '$startDate - $endDate',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 36,
+                    width: 24,
+                    child: VerticalDivider(),
+                  ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: _onSelectGuests,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            Translate.of(context).translate('guests'),
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                          SizedBox(height: 2),
+                          Text(
+                            '${state.adults} ${Translate.of(context).translate('adult')}, ${state.children} ${Translate.of(context).translate('child')}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium
+                                ?.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.separated(
+              padding: const EdgeInsets.only(
+                top: 0,
+                left: 12,
+                right: 12,
+                bottom: 12,
+              ),
+              itemCount: state.rooms?.length ?? 8,
+              separatorBuilder: (context, index) => SizedBox(height: 12),
+              itemBuilder: (context, index) {
+                final item = state.rooms?[index];
+                final selected = item != null && item.selected > 0;
+                return Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 2,
+                      color: selected
+                          ? Theme.of(context).colorScheme.primary
+                          : Colors.transparent,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: RoomItem(
+                    item: item,
+                    onPressed: _onSelect,
+                    onGallery: _onGallery,
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      );
+    }
+
+    return ListView.separated(
+      padding: const EdgeInsets.all(12),
+      itemCount: 8,
+      separatorBuilder: (context, index) => SizedBox(height: 12),
+      itemBuilder: (context, index) {
+        return RoomItem(item: null);
+      },
+    );
+  }
+
+  /// Build footer
   Widget _buildFooter(ProductDetailState state) {
     if (state is HotelDetailSuccess) {
       final roomsSelected = state.rooms?.map((e) {
@@ -280,8 +401,9 @@ class _RoomsState extends State<Rooms> with TickerProviderStateMixin {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    Translate.of(context)
-                                        .translate('breakfast'),
+                                    Translate.of(context).translate(
+                                      'breakfast',
+                                    ),
                                     style:
                                         Theme.of(context).textTheme.labelMedium,
                                   ),
@@ -372,134 +494,16 @@ class _RoomsState extends State<Rooms> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HotelDetailCubit, ProductDetailState>(
-      bloc: widget.productDetailCubit,
+      bloc: widget.cubit,
       builder: (context, state) {
-        Widget content = ListView.separated(
-          padding: const EdgeInsets.all(12),
-          itemCount: 8,
-          separatorBuilder: (context, index) => SizedBox(height: 12),
-          itemBuilder: (context, index) {
-            return RoomItem(item: null);
-          },
-        );
-
-        if (state is HotelDetailSuccess) {
-          final startDate = DateFormat('yyyy/MM/dd').format(state.startDate);
-          final endDate = DateFormat('yyyy/MM/dd').format(state.endDate);
-
-          content = Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(12),
-                child: Box(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: _showDatePicker,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                Translate.of(context)
-                                    .translate('check_in_check_out'),
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                              SizedBox(height: 2),
-                              Text(
-                                '$startDate - $endDate',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelMedium
-                                    ?.copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 36,
-                        width: 24,
-                        child: VerticalDivider(),
-                      ),
-                      Expanded(
-                        child: InkWell(
-                          onTap: _onSelectGuests,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                Translate.of(context).translate('guests'),
-                                style: Theme.of(context).textTheme.labelSmall,
-                              ),
-                              SizedBox(height: 2),
-                              Text(
-                                '${state.adults} ${Translate.of(context).translate('adult')}, ${state.children} ${Translate.of(context).translate('child')}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelMedium
-                                    ?.copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.only(
-                    top: 0,
-                    left: 12,
-                    right: 12,
-                    bottom: 12,
-                  ),
-                  itemCount: state.rooms?.length ?? 8,
-                  separatorBuilder: (context, index) => SizedBox(height: 12),
-                  itemBuilder: (context, index) {
-                    final item = state.rooms?[index];
-                    final selected = item != null && item.selected > 0;
-                    return Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 2,
-                          color: selected
-                              ? Theme.of(context).colorScheme.primary
-                              : Colors.transparent,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: RoomItem(
-                        item: item,
-                        onPressed: _onSelect,
-                        onGallery: _onGallery,
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          );
-        }
-
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              Translate.of(context).translate('choose_room'),
+              Translate.of(context).translate('configuration'),
             ),
           ),
-          body: content,
+          body: _buildContent(state),
           bottomNavigationBar: _buildFooter(state),
         );
       },

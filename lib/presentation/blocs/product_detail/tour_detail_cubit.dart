@@ -4,22 +4,20 @@ import 'package:booking/presentation/presentation.dart';
 class TourDetailCubit extends ProductDetailCubit {
   final _getDetailUseCase = GetDetailUseCase(sl());
 
-  SpaceEntity? product;
+  TourEntity? product;
   DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now().add(Duration(days: 1));
   int adults = 1;
   int children = 0;
-  bool garden = false;
   bool clean = false;
-  bool breakfast = false;
 
   @override
   void onLoadDetail(ProductEntity item) async {
     try {
-      final product = await _getDetailUseCase.call(item);
+      product = (await _getDetailUseCase.call(item)) as TourEntity;
+
       emit(
         TourDetailSuccess(
-          product: product,
+          product: product!,
           startDate: startDate,
           adults: adults,
           children: children,
@@ -35,7 +33,7 @@ class TourDetailCubit extends ProductDetailCubit {
     }
   }
 
-  void updateCart(RoomEntity room) {
+  void updateCart() {
     emit(TourDetailSuccess(
       product: product!,
       startDate: startDate,
