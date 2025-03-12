@@ -13,6 +13,7 @@ export 'block_product.dart';
 export 'block_space.dart';
 export 'block_tour.dart';
 export 'booking.dart';
+export 'booking_fee.dart';
 export 'car.dart';
 export 'category.dart';
 export 'children_properties.dart';

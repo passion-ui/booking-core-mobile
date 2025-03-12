@@ -5,8 +5,6 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
-  late ProductEntity item;
-  ProductDetailCubit? productDetailCubit;
   final _scrollController = ScrollController();
 
   Color? _iconBackground = Colors.black26;
@@ -14,15 +12,12 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
   @override
   void initState() {
     super.initState();
-    productDetailCubit ??= ProductDetailCubit();
     _scrollController.addListener(_onScroll);
-    productDetailCubit?.onLoadDetail(item);
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
-    productDetailCubit?.close();
     super.dispose();
   }
 
@@ -57,6 +52,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
   ///Handle favorite action
   void onFavorite() {
     Routers().ensureAuthentication(context, action: () {
+      final item = context.read<ProductDetailCubit>().product;
       context.read<WishListCubit>().onUpdateItem(item);
     });
   }
@@ -68,11 +64,13 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
 
   ///Handle review list
   void onReview() {
+    final item = context.read<ProductDetailCubit>().product;
     context.push(Routers.review, extra: item);
   }
 
   void onCart() {
-    context.push(Routers.cart, extra: productDetailCubit);
+    final cubit = context.read<ProductDetailCubit>();
+    context.push(Routers.cart, extra: cubit);
   }
 
   ///Get header height
@@ -226,7 +224,7 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
           children: [
             Expanded(
               child: Text(
-                item.title,
+                state.product.title,
                 style: Theme.of(context).textTheme.titleMedium,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -853,7 +851,6 @@ mixin ProductDetailBase<T extends StatefulWidget> on State<T> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductDetailCubit, ProductDetailState>(
-      bloc: productDetailCubit,
       builder: (context, state) {
         Color? iconColor;
         if (_iconBackground == Colors.black26) {

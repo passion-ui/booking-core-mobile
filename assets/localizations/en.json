@@ -105,6 +105,7 @@
   "please_select_guests": "Please select guests",
   "see_available": "See Available",
   "configuration": "Configuration",
+  "booking": "Booking",
   "duration": "Duration",
   "tour_type": "Tour Type",
   "group_size": "Group Size",
@@ -140,6 +141,7 @@
   "cleaning": "Cleaning",
   "pool": "Pool",
   "child_seat": "Child seat",
+  "toddler_child_seat": "Child Toddler Seat",
   "infant_child_seat": "Infant child seat",
   "gps_satellite": "GPS Satellite",
   "number": "Number",
@@ -147,5 +149,12 @@
   "drop_off_location": "Drop Off Location",
   "type_address": "Type Address",
   "equipment_fee": "Equipment fee",
-  "facility_fee": "Facility fee"
+  "facility_fee": "Facility fee",
+  "ticket_vip": "Ticket VIP",
+  "ticket_group": "Ticket Group",
+  "use_service": "Use Service",
+  "hours": "Hours",
+  "days": "Days",
+  "return_same_day": "Return on same-day",
+  "return_another_day": "Return on another day"
 }

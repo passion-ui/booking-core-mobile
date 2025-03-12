@@ -16,8 +16,8 @@ class HotelDetailSuccess extends ProductDetailSuccess {
   final DateTime endDate;
   final int adults;
   final int children;
-  bool vip;
-  bool breakfast;
+  bool useVIP;
+  bool useBreakfast;
 
   HotelDetailSuccess({
     required super.product,
@@ -26,8 +26,8 @@ class HotelDetailSuccess extends ProductDetailSuccess {
     required this.endDate,
     required this.adults,
     required this.children,
-    required this.vip,
-    required this.breakfast,
+    required this.useVIP,
+    required this.useBreakfast,
   });
 }
 
@@ -36,9 +36,9 @@ class SpaceDetailSuccess extends ProductDetailSuccess {
   final DateTime endDate;
   final int adults;
   final int children;
-  bool garden;
-  bool clean;
-  bool breakfast;
+  bool useGarden;
+  bool useClean;
+  bool useBreakfast;
 
   SpaceDetailSuccess({
     required super.product,
@@ -46,9 +46,9 @@ class SpaceDetailSuccess extends ProductDetailSuccess {
     required this.endDate,
     required this.adults,
     required this.children,
-    required this.garden,
-    required this.clean,
-    required this.breakfast,
+    required this.useGarden,
+    required this.useClean,
+    required this.useBreakfast,
   });
 }
 
@@ -56,14 +56,14 @@ class TourDetailSuccess extends ProductDetailSuccess {
   final DateTime startDate;
   final int adults;
   final int children;
-  bool clean;
+  bool useClean;
 
   TourDetailSuccess({
     required super.product,
     required this.startDate,
     required this.adults,
     required this.children,
-    required this.clean,
+    required this.useClean,
   });
 }
 
@@ -71,9 +71,9 @@ class CarDetailSuccess extends ProductDetailSuccess {
   final DateTime startDate;
   final DateTime endDate;
   final int number;
-  final bool childSeat;
-  final bool infantSeat;
-  final bool gpsSatellite;
+  final bool useToddlerSeat;
+  final bool useInfantSeat;
+  final bool useGpsSatellite;
   final String pickup;
   final String dropOff;
 
@@ -82,10 +82,44 @@ class CarDetailSuccess extends ProductDetailSuccess {
     required this.startDate,
     required this.endDate,
     required this.number,
-    required this.childSeat,
-    required this.infantSeat,
-    required this.gpsSatellite,
+    required this.useToddlerSeat,
+    required this.useInfantSeat,
+    required this.useGpsSatellite,
     required this.pickup,
     required this.dropOff,
+  });
+}
+
+class EventDetailSuccess extends ProductDetailSuccess {
+  final DateTime startDate;
+  final int vip;
+  final int group;
+  bool useService;
+
+  EventDetailSuccess({
+    required super.product,
+    required this.startDate,
+    required this.vip,
+    required this.group,
+    required this.useService,
+  });
+}
+
+class BoatDetailSuccess extends ProductDetailSuccess {
+  final DateTime startDate;
+  final int hours;
+  final int days;
+  bool useToddlerSeat;
+  bool useInfantSeat;
+  bool useGpsSatellite;
+
+  BoatDetailSuccess({
+    required super.product,
+    required this.hours,
+    required this.startDate,
+    required this.days,
+    required this.useToddlerSeat,
+    required this.useInfantSeat,
+    required this.useGpsSatellite,
   });
 }

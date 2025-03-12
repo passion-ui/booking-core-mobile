@@ -3,6 +3,7 @@ import 'package:booking/presentation/presentation.dart';
 
 import 'boat_detail.dart';
 import 'car_detail.dart';
+import 'default_detail.dart';
 import 'event_detail.dart';
 import 'hotel_detail.dart';
 import 'space_detail.dart';
@@ -15,20 +16,26 @@ class ProductDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget child = DefaultDetail();
     if (item is HotelEntity) {
-      return HotelDetail(item: item as HotelEntity);
+      child = HotelDetail();
     } else if (item is TourEntity) {
-      return TourDetail(item: item as TourEntity);
+      child = TourDetail();
     } else if (item is SpaceEntity) {
-      return SpaceDetail(item: item as SpaceEntity);
+      child = SpaceDetail();
     } else if (item is CarEntity) {
-      return CarDetail(item: item as CarEntity);
+      child = CarDetail();
     } else if (item is EventEntity) {
-      return EventDetail(item: item as EventEntity);
+      child = EventDetail();
     } else if (item is BoatEntity) {
-      return BoatDetail(item: item as BoatEntity);
+      child = BoatDetail();
     } else {
-      return ProductDetail(item: item);
+      child = DefaultDetail();
     }
+
+    return BlocProvider(
+      create: (context) => ProductDetailCubit(product: item),
+      child: child,
+    );
   }
 }

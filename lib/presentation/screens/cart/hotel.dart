@@ -3,7 +3,7 @@ import 'package:booking/presentation/presentation.dart';
 import 'package:intl/intl.dart';
 
 class HotelCart extends StatefulWidget {
-  final HotelDetailCubit cubit;
+  final ProductDetailCubit cubit;
 
   const HotelCart({super.key, required this.cubit});
 
@@ -15,7 +15,6 @@ class _HotelCartState extends State<HotelCart> with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _offsetAnimation;
 
-  bool _visible = false;
   String currency = '';
 
   @override
@@ -72,7 +71,7 @@ class _HotelCartState extends State<HotelCart> with TickerProviderStateMixin {
     if (picked != null) {
       cubit.startDate = picked.start;
       cubit.endDate = picked.end;
-      cubit.checkAvailabilityRoom();
+      cubit.checkAvailability();
     }
   }
 
@@ -142,7 +141,7 @@ class _HotelCartState extends State<HotelCart> with TickerProviderStateMixin {
     if (context.mounted && (adult != cubit.adults || child != cubit.children)) {
       cubit.adults = adult;
       cubit.children = child;
-      cubit.checkAvailabilityRoom();
+      cubit.checkAvailability();
     }
   }
 
@@ -180,7 +179,7 @@ class _HotelCartState extends State<HotelCart> with TickerProviderStateMixin {
 
     if (data != null && context.mounted) {
       item.selected = int.tryParse(data.first.id) ?? 0;
-      cubit.updateCart(item);
+      cubit.updateCart();
     }
   }
 
@@ -194,68 +193,129 @@ class _HotelCartState extends State<HotelCart> with TickerProviderStateMixin {
         children: [
           Padding(
             padding: EdgeInsets.all(12),
-            child: Box(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: InkWell(
-                      onTap: _showDatePicker,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
+              children: [
+                Box(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: _showDatePicker,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                Translate.of(context).translate(
+                                  'check_in_check_out',
+                                ),
+                                style: Theme.of(context).textTheme.labelSmall,
+                              ),
+                              SizedBox(height: 2),
+                              Text(
+                                '$startDate - $endDate',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium
+                                    ?.copyWith(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 36,
+                        width: 24,
+                        child: VerticalDivider(),
+                      ),
+                      Expanded(
+                        child: InkWell(
+                          onTap: _onSelectGuests,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                Translate.of(context).translate('guests'),
+                                style: Theme.of(context).textTheme.labelSmall,
+                              ),
+                              SizedBox(height: 2),
+                              Text(
+                                '${state.adults} ${Translate.of(context).translate('adult')}, ${state.children} ${Translate.of(context).translate('child')}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium
+                                    ?.copyWith(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(height: 12),
+                Box(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             Translate.of(context).translate(
-                              'check_in_check_out',
+                              'service_vip',
                             ),
-                            style: Theme.of(context).textTheme.labelSmall,
+                            style: Theme.of(context).textTheme.labelMedium,
                           ),
-                          SizedBox(height: 2),
-                          Text(
-                            '$startDate - $endDate',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelMedium
-                                ?.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: Checkbox(
+                              value: widget.cubit.useVIP,
+                              onChanged: (value) {
+                                setState(() {
+                                  widget.cubit.useVIP = value!;
+                                });
+                              },
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 36,
-                    width: 24,
-                    child: VerticalDivider(),
-                  ),
-                  Expanded(
-                    child: InkWell(
-                      onTap: _onSelectGuests,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            Translate.of(context).translate('guests'),
-                            style: Theme.of(context).textTheme.labelSmall,
+                            Translate.of(context).translate(
+                              'breakfast',
+                            ),
+                            style: Theme.of(context).textTheme.labelMedium,
                           ),
-                          SizedBox(height: 2),
-                          Text(
-                            '${state.adults} ${Translate.of(context).translate('adult')}, ${state.children} ${Translate.of(context).translate('child')}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelMedium
-                                ?.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
+                          SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: Checkbox(
+                              value: widget.cubit.useBreakfast,
+                              onChanged: (value) {
+                                setState(() {
+                                  widget.cubit.useBreakfast = value!;
+                                });
+                              },
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  )
-                ],
-              ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -348,81 +408,18 @@ class _HotelCartState extends State<HotelCart> with TickerProviderStateMixin {
                     ),
                     child: Column(
                       children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              _visible = !_visible;
-                            });
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                Translate.of(context).translate('extra_price'),
-                                style: Theme.of(context).textTheme.labelMedium,
-                              ),
-                              Icon(Icons.keyboard_arrow_down),
-                            ],
-                          ),
-                        ),
-                        Visibility(
-                          visible: _visible,
-                          child: Column(
-                            children: [
-                              SizedBox(height: 4),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    Translate.of(context).translate(
-                                      'service_vip',
-                                    ),
-                                    style:
-                                        Theme.of(context).textTheme.labelMedium,
-                                  ),
-                                  SizedBox(
-                                    width: 24,
-                                    height: 24,
-                                    child: Checkbox(
-                                      value: state.vip,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          state.vip = value!;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 4),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    Translate.of(context).translate(
-                                      'breakfast',
-                                    ),
-                                    style:
-                                        Theme.of(context).textTheme.labelMedium,
-                                  ),
-                                  SizedBox(
-                                    width: 24,
-                                    height: 24,
-                                    child: Checkbox(
-                                      value: state.breakfast,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          state.breakfast = value!;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              Translate.of(context).translate('service_fee'),
+                              style: Theme.of(context).textTheme.labelSmall,
+                            ),
+                            Text(
+                              '${currency}0',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ],
                         ),
                         Divider(),
                         Row(
@@ -493,14 +490,14 @@ class _HotelCartState extends State<HotelCart> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HotelDetailCubit, ProductDetailState>(
+    return BlocBuilder<ProductDetailCubit, ProductDetailState>(
       bloc: widget.cubit,
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              Translate.of(context).translate('configuration'),
+              Translate.of(context).translate('booking'),
             ),
           ),
           body: _buildContent(state),

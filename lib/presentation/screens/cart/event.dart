@@ -1,16 +1,16 @@
 import 'package:booking/presentation/presentation.dart';
 import 'package:intl/intl.dart';
 
-class TourCart extends StatefulWidget {
+class EventCart extends StatefulWidget {
   final ProductDetailCubit cubit;
 
-  const TourCart({super.key, required this.cubit});
+  const EventCart({super.key, required this.cubit});
 
   @override
-  State<TourCart> createState() => _TourCartState();
+  State<EventCart> createState() => _EventCartState();
 }
 
-class _TourCartState extends State<TourCart> {
+class _EventCartState extends State<EventCart> {
   String currency = '';
 
   @override
@@ -46,7 +46,7 @@ class _TourCartState extends State<TourCart> {
   }
 
   Widget _buildFooter(ProductDetailState state) {
-    if (state is TourDetailSuccess) {
+    if (state is EventDetailSuccess) {
       return Container(
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -154,7 +154,7 @@ class _TourCartState extends State<TourCart> {
       bloc: widget.cubit,
       builder: (context, state) {
         Widget content = Container();
-        if (state is TourDetailSuccess) {
+        if (state is EventDetailSuccess) {
           final startDate = DateFormat('yyyy/MM/dd').format(
             widget.cubit.startDate,
           );
@@ -210,13 +210,13 @@ class _TourCartState extends State<TourCart> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              Translate.of(context).translate('adult'),
+                              Translate.of(context).translate('ticket_vip'),
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                             Steps(
-                              value: widget.cubit.adults,
+                              value: widget.cubit.vip,
                               onChanged: (value) {
-                                widget.cubit.adults = value;
+                                widget.cubit.vip = value;
                                 widget.cubit.updateCart();
                               },
                             ),
@@ -226,13 +226,13 @@ class _TourCartState extends State<TourCart> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              Translate.of(context).translate('child'),
+                              Translate.of(context).translate('ticket_group'),
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                             Steps(
-                              value: widget.cubit.children,
+                              value: widget.cubit.group,
                               onChanged: (value) {
-                                widget.cubit.children = value;
+                                widget.cubit.group = value;
                                 widget.cubit.updateCart();
                               },
                             ),
@@ -250,17 +250,17 @@ class _TourCartState extends State<TourCart> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              Translate.of(context).translate('cleaning'),
+                              Translate.of(context).translate('use_service'),
                               style: Theme.of(context).textTheme.labelMedium,
                             ),
                             SizedBox(
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: widget.cubit.useClean,
+                                value: widget.cubit.useService,
                                 onChanged: (value) {
                                   setState(() {
-                                    widget.cubit.useClean = value!;
+                                    widget.cubit.useService = value!;
                                   });
                                 },
                               ),

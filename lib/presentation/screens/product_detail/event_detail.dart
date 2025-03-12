@@ -4,21 +4,13 @@ import 'package:booking/presentation/presentation.dart';
 import 'shared.dart';
 
 class EventDetail extends StatefulWidget {
-  final EventEntity item;
-
-  const EventDetail({super.key, required this.item});
+  const EventDetail({super.key});
 
   @override
   State<EventDetail> createState() => _EventDetailState();
 }
 
 class _EventDetailState extends State<EventDetail> with ProductDetailBase {
-  @override
-  void initState() {
-    item = widget.item;
-    super.initState();
-  }
-
   @override
   Widget buildContent(ProductDetailState state) {
     if (state is ProductDetailSuccess) {
@@ -179,11 +171,11 @@ class _EventDetailState extends State<EventDetail> with ProductDetailBase {
             children: [
               Expanded(child: info),
               FilledButton(
+                onPressed: onCart,
                 child: Text(
                   Translate.of(context).translate('book_now'),
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () {},
               ),
             ],
           ),

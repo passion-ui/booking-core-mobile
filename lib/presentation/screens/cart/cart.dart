@@ -1,6 +1,9 @@
+import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
+import 'boat.dart';
 import 'car.dart';
+import 'event.dart';
 import 'hotel.dart';
 import 'space.dart';
 import 'tour.dart';
@@ -12,14 +15,18 @@ class Cart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (productDetailCubit is HotelDetailCubit) {
-      return HotelCart(cubit: productDetailCubit as HotelDetailCubit);
-    } else if (productDetailCubit is TourDetailCubit) {
-      return TourCart(cubit: productDetailCubit as TourDetailCubit);
-    } else if (productDetailCubit is SpaceDetailCubit) {
-      return SpaceCart(cubit: productDetailCubit as SpaceDetailCubit);
-    } else if (productDetailCubit is CarDetailCubit) {
-      return CarCart(cubit: productDetailCubit as CarDetailCubit);
+    if (productDetailCubit.product is HotelEntity) {
+      return HotelCart(cubit: productDetailCubit);
+    } else if (productDetailCubit.product is TourEntity) {
+      return TourCart(cubit: productDetailCubit);
+    } else if (productDetailCubit.product is SpaceEntity) {
+      return SpaceCart(cubit: productDetailCubit);
+    } else if (productDetailCubit.product is CarEntity) {
+      return CarCart(cubit: productDetailCubit);
+    } else if (productDetailCubit.product is EventEntity) {
+      return EventCart(cubit: productDetailCubit);
+    } else if (productDetailCubit.product is BoatEntity) {
+      return BoatCart(cubit: productDetailCubit);
     }
 
     return const Placeholder();

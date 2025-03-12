@@ -4,9 +4,7 @@ import 'package:booking/presentation/presentation.dart';
 import 'shared.dart';
 
 class TourDetail extends StatefulWidget {
-  final TourEntity item;
-
-  const TourDetail({super.key, required this.item});
+  const TourDetail({super.key});
 
   @override
   State<TourDetail> createState() => _TourDetailState();
@@ -14,13 +12,6 @@ class TourDetail extends StatefulWidget {
 
 class _TourDetailState extends State<TourDetail> with ProductDetailBase {
   final _controller = CarouselController(initialItem: 1);
-
-  @override
-  void initState() {
-    productDetailCubit = TourDetailCubit();
-    item = widget.item;
-    super.initState();
-  }
 
   @override
   Widget buildContent(ProductDetailState state) {

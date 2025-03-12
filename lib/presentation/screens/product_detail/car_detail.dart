@@ -4,22 +4,13 @@ import 'package:booking/presentation/presentation.dart';
 import 'shared.dart';
 
 class CarDetail extends StatefulWidget {
-  final CarEntity item;
-
-  const CarDetail({super.key, required this.item});
+  const CarDetail({super.key});
 
   @override
   State<CarDetail> createState() => _CarDetailState();
 }
 
 class _CarDetailState extends State<CarDetail> with ProductDetailBase {
-  @override
-  void initState() {
-    productDetailCubit = CarDetailCubit();
-    item = widget.item;
-    super.initState();
-  }
-
   @override
   Widget buildContent(ProductDetailState state) {
     if (state is ProductDetailSuccess) {

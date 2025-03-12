@@ -1,16 +1,16 @@
 import 'package:booking/presentation/presentation.dart';
 import 'package:intl/intl.dart';
 
-class TourCart extends StatefulWidget {
+class BoatCart extends StatefulWidget {
   final ProductDetailCubit cubit;
 
-  const TourCart({super.key, required this.cubit});
+  const BoatCart({super.key, required this.cubit});
 
   @override
-  State<TourCart> createState() => _TourCartState();
+  State<BoatCart> createState() => _BoatCartState();
 }
 
-class _TourCartState extends State<TourCart> {
+class _BoatCartState extends State<BoatCart> {
   String currency = '';
 
   @override
@@ -46,7 +46,7 @@ class _TourCartState extends State<TourCart> {
   }
 
   Widget _buildFooter(ProductDetailState state) {
-    if (state is TourDetailSuccess) {
+    if (state is BoatDetailSuccess) {
       return Container(
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -154,7 +154,7 @@ class _TourCartState extends State<TourCart> {
       bloc: widget.cubit,
       builder: (context, state) {
         Widget content = Container();
-        if (state is TourDetailSuccess) {
+        if (state is BoatDetailSuccess) {
           final startDate = DateFormat('yyyy/MM/dd').format(
             widget.cubit.startDate,
           );
@@ -209,14 +209,25 @@ class _TourCartState extends State<TourCart> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              Translate.of(context).translate('adult'),
-                              style: Theme.of(context).textTheme.titleSmall,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  Translate.of(context).translate('hours'),
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                ),
+                                Text(
+                                  Translate.of(context).translate(
+                                    'return_same_day',
+                                  ),
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                )
+                              ],
                             ),
                             Steps(
-                              value: widget.cubit.adults,
+                              value: widget.cubit.hours,
                               onChanged: (value) {
-                                widget.cubit.adults = value;
+                                widget.cubit.hours = value;
                                 widget.cubit.updateCart();
                               },
                             ),
@@ -225,14 +236,25 @@ class _TourCartState extends State<TourCart> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              Translate.of(context).translate('child'),
-                              style: Theme.of(context).textTheme.titleSmall,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  Translate.of(context).translate('days'),
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                ),
+                                Text(
+                                  Translate.of(context).translate(
+                                    'return_another_day',
+                                  ),
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                )
+                              ],
                             ),
                             Steps(
-                              value: widget.cubit.children,
+                              value: widget.cubit.days,
                               onChanged: (value) {
-                                widget.cubit.children = value;
+                                widget.cubit.days = value;
                                 widget.cubit.updateCart();
                               },
                             ),
@@ -250,17 +272,67 @@ class _TourCartState extends State<TourCart> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              Translate.of(context).translate('cleaning'),
+                              Translate.of(context).translate(
+                                'toddler_child_seat',
+                              ),
                               style: Theme.of(context).textTheme.labelMedium,
                             ),
                             SizedBox(
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: widget.cubit.useClean,
+                                value: widget.cubit.useToddlerSeat,
                                 onChanged: (value) {
                                   setState(() {
-                                    widget.cubit.useClean = value!;
+                                    widget.cubit.useToddlerSeat = value!;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              Translate.of(context).translate(
+                                'infant_child_seat',
+                              ),
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: Checkbox(
+                                value: widget.cubit.useInfantSeat,
+                                onChanged: (value) {
+                                  setState(() {
+                                    widget.cubit.useInfantSeat = value!;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              Translate.of(context).translate(
+                                'gps_satellite',
+                              ),
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: Checkbox(
+                                value: widget.cubit.useGpsSatellite,
+                                onChanged: (value) {
+                                  setState(() {
+                                    widget.cubit.useGpsSatellite = value!;
                                   });
                                 },
                               ),

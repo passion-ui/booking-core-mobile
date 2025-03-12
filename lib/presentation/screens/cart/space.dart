@@ -2,7 +2,7 @@ import 'package:booking/presentation/presentation.dart';
 import 'package:intl/intl.dart';
 
 class SpaceCart extends StatefulWidget {
-  final SpaceDetailCubit cubit;
+  final ProductDetailCubit cubit;
 
   const SpaceCart({super.key, required this.cubit});
 
@@ -105,7 +105,7 @@ class _SpaceCartState extends State<SpaceCart> {
                               Row(
                                 children: [
                                   Text(
-                                    '$currency${widget.cubit.product?.price.toStringAsFixed(0)}',
+                                    '$currency${widget.cubit.product.price.toStringAsFixed(0)}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
@@ -153,7 +153,7 @@ class _SpaceCartState extends State<SpaceCart> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SpaceDetailCubit, ProductDetailState>(
+    return BlocBuilder<ProductDetailCubit, ProductDetailState>(
       bloc: widget.cubit,
       builder: (context, state) {
         Widget content = Container();
@@ -265,9 +265,9 @@ class _SpaceCartState extends State<SpaceCart> {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: widget.cubit.garden,
+                                value: widget.cubit.useGarden,
                                 onChanged: (value) {
-                                  widget.cubit.garden = value!;
+                                  widget.cubit.useGarden = value!;
                                   widget.cubit.updateCart();
                                 },
                               ),
@@ -288,9 +288,9 @@ class _SpaceCartState extends State<SpaceCart> {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: widget.cubit.clean,
+                                value: widget.cubit.useClean,
                                 onChanged: (value) {
-                                  widget.cubit.clean = value!;
+                                  widget.cubit.useClean = value!;
                                   widget.cubit.updateCart();
                                 },
                               ),
@@ -311,9 +311,9 @@ class _SpaceCartState extends State<SpaceCart> {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: widget.cubit.breakfast,
+                                value: widget.cubit.useBreakfast,
                                 onChanged: (value) {
-                                  widget.cubit.breakfast = value!;
+                                  widget.cubit.useBreakfast = value!;
                                   widget.cubit.updateCart();
                                 },
                               ),
@@ -333,7 +333,7 @@ class _SpaceCartState extends State<SpaceCart> {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              Translate.of(context).translate('configuration'),
+              Translate.of(context).translate('booking'),
             ),
           ),
           body: content,

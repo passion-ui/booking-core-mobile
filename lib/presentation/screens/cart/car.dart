@@ -2,7 +2,7 @@ import 'package:booking/presentation/presentation.dart';
 import 'package:intl/intl.dart';
 
 class CarCart extends StatefulWidget {
-  final CarDetailCubit cubit;
+  final ProductDetailCubit cubit;
 
   const CarCart({super.key, required this.cubit});
 
@@ -124,7 +124,7 @@ class _CarCartState extends State<CarCart> {
                               Row(
                                 children: [
                                   Text(
-                                    '$currency${widget.cubit.product?.price.toStringAsFixed(0)}',
+                                    '$currency${widget.cubit.product.price.toStringAsFixed(0)}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
@@ -172,7 +172,7 @@ class _CarCartState extends State<CarCart> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CarDetailCubit, ProductDetailState>(
+    return BlocBuilder<ProductDetailCubit, ProductDetailState>(
       bloc: widget.cubit,
       builder: (context, state) {
         Widget content = Container();
@@ -260,7 +260,7 @@ class _CarCartState extends State<CarCart> {
                           children: [
                             Text(
                               Translate.of(context).translate(
-                                'child_seat',
+                                'toddler_child_seat',
                               ),
                               style: Theme.of(context).textTheme.labelMedium,
                             ),
@@ -268,9 +268,9 @@ class _CarCartState extends State<CarCart> {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: widget.cubit.childSeat,
+                                value: widget.cubit.useToddlerSeat,
                                 onChanged: (value) {
-                                  widget.cubit.childSeat = value!;
+                                  widget.cubit.useToddlerSeat = value!;
                                   widget.cubit.updateCart();
                                 },
                               ),
@@ -291,9 +291,9 @@ class _CarCartState extends State<CarCart> {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: widget.cubit.infantSeat,
+                                value: widget.cubit.useInfantSeat,
                                 onChanged: (value) {
-                                  widget.cubit.infantSeat = value!;
+                                  widget.cubit.useInfantSeat = value!;
                                   widget.cubit.updateCart();
                                 },
                               ),
@@ -314,9 +314,9 @@ class _CarCartState extends State<CarCart> {
                               width: 24,
                               height: 24,
                               child: Checkbox(
-                                value: widget.cubit.gpsSatellite,
+                                value: widget.cubit.useGpsSatellite,
                                 onChanged: (value) {
-                                  widget.cubit.gpsSatellite = value!;
+                                  widget.cubit.useGpsSatellite = value!;
                                   widget.cubit.updateCart();
                                 },
                               ),
@@ -377,7 +377,7 @@ class _CarCartState extends State<CarCart> {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              Translate.of(context).translate('configuration'),
+              Translate.of(context).translate('booking'),
             ),
           ),
           body: content,
