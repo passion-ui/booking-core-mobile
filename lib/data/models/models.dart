@@ -27,6 +27,7 @@ export 'gps.dart';
 export 'hotel.dart';
 export 'itinerary.dart';
 export 'listing.dart';
+export 'package.dart';
 export 'parent_properties.dart';
 export 'post.dart';
 export 'product.dart';

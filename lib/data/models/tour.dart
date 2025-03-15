@@ -33,6 +33,7 @@ class TourModel extends ProductModel {
     required super.related,
     required super.enableExtraPrice,
     required super.extraServices,
+    required super.bookingFees,
     required this.duration,
     required this.category,
     required this.minPeople,
@@ -67,6 +68,7 @@ class TourModel extends ProductModel {
       related: related?.map((e) => e.toEntity()).toList(),
       enableExtraPrice: enableExtraPrice,
       extraServices: extraServices?.map((e) => e.toEntity()).toList(),
+      bookingFees: bookingFees?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       duration: duration,
@@ -124,6 +126,7 @@ class TourModel extends ProductModel {
       related: shared.related,
       enableExtraPrice: shared.enableExtraPrice,
       extraServices: shared.extraServices,
+      bookingFees: shared.bookingFees,
 
       ///Specific
       duration: json['duration'],

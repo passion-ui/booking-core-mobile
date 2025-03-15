@@ -29,6 +29,7 @@ class HotelEntity extends ProductEntity {
     required super.related,
     required super.enableExtraPrice,
     required super.extraServices,
+    required super.bookingFees,
     this.point,
     this.policies,
     this.checkInTime,

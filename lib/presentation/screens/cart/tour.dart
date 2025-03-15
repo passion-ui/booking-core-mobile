@@ -47,6 +47,24 @@ class _TourCartState extends State<TourCart> {
 
   Widget _buildFooter(ProductDetailState state) {
     if (state is TourDetailSuccess) {
+      List<Widget> fees = [];
+      if (state.product.bookingFees?.isNotEmpty == true) {
+        fees = state.product.bookingFees!.map((service) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                Translate.of(context).translate(service.name),
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              Text(
+                '$currency${service.price}',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          );
+        }).toList();
+      }
       return Container(
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -73,19 +91,7 @@ class _TourCartState extends State<TourCart> {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          Translate.of(context).translate('service_fee'),
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                        Text(
-                          '${currency}0',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ],
-                    ),
+                    ...fees,
                     Divider(),
                     Row(
                       children: [
@@ -249,9 +255,19 @@ class _TourCartState extends State<TourCart> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              Translate.of(context).translate('cleaning'),
-                              style: Theme.of(context).textTheme.labelMedium,
+                            Row(
+                              children: [
+                                Text(
+                                  Translate.of(context).translate('cleaning'),
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                ),
+                                SizedBox(width: 4),
+                                Text(
+                                  '(${currency}100)',
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                ),
+                              ],
                             ),
                             SizedBox(
                               width: 24,

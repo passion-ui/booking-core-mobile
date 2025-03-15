@@ -50,6 +50,24 @@ class _SpaceCartState extends State<SpaceCart> {
 
   Widget _buildFooter(ProductDetailState state) {
     if (state is SpaceDetailSuccess) {
+      List<Widget> fees = [];
+      if (state.product.bookingFees?.isNotEmpty == true) {
+        fees = state.product.bookingFees!.map((service) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                Translate.of(context).translate(service.name),
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              Text(
+                '$currency${service.price}',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          );
+        }).toList();
+      }
       return Container(
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -76,19 +94,7 @@ class _SpaceCartState extends State<SpaceCart> {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          Translate.of(context).translate('service_fee'),
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                        Text(
-                          '${currency}0',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ],
-                    ),
+                    ...fees,
                     Divider(),
                     Row(
                       children: [
@@ -255,11 +261,21 @@ class _SpaceCartState extends State<SpaceCart> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              Translate.of(context).translate(
-                                'garden',
-                              ),
-                              style: Theme.of(context).textTheme.labelMedium,
+                            Row(
+                              children: [
+                                Text(
+                                  Translate.of(context).translate(
+                                    'garden',
+                                  ),
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                ),
+                                SizedBox(width: 4),
+                                Text(
+                                  '(${currency}100)',
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                ),
+                              ],
                             ),
                             SizedBox(
                               width: 24,
@@ -278,11 +294,21 @@ class _SpaceCartState extends State<SpaceCart> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              Translate.of(context).translate(
-                                'cleaning',
-                              ),
-                              style: Theme.of(context).textTheme.labelMedium,
+                            Row(
+                              children: [
+                                Text(
+                                  Translate.of(context).translate(
+                                    'cleaning',
+                                  ),
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                ),
+                                SizedBox(width: 4),
+                                Text(
+                                  '(${currency}100)',
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                ),
+                              ],
                             ),
                             SizedBox(
                               width: 24,
@@ -301,11 +327,21 @@ class _SpaceCartState extends State<SpaceCart> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              Translate.of(context).translate(
-                                'breakfast',
-                              ),
-                              style: Theme.of(context).textTheme.labelMedium,
+                            Row(
+                              children: [
+                                Text(
+                                  Translate.of(context).translate(
+                                    'breakfast',
+                                  ),
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                ),
+                                SizedBox(width: 4),
+                                Text(
+                                  '(${currency}100)',
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                ),
+                              ],
                             ),
                             SizedBox(
                               width: 24,

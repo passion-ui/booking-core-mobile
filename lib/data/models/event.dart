@@ -28,6 +28,7 @@ class EventModel extends ProductModel {
     required super.related,
     required super.enableExtraPrice,
     required super.extraServices,
+    required super.bookingFees,
     required this.duration,
     required this.startTime,
   });
@@ -57,6 +58,7 @@ class EventModel extends ProductModel {
       related: related?.map((e) => e.toEntity()).toList(),
       enableExtraPrice: enableExtraPrice,
       extraServices: extraServices?.map((e) => e.toEntity()).toList(),
+      bookingFees: bookingFees?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       duration: duration,
@@ -90,6 +92,7 @@ class EventModel extends ProductModel {
       related: shared.related,
       enableExtraPrice: shared.enableExtraPrice,
       extraServices: shared.extraServices,
+      bookingFees: shared.bookingFees,
       duration: json['duration'] ?? '',
       startTime: json['start_time'] ?? '',
     );

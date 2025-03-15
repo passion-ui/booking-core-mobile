@@ -30,6 +30,7 @@ class SpaceModel extends ProductModel {
     required super.related,
     required super.enableExtraPrice,
     required super.extraServices,
+    required super.bookingFees,
     required this.guests,
     required this.beds,
     required this.bathrooms,
@@ -61,6 +62,7 @@ class SpaceModel extends ProductModel {
       related: related?.map((e) => e.toEntity()).toList(),
       enableExtraPrice: enableExtraPrice,
       extraServices: extraServices?.map((e) => e.toEntity()).toList(),
+      bookingFees: bookingFees?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       guests: guests,
@@ -96,6 +98,7 @@ class SpaceModel extends ProductModel {
       related: shared.related,
       enableExtraPrice: shared.enableExtraPrice,
       extraServices: shared.extraServices,
+      bookingFees: shared.bookingFees,
       guests: json['max_guests'] ?? 0,
       beds: json['bed'] ?? 0,
       bathrooms: json['bathroom'] ?? 0,

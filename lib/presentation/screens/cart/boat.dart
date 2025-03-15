@@ -47,6 +47,24 @@ class _BoatCartState extends State<BoatCart> {
 
   Widget _buildFooter(ProductDetailState state) {
     if (state is BoatDetailSuccess) {
+      List<Widget> fees = [];
+      if (state.product.bookingFees?.isNotEmpty == true) {
+        fees = state.product.bookingFees!.map((service) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                Translate.of(context).translate(service.name),
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              Text(
+                '$currency${service.price}',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          );
+        }).toList();
+      }
       return Container(
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -73,19 +91,7 @@ class _BoatCartState extends State<BoatCart> {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          Translate.of(context).translate('service_fee'),
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                        Text(
-                          '${currency}0',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ],
-                    ),
+                    ...fees,
                     Divider(),
                     Row(
                       children: [

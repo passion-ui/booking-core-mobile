@@ -30,6 +30,7 @@ class BoatModel extends ProductModel {
     required super.related,
     required super.enableExtraPrice,
     required super.extraServices,
+    required super.bookingFees,
     required this.guests,
     required this.cabins,
     required this.length,
@@ -61,6 +62,7 @@ class BoatModel extends ProductModel {
       related: related?.map((e) => e.toEntity()).toList(),
       enableExtraPrice: enableExtraPrice,
       extraServices: extraServices?.map((e) => e.toEntity()).toList(),
+      bookingFees: bookingFees?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       guests: guests,
@@ -95,6 +97,7 @@ class BoatModel extends ProductModel {
       related: shared.related,
       enableExtraPrice: shared.enableExtraPrice,
       extraServices: shared.extraServices,
+      bookingFees: shared.bookingFees,
       guests: json['max_guest'] ?? 0,
       cabins: json['cabin'] ?? 0,
       length: json['length'] ?? '',

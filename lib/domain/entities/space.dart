@@ -29,6 +29,7 @@ class SpaceEntity extends ProductEntity {
     required super.related,
     required super.enableExtraPrice,
     required super.extraServices,
+    required super.bookingFees,
     required this.guests,
     required this.beds,
     required this.bathrooms,

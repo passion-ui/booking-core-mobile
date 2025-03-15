@@ -55,6 +55,24 @@ class _CarCartState extends State<CarCart> {
 
   Widget _buildFooter(ProductDetailState state) {
     if (state is CarDetailSuccess) {
+      List<Widget> fees = [];
+      if (state.product.bookingFees?.isNotEmpty == true) {
+        fees = state.product.bookingFees!.map((service) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                Translate.of(context).translate(service.name),
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              Text(
+                '$currency${service.price}',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          );
+        }).toList();
+      }
       return Container(
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
@@ -81,33 +99,7 @@ class _CarCartState extends State<CarCart> {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          Translate.of(context).translate('equipment_fee'),
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                        Text(
-                          '${currency}0',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          Translate.of(context).translate('facility_fee'),
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                        Text(
-                          '${currency}0',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ],
-                    ),
+                    ...fees,
                     Divider(),
                     Row(
                       children: [

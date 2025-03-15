@@ -29,6 +29,7 @@ class ProductEntity {
   final List<ProductEntity>? related;
   final bool? enableExtraPrice;
   final List<ExtraServiceEntity>? extraServices;
+  final List<PackageEntity>? bookingFees;
 
   ProductEntity({
     required this.id,
@@ -53,5 +54,6 @@ class ProductEntity {
     required this.related,
     required this.enableExtraPrice,
     required this.extraServices,
+    required this.bookingFees,
   });
 }

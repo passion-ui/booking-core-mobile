@@ -27,6 +27,7 @@ class EventEntity extends ProductEntity {
     required super.related,
     required super.enableExtraPrice,
     required super.extraServices,
+    required super.bookingFees,
     required this.duration,
     required this.startTime,
   });

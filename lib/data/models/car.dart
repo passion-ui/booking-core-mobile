@@ -30,6 +30,7 @@ class CarModel extends ProductModel {
     required super.related,
     required super.enableExtraPrice,
     required super.extraServices,
+    required super.bookingFees,
     required this.passenger,
     required this.gear,
     required this.baggage,
@@ -61,6 +62,7 @@ class CarModel extends ProductModel {
       related: related?.map((e) => e.toEntity()).toList(),
       enableExtraPrice: enableExtraPrice,
       extraServices: extraServices?.map((e) => e.toEntity()).toList(),
+      bookingFees: bookingFees?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       passenger: passenger,
@@ -95,6 +97,7 @@ class CarModel extends ProductModel {
       related: shared.related,
       enableExtraPrice: shared.enableExtraPrice,
       extraServices: shared.extraServices,
+      bookingFees: shared.bookingFees,
       passenger: json['passenger'] ?? 0,
       gear: json['gear'] ?? '',
       baggage: json['baggage'] ?? 0,

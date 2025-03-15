@@ -32,6 +32,7 @@ class TourEntity extends ProductEntity {
     required super.related,
     required super.enableExtraPrice,
     required super.extraServices,
+    required super.bookingFees,
     required this.duration,
     required this.category,
     required this.minPeople,

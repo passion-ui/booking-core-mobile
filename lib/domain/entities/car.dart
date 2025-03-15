@@ -29,6 +29,7 @@ class CarEntity extends ProductEntity {
     required super.related,
     required super.enableExtraPrice,
     required super.extraServices,
+    required super.bookingFees,
     required this.passenger,
     required this.gear,
     required this.baggage,

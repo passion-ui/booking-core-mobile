@@ -268,11 +268,20 @@ class _HotelCartState extends State<HotelCart> with TickerProviderStateMixin {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            Translate.of(context).translate(
-                              'service_vip',
-                            ),
-                            style: Theme.of(context).textTheme.labelMedium,
+                          Row(
+                            children: [
+                              Text(
+                                Translate.of(context).translate(
+                                  'service_vip',
+                                ),
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                              SizedBox(width: 4),
+                              Text(
+                                '(${currency}100)',
+                                style: Theme.of(context).textTheme.labelSmall,
+                              ),
+                            ],
                           ),
                           SizedBox(
                             width: 24,
@@ -292,11 +301,20 @@ class _HotelCartState extends State<HotelCart> with TickerProviderStateMixin {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            Translate.of(context).translate(
-                              'breakfast',
-                            ),
-                            style: Theme.of(context).textTheme.labelMedium,
+                          Row(
+                            children: [
+                              Text(
+                                Translate.of(context).translate(
+                                  'breakfast',
+                                ),
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                              SizedBox(width: 4),
+                              Text(
+                                '(${currency}100)',
+                                style: Theme.of(context).textTheme.labelSmall,
+                              ),
+                            ],
                           ),
                           SizedBox(
                             width: 24,
@@ -374,6 +392,24 @@ class _HotelCartState extends State<HotelCart> with TickerProviderStateMixin {
       });
 
       if (roomsSelected != null && roomsSelected > 0) {
+        List<Widget> fees = [];
+        if (state.product.bookingFees?.isNotEmpty == true) {
+          fees = state.product.bookingFees!.map((service) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  Translate.of(context).translate(service.name),
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                Text(
+                  '$currency${service.price}',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ],
+            );
+          }).toList();
+        }
         final totalPrice = state.rooms?.map((e) {
           return e.price * e.selected;
         }).reduce((a, b) {
@@ -408,19 +444,7 @@ class _HotelCartState extends State<HotelCart> with TickerProviderStateMixin {
                     ),
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              Translate.of(context).translate('service_fee'),
-                              style: Theme.of(context).textTheme.labelSmall,
-                            ),
-                            Text(
-                              '${currency}0',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                          ],
-                        ),
+                        ...fees,
                         Divider(),
                         Row(
                           children: [

@@ -30,6 +30,7 @@ class HotelModel extends ProductModel {
     required super.related,
     required super.enableExtraPrice,
     required super.extraServices,
+    required super.bookingFees,
 
     ///Specific
     this.point,
@@ -63,6 +64,7 @@ class HotelModel extends ProductModel {
       related: related?.map((e) => e.toEntity()).toList(),
       enableExtraPrice: enableExtraPrice,
       extraServices: extraServices?.map((e) => e.toEntity()).toList(),
+      bookingFees: bookingFees?.map((e) => e.toEntity()).toList(),
 
       ///Specific
       point: point,
@@ -106,6 +108,7 @@ class HotelModel extends ProductModel {
       related: shared.related,
       enableExtraPrice: shared.enableExtraPrice,
       extraServices: shared.extraServices,
+      bookingFees: shared.bookingFees,
 
       ///specific
       point: double.tryParse('${json['star_rate']}'),
