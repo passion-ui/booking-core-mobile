@@ -63,6 +63,7 @@
   "old_password": "Old Password",
   "new_password": "New Password",
   "confirm_new_password": "Confirm New Password",
+  "show_password": "Show Password",
   "save_changes": "Save Changes",
   "read_and_accept": "I have read and accept",
   "forgot_message": "Please enter your email address. You will receive a link to create a new password via email",
@@ -156,5 +157,7 @@
   "hours": "Hours",
   "days": "Days",
   "return_same_day": "Return on same-day",
-  "return_another_day": "Return on another day"
+  "return_another_day": "Return on another day",
+  "change_password_message": "Please enter your old and new password to change your password.",
+  "change_password_success": "Your password has been changed successfully."
 }

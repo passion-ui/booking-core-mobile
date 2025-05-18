@@ -26,7 +26,7 @@ class Application {
   static const defaultFontSize = 14.0;
 
   /// Font Family
-  static const defaultFontFamily = 'San Francisco';
+  static const defaultFontFamily = 'Raleway';
 
   /// Font Weight
   static final fontFamilySupport = [

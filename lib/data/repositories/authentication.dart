@@ -52,4 +52,15 @@ class AuthenticationRepository implements AuthenticationRepositoryInterface {
   Future<void> deleteUserData() async {
     return await _localDataSource.deleteUserData();
   }
+
+  @override
+  Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    return await _remoteDataSource.changePassword(
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+    );
+  }
 }

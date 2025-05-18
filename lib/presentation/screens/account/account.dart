@@ -25,6 +25,11 @@ class _AccountState extends State<Account> {
     authentication.add(OnLogOut());
   }
 
+  ///Change Password
+  void _onChangePassword() {
+    context.push(Routers.changePassword);
+  }
+
   /// Build Authentication
   Widget _buildQuest() {
     return Column(
@@ -214,7 +219,7 @@ class _AccountState extends State<Account> {
                   ),
                 ),
                 title: Translate.of(context).translate('change_password'),
-                onPress: () {},
+                onPress: _onChangePassword,
               ),
             ],
           ),

@@ -111,6 +111,12 @@ class Routers {
             },
           ),
           GoRoute(
+            path: changePassword,
+            builder: (context, state) {
+              return ChangePassword();
+            },
+          ),
+          GoRoute(
             path: profile,
             builder: (context, state) {
               return Profile();

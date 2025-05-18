@@ -15,4 +15,8 @@ abstract class AuthenticationRepositoryInterface {
   Future<UserEntity?> getUserData();
   Future<void> saveUserData(UserEntity user);
   Future<void> deleteUserData();
+  Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  });
 }

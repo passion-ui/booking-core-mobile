@@ -1,6 +1,7 @@
 export 'account/account.dart';
 export 'author/author.dart';
 export 'cart/cart.dart';
+export 'change_password/change_password.dart';
 export 'checkout/checkout.dart';
 export 'detail_new/detail_new.dart';
 export 'forgot_password/forgot_password.dart';

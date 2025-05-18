@@ -64,3 +64,19 @@ class ForgotPasswordUseCase {
     return await repository.forgotPassword(email: email);
   }
 }
+
+class ChangePasswordUseCase {
+  final AuthenticationRepositoryInterface repository;
+
+  ChangePasswordUseCase(this.repository);
+
+  Future<void> call({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    return await repository.changePassword(
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+    );
+  }
+}

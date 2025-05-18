@@ -11,6 +11,7 @@ class RemoteDataSource {
   final String _home = "/home-page";
   final String _wishlist = "/user/wishlist";
   final String _news = "/news";
+  final String _changePassword = "/auth/change-password";
 
   RemoteDataSource(this._httpClient, this._deviceInfo);
 
@@ -234,5 +235,22 @@ class RemoteDataSource {
       );
     }
     throw Exception(response['message'] ?? "unknown_error");
+  }
+
+  Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    final response = await _httpClient.post(
+      url: _changePassword,
+      data: {
+        "current_password": oldPassword,
+        "new_password": newPassword,
+      },
+      loading: true,
+    );
+    if (response['status'] != 1) {
+      throw Exception("${response['message'] ?? "unknown_error"}");
+    }
   }
 }

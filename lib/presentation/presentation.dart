@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 
 export 'package:flutter/material.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
+export 'package:form_builder_validators/form_builder_validators.dart';
 export 'package:get_it/get_it.dart';
 export 'package:go_router/go_router.dart';
 

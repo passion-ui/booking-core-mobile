@@ -47,6 +47,12 @@
   "help_feedback": "Trợ giúp & Phản hồi",
   "booking_history": "Lịch sử đặt chỗ",
   "edit_profile": "Chỉnh sửa hồ sơ",
-  "change_password": "Thay đổi mật khẩu"
+  "change_password": "Thay đổi mật khẩu",
+  "old_password": "Mật khẩu cũ",
+  "new_password": "Mật khẩu mới",
+  "confirm_new_password": "Xác nhận mật khẩu mới",
+  "show_password": "Hiện mật khẩu",
+  "change_password_message": "Vui lòng nhập mật khẩu cũ và mật khẩu mới để thay đổi mật khẩu của bạn.",
+  "change_password_success": "Mật khẩu của bạn đã được thay đổi thành công."
 }
 
