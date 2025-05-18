@@ -1,23 +1,35 @@
+import 'package:booking/domain/domain.dart';
 import 'package:booking/presentation/presentation.dart';
 
+import 'shared.dart';
+
+class DefaultListing extends StatefulWidget {
+  const DefaultListing({super.key});
+
+  @override
+  State<DefaultListing> createState() => _DefaultListingState();
+}
+
+class _DefaultListingState extends State<DefaultListing> with ListingBase {}
+
 class Listing extends StatelessWidget {
-  const Listing({super.key});
+  final BookingEntity item;
+
+  const Listing({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          Translate.of(context).translate('listing'),
-        ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Column(
-          children: [],
-        ),
-      ),
+    Widget child = DefaultListing();
+    if (item.id == 'hotel') {
+    } else if (item.name == 'tour') {
+    } else if (item.name == 'space') {
+    } else if (item.name == 'car') {
+    } else if (item.name == 'event') {
+    } else if (item.name == 'boat') {}
+
+    return BlocProvider(
+      create: (context) => ListingCubit(item: item),
+      child: child,
     );
   }
 }

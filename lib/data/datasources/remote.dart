@@ -91,7 +91,7 @@ class RemoteDataSource {
         final String type = item['type'];
         switch (type) {
           case 'form_search_all_service':
-            return BlockProductModel.fromJson(item);
+            return BlockServiceModel.fromJson(item);
           case 'offer_block':
             return BlockOfferModel.fromJson(item);
           case 'list_hotel':
@@ -206,6 +206,32 @@ class RemoteDataSource {
     );
     if (response['status'] == 1) {
       return true;
+    }
+    throw Exception(response['message'] ?? "unknown_error");
+  }
+
+  /// Fetch Filter Option
+  Future<ProductModel> getFilterOptions(String type) async {
+    final response = await _httpClient.get(
+      url: "/$type/filters",
+    );
+    if (response['status'] == 1) {}
+    throw Exception(response['message'] ?? "unknown_error");
+  }
+
+  /// Fetch Search List
+  Future<ListingModel<ProductModel>> getListing({
+    required String type,
+    int? page,
+  }) async {
+    final response = await _httpClient.get(
+      url: "/$type/search",
+    );
+    if (response['status'] == 1) {
+      return ListingModel.fromJson(
+        response,
+        (item) => ProductModel.fromJson(item),
+      );
     }
     throw Exception(response['message'] ?? "unknown_error");
   }

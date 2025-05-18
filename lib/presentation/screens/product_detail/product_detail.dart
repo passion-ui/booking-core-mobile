@@ -3,11 +3,20 @@ import 'package:booking/presentation/presentation.dart';
 
 import 'boat_detail.dart';
 import 'car_detail.dart';
-import 'default_detail.dart';
 import 'event_detail.dart';
 import 'hotel_detail.dart';
+import 'shared.dart';
 import 'space_detail.dart';
 import 'tour_detail.dart';
+
+class DefaultDetail extends StatefulWidget {
+  const DefaultDetail({super.key});
+
+  @override
+  State<DefaultDetail> createState() => _DefaultDetailState();
+}
+
+class _DefaultDetailState extends State<DefaultDetail> with ProductDetailBase {}
 
 class ProductDetail extends StatelessWidget {
   final ProductEntity item;

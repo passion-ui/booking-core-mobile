@@ -7,7 +7,7 @@ class NewsRepository extends NewsRepositoryInterface {
   NewsRepository(this._remoteDataSource);
 
   @override
-  Future<ListingEntity<PostEntity>> fetch({int? page, String? keyword}) async {
+  Future<ListingEntity<PostEntity>> get({int? page, String? keyword}) async {
     final list = await _remoteDataSource.fetchNews(
       page: page,
       keyword: keyword,

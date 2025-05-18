@@ -9,7 +9,7 @@ export 'block_home.dart';
 export 'block_location.dart';
 export 'block_offer.dart';
 export 'block_post.dart';
-export 'block_product.dart';
+export 'block_service.dart';
 export 'block_space.dart';
 export 'block_tour.dart';
 export 'booking.dart';

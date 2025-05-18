@@ -7,7 +7,7 @@ class WishListRepository extends WishListRepositoryInterface {
   WishListRepository(this._remoteDataSource);
 
   @override
-  Future<ListingEntity<WishListEntity>> fetchWishList({int? page}) async {
+  Future<ListingEntity<WishListEntity>> get({int? page}) async {
     final list = await _remoteDataSource.fetchWishList(page: page);
     return ListingEntity<WishListEntity>(
       items: list.items.map((e) => e.toEntity()).toList(),
@@ -17,7 +17,7 @@ class WishListRepository extends WishListRepositoryInterface {
   }
 
   @override
-  Future<bool> updateWishList(ProductEntity item) async {
+  Future<bool> update(ProductEntity item) async {
     return await _remoteDataSource.updateWishList(
       id: item.id,
       type: item.type,

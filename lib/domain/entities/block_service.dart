@@ -1,10 +1,10 @@
 import 'package:booking/domain/domain.dart';
 
-class BlockProductEntity extends BlockHomeEntity {
+class BlockServiceEntity extends BlockHomeEntity {
   final List<String> products;
   final String image;
 
-  BlockProductEntity({
+  BlockServiceEntity({
     required super.title,
     required super.description,
     required this.products,

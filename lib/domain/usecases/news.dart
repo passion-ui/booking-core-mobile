@@ -6,6 +6,6 @@ class GetNewsUseCase {
   GetNewsUseCase(this.repository);
 
   Future<ListingEntity<PostEntity>> call({int? page, String? keyword}) async {
-    return await repository.fetch(page: page, keyword: keyword);
+    return await repository.get(page: page, keyword: keyword);
   }
 }

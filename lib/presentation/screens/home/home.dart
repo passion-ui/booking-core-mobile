@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
 
   ///On Booking
   void _onListing(BookingEntity item) {
-    context.push(Routers.listing);
+    context.push(Routers.listing, extra: item);
   }
 
   ///On Offer
@@ -71,12 +71,12 @@ class _HomeState extends State<Home> {
 
   ///On Location
   void _onLocation(CategoryEntity item) {
-    context.push(Routers.listing);
+    context.push(Routers.listing, extra: item);
   }
 
   ///Build block
   List<Widget> _buildBlock(BlockHomeEntity block) {
-    if (block is BlockProductEntity) {
+    if (block is BlockServiceEntity) {
       return [
         SliverPersistentHeader(
           delegate: Header(

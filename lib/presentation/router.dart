@@ -131,7 +131,7 @@ class Routers {
           GoRoute(
             path: listing,
             builder: (BuildContext context, GoRouterState state) {
-              return const Listing();
+              return Listing(item: state.extra as BookingEntity);
             },
           ),
           GoRoute(

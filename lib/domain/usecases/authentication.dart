@@ -5,8 +5,10 @@ class LoginUseCase {
 
   LoginUseCase(this.repository);
 
-  Future<UserEntity> call(
-      {required String username, required String password}) async {
+  Future<UserEntity> call({
+    required String username,
+    required String password,
+  }) async {
     final user = await repository.login(username: username, password: password);
     await repository.saveUserData(user);
     return user;

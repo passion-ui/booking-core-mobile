@@ -6,7 +6,7 @@ class GetWishListUseCase {
   GetWishListUseCase(this.repository);
 
   Future<ListingEntity<WishListEntity>> call({int? page}) async {
-    return await repository.fetchWishList(page: page);
+    return await repository.get(page: page);
   }
 }
 
@@ -16,6 +16,6 @@ class UpdateWishListUseCase {
   UpdateWishListUseCase(this.repository);
 
   Future<bool> call(ProductEntity item) async {
-    return await repository.updateWishList(item);
+    return await repository.update(item);
   }
 }

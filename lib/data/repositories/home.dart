@@ -7,7 +7,7 @@ class HomeRepository extends HomeRepositoryInterface {
   HomeRepository(this._remoteDataSource);
 
   @override
-  Future<List<BlockHomeEntity>> fetch() async {
+  Future<List<BlockHomeEntity>> get() async {
     final home = await _remoteDataSource.loadHome();
     return home.map((e) => e.toEntity()).toList();
   }

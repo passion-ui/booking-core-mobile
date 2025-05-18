@@ -49,6 +49,9 @@ Future<void> bindingDependencies() async {
   sl.registerSingleton<ProductRepositoryInterface>(
     ProductRepository(sl()),
   );
+  sl.registerSingleton<ListingRepositoryInterface>(
+    ListingRepository(sl()),
+  );
 
   /**
    * Register for bloc

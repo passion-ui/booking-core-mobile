@@ -56,7 +56,7 @@ class ConfigModel {
       bookings: (json['booking_types'] as Map<String, dynamic>? ?? {}).map(
         (key, value) => MapEntry(
           key,
-          BookingModel.fromJson(value),
+          BookingModel.fromJson({...value, 'id': key}),
         ),
       ),
     );
