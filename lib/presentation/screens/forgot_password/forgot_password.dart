@@ -142,4 +142,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _emailFocusNode.dispose();
+    super.dispose();
+  }
 }

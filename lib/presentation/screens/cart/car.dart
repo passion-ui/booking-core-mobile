@@ -28,6 +28,15 @@ class _CarCartState extends State<CarCart> {
     }
   }
 
+  @override
+  void dispose() {
+    _pickupController.dispose();
+    _dropOffController.dispose();
+    _pickupFocusNode.dispose();
+    _dropOffFocusNode.dispose();
+    super.dispose();
+  }
+
   /// On booking
   void _onBooking() {
     context.push(Routers.checkout, extra: widget.cubit);

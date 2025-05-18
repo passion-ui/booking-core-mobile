@@ -9,6 +9,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final _registerBloc = RegisterBloc();
   final _firstNameController = TextEditingController(text: "John");
   final _lastNameController = TextEditingController(text: "Doe");
   final _emailController = TextEditingController(text: "example@gmail.com");
@@ -26,6 +27,27 @@ class _RegisterState extends State<Register> {
   String? _errorLastName;
   String? _errorEmail;
   String? _errorPassword;
+
+  bool get isError =>
+      _errorFirstName != null ||
+      _errorLastName != null ||
+      _errorEmail != null ||
+      _errorPassword != null ||
+      !_agree;
+
+  @override
+  void dispose() {
+    _registerBloc.close();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _firstNameFocusNode.dispose();
+    _lastNameFocusNode.dispose();
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
 
   /// Validate first name
   void _validateFirstName(String firstName) {
@@ -81,15 +103,6 @@ class _RegisterState extends State<Register> {
     });
   }
 
-  /// Check error
-  bool _isError() {
-    return _errorFirstName != null ||
-        _errorLastName != null ||
-        _errorEmail != null ||
-        _errorPassword != null ||
-        !_agree;
-  }
-
   /// Register
   void _onRegister() {
     final firstName = _firstNameController.text;
@@ -102,9 +115,8 @@ class _RegisterState extends State<Register> {
     _validateEmail(email);
     _validatePassword(password);
 
-    if (!_isError()) {
-      final authentication = context.read<RegisterBloc>();
-      authentication.add(
+    if (!isError) {
+      _registerBloc.add(
         OnRegister(
           firstName: firstName,
           lastName: lastName,
@@ -117,9 +129,8 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    final error = _isError();
     return BlocProvider(
-      create: (context) => RegisterBloc(),
+      create: (context) => _registerBloc,
       child: BlocConsumer<RegisterBloc, RegisterState>(
         listener: (context, state) {
           if (state is RegisterSuccess) {
@@ -308,7 +319,7 @@ class _RegisterState extends State<Register> {
                       children: [
                         Expanded(
                           child: FilledButton(
-                            onPressed: error ? null : () => _onRegister(),
+                            onPressed: isError ? null : () => _onRegister(),
                             child: Text(
                               Translate.of(context).translate('register'),
                             ),

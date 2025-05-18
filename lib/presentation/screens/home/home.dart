@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
 
   ///On Refresh
   Future<void> _onRefresh() async {
-    await context.read<HomeCubit>().onLoad();
+    await _homeCubit.onLoad();
   }
 
   ///On Search
