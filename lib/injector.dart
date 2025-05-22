@@ -5,9 +5,12 @@ import 'package:booking/presentation/presentation.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> bindingDependencies() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = AppBlocObserver();
   /**
    * Register core dependencies & data layer
    */
+  WidgetsFlutterBinding.ensureInitialized();
   final results = await Future.wait([
     DefaultStorage.init(),
     DeviceInfo.init(),
